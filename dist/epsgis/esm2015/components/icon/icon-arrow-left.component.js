@@ -1,0 +1,38 @@
+import { Component } from "@angular/core";
+import * as i0 from "@angular/core";
+export class IconArrowLeftComponent {
+}
+IconArrowLeftComponent.ɵfac = function IconArrowLeftComponent_Factory(t) { return new (t || IconArrowLeftComponent)(); };
+IconArrowLeftComponent.ɵcmp = i0.ɵɵdefineComponent({ type: IconArrowLeftComponent, selectors: [["epsgis-icon-arrow-left"]], decls: 2, vars: 0, consts: [["viewBox", "0 0 1024 1024", "version", "1.1", "xmlns", "http://www.w3.org/2000/svg", "width", "16", "height", "16"], ["d", "M778.965749 128.759549l-383.064442 383.063419 388.097062 388.096039-0.070608 0.033769c12.709463 13.137205 20.529569 31.024597 20.529569 50.731428 0 40.376593-32.736589 73.112158-73.115228 73.112158-19.705807 0-37.591153-7.819083-50.730405-20.528546l-0.034792 0.035816L241.890654 564.622498l0.035816-0.035816c-13.779841-13.281491-22.3838-31.915897-22.3838-52.585659 0-0.071631 0-0.106424 0-0.178055 0-0.072655 0-0.10847 0-0.144286 0-20.669762 8.603959-39.341007 22.3838-52.622498l-0.035816-0.034792L680.573835 20.337187l0.180102 0.179079c13.139252-12.5662 30.950919-20.313651 50.587142-20.313651 40.378639 0 73.115228 32.736589 73.115228 73.114205C804.455283 95.485725 794.567076 115.334795 778.965749 128.759549z"]], template: function IconArrowLeftComponent_Template(rf, ctx) { if (rf & 1) {
+        i0.ɵɵnamespaceSVG();
+        i0.ɵɵelementStart(0, "svg", 0);
+        i0.ɵɵelement(1, "path", 1);
+        i0.ɵɵelementEnd();
+    } }, styles: [".expand[_ngcontent-%COMP%]{\n            -webkit-transform: rotate(180deg);\n            -moz-transform: rotate(180deg);\n            -o-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n            transform: rotate(180deg);\n        }"] });
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(IconArrowLeftComponent, [{
+        type: Component,
+        args: [{
+                selector: "epsgis-icon-arrow-left",
+                template: `
+    <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      width="16" height="16">
+      <path
+        d="M778.965749 128.759549l-383.064442 383.063419 388.097062 388.096039-0.070608 0.033769c12.709463 13.137205 20.529569 31.024597 20.529569 50.731428 0 40.376593-32.736589 73.112158-73.115228 73.112158-19.705807 0-37.591153-7.819083-50.730405-20.528546l-0.034792 0.035816L241.890654 564.622498l0.035816-0.035816c-13.779841-13.281491-22.3838-31.915897-22.3838-52.585659 0-0.071631 0-0.106424 0-0.178055 0-0.072655 0-0.10847 0-0.144286 0-20.669762 8.603959-39.341007 22.3838-52.622498l-0.035816-0.034792L680.573835 20.337187l0.180102 0.179079c13.139252-12.5662 30.950919-20.313651 50.587142-20.313651 40.378639 0 73.115228 32.736589 73.115228 73.114205C804.455283 95.485725 794.567076 115.334795 778.965749 128.759549z"
+        ></path>
+    </svg>
+    `,
+                styles: [
+                    `
+
+        .expand{
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+        `
+                ]
+            }]
+    }], null, null); })();
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaWNvbi1hcnJvdy1sZWZ0LmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL2Vwc2dpcy9jb21wb25lbnRzL2ljb24vaWNvbi1hcnJvdy1sZWZ0LmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLE1BQU0sZUFBZSxDQUFDOztBQXlCMUMsTUFBTSxPQUFPLHNCQUFzQjs7NEZBQXRCLHNCQUFzQjsyREFBdEIsc0JBQXNCO1FBcEIvQixtQkFDeUI7UUFEekIsOEJBQ3lCO1FBQ3ZCLDBCQUVVO1FBQ1osaUJBQU07O3VGQWVHLHNCQUFzQjtjQXZCbEMsU0FBUztlQUFDO2dCQUNQLFFBQVEsRUFBRSx3QkFBd0I7Z0JBQ2xDLFFBQVEsRUFBRTs7Ozs7OztLQU9UO2dCQUNELE1BQU0sRUFBRTtvQkFDSjs7Ozs7Ozs7O1NBU0M7aUJBQ0o7YUFDSiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbXBvbmVudCB9IGZyb20gXCJAYW5ndWxhci9jb3JlXCI7XG5cbkBDb21wb25lbnQoe1xuICAgIHNlbGVjdG9yOiBcImVwc2dpcy1pY29uLWFycm93LWxlZnRcIixcbiAgICB0ZW1wbGF0ZTogYFxuICAgIDxzdmcgdmlld0JveD1cIjAgMCAxMDI0IDEwMjRcIiB2ZXJzaW9uPVwiMS4xXCIgeG1sbnM9XCJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Z1wiXG4gICAgICB3aWR0aD1cIjE2XCIgaGVpZ2h0PVwiMTZcIj5cbiAgICAgIDxwYXRoXG4gICAgICAgIGQ9XCJNNzc4Ljk2NTc0OSAxMjguNzU5NTQ5bC0zODMuMDY0NDQyIDM4My4wNjM0MTkgMzg4LjA5NzA2MiAzODguMDk2MDM5LTAuMDcwNjA4IDAuMDMzNzY5YzEyLjcwOTQ2MyAxMy4xMzcyMDUgMjAuNTI5NTY5IDMxLjAyNDU5NyAyMC41Mjk1NjkgNTAuNzMxNDI4IDAgNDAuMzc2NTkzLTMyLjczNjU4OSA3My4xMTIxNTgtNzMuMTE1MjI4IDczLjExMjE1OC0xOS43MDU4MDcgMC0zNy41OTExNTMtNy44MTkwODMtNTAuNzMwNDA1LTIwLjUyODU0NmwtMC4wMzQ3OTIgMC4wMzU4MTZMMjQxLjg5MDY1NCA1NjQuNjIyNDk4bDAuMDM1ODE2LTAuMDM1ODE2Yy0xMy43Nzk4NDEtMTMuMjgxNDkxLTIyLjM4MzgtMzEuOTE1ODk3LTIyLjM4MzgtNTIuNTg1NjU5IDAtMC4wNzE2MzEgMC0wLjEwNjQyNCAwLTAuMTc4MDU1IDAtMC4wNzI2NTUgMC0wLjEwODQ3IDAtMC4xNDQyODYgMC0yMC42Njk3NjIgOC42MDM5NTktMzkuMzQxMDA3IDIyLjM4MzgtNTIuNjIyNDk4bC0wLjAzNTgxNi0wLjAzNDc5Mkw2ODAuNTczODM1IDIwLjMzNzE4N2wwLjE4MDEwMiAwLjE3OTA3OWMxMy4xMzkyNTItMTIuNTY2MiAzMC45NTA5MTktMjAuMzEzNjUxIDUwLjU4NzE0Mi0yMC4zMTM2NTEgNDAuMzc4NjM5IDAgNzMuMTE1MjI4IDMyLjczNjU4OSA3My4xMTUyMjggNzMuMTE0MjA1QzgwNC40NTUyODMgOTUuNDg1NzI1IDc5NC41NjcwNzYgMTE1LjMzNDc5NSA3NzguOTY1NzQ5IDEyOC43NTk1NDl6XCJcbiAgICAgICAgPjwvcGF0aD5cbiAgICA8L3N2Zz5cbiAgICBgLFxuICAgIHN0eWxlczogW1xuICAgICAgICBgXG5cbiAgICAgICAgLmV4cGFuZHtcbiAgICAgICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoMTgwZGVnKTtcbiAgICAgICAgICAgIC1tb3otdHJhbnNmb3JtOiByb3RhdGUoMTgwZGVnKTtcbiAgICAgICAgICAgIC1vLXRyYW5zZm9ybTogcm90YXRlKDE4MGRlZyk7XG4gICAgICAgICAgICAtbXMtdHJhbnNmb3JtOiByb3RhdGUoMTgwZGVnKTtcbiAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKDE4MGRlZyk7XG4gICAgICAgIH1cbiAgICAgICAgYFxuICAgIF1cbn0pXG5leHBvcnQgY2xhc3MgSWNvbkFycm93TGVmdENvbXBvbmVudCB7XG5cbn0iXX0=

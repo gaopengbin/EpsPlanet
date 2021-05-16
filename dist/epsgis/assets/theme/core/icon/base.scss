@@ -1,0 +1,30 @@
+.jimu-widget-onscreen-icon {
+    background: $jimu-widget-onscreen-icon-bgcolor;
+    cursor: pointer;
+    position: absolute;
+    max-width: $jimu-widget-onscreen-icon-max-width;
+
+    img {
+        padding: $jimu-widget-onscreen-icon-img-padding;
+        max-width: $jimu-widget-onscreen-icon-img-max-width;
+    }
+
+    i {
+        width: $jimu-widget-onscreen-icon-i-width;
+        height: $jimu-widget-onscreen-icon-i-height;
+        padding: $jimu-widget-onscreen-icon-i-padding;
+        line-height: $jimu-widget-onscreen-icon-i-line-height;
+        font-size: $jimu-widget-onscreen-icon-i-font-size;
+    }
+
+    box-shadow: 0 1px 2px $jimu-widget-onscreen-icon-box-shadow;
+}
+
+.jimu-widget-onscreen-icon:hover {
+    background: $jimu-widget-onscreen-icon-bgcolor-hover;
+    border: 1px solid $jimu-widget-onscreen-icon-border-color-hover;
+}
+
+// .hide {
+//     display: none;
+// }

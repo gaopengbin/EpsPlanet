@@ -1,0 +1,10 @@
+{
+    "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+      "component": {
+        "aliases": ["c"],
+        "description": "create an epsgis component",
+        "factory": "./component/index#createComponent"
+      }
+    }
+  }

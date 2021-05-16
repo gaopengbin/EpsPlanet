@@ -1,0 +1,11 @@
+/**
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/LICENSE
+ */
+export * from './tab.component';
+export * from './tab.directive';
+export * from './tab-link.directive';
+export * from './tabs.module';
+export * from './tabset.component';
+export * from './interfaces';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL3Byby1sYXlvdXQvc3JjL2xpYi90YWJzL3B1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7OztHQUdHO0FBQ0gsY0FBYyxpQkFBaUIsQ0FBQztBQUNoQyxjQUFjLGlCQUFpQixDQUFDO0FBQ2hDLGNBQWMsc0JBQXNCLENBQUM7QUFDckMsY0FBYyxlQUFlLENBQUM7QUFDOUIsY0FBYyxvQkFBb0IsQ0FBQztBQUNuQyxjQUFjLGNBQWMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9naXRodWIuY29tL05HLVpPUlJPL25nLXpvcnJvLWFudGQvYmxvYi9tYXN0ZXIvTElDRU5TRVxuICovXG5leHBvcnQgKiBmcm9tICcuL3RhYi5jb21wb25lbnQnO1xuZXhwb3J0ICogZnJvbSAnLi90YWIuZGlyZWN0aXZlJztcbmV4cG9ydCAqIGZyb20gJy4vdGFiLWxpbmsuZGlyZWN0aXZlJztcbmV4cG9ydCAqIGZyb20gJy4vdGFicy5tb2R1bGUnO1xuZXhwb3J0ICogZnJvbSAnLi90YWJzZXQuY29tcG9uZW50JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlcyc7XG4iXX0=

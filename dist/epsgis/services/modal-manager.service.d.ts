@@ -1,0 +1,40 @@
+import { OnDestroy, Injector, ComponentFactoryResolver, ApplicationRef, Type } from '@angular/core';
+import { SsModalRef } from '../components/modal/modal-ref';
+import { Subject, Observable } from 'rxjs';
+import { SsModalOptions } from '../components/modal/modal-types';
+import { CommonService } from './common.service';
+import { Overlay } from '@angular/cdk/overlay';
+import * as i0 from "@angular/core";
+export declare class ModalManagerService implements OnDestroy {
+    private overlay;
+    private injector;
+    private parentModal;
+    private componentFactoryResolver;
+    private appRef;
+    private commonService;
+    private openModalsAtThisLevel;
+    private readonly afterAllClosedAtThisLevel;
+    factories: Map<any, any>;
+    factoriesArray: Array<any>;
+    get openModals(): SsModalRef[];
+    get _afterAllClosed(): Subject<void>;
+    readonly afterAllClose: Observable<void>;
+    constructor(overlay: Overlay, injector: Injector, parentModal: ModalManagerService, componentFactoryResolver: ComponentFactoryResolver, appRef: ApplicationRef, commonService: CommonService);
+    readonly modalContainerClass: string;
+    modalContainer: Element;
+    private createModalContainer;
+    create<T, R = any>(config: SsModalOptions<T, R>): SsModalRef<T, R>;
+    closeAll(): void;
+    private attachModalContainer2;
+    private open;
+    private removeOpenModal;
+    private closeModals;
+    private attachModalContainer;
+    findComponent(name: string): Type<any>;
+    private attachModalContent;
+    private createInjector;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDef<ModalManagerService, [null, null, { optional: true; skipSelf: true; }, null, null, null]>;
+    static ɵprov: i0.ɵɵInjectableDef<ModalManagerService>;
+}
+//# sourceMappingURL=modal-manager.service.d.ts.map

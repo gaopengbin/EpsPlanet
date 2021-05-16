@@ -1,0 +1,338 @@
+/*最外层容器*/
+.sspanel_container {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  pointer-events: none;
+}
+
+/* 覆盖层(遮罩) */
+.sspanel_overlay {
+  background-color: $sspanel-overlay-bgcolor;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 面板 */
+.sspanel {
+  position: absolute;
+  color: $sspanel-color;
+  background-color: $sspanel-bgcolor;
+  border: 1px solid $sspanel-border;
+  box-shadow: 0 2px 4px $sspanel-box-shadow;
+  line-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
+  pointer-events: auto;
+  z-index: auto;
+  border-radius: 5px;
+}
+
+.sspanel_minimized {
+  width: 200px;
+  box-shadow: none;
+}
+
+/* 标题栏 */
+.sspanel_titlebar {
+  padding: 4px;
+  background-color: $sspanel-titlebar-bgcolor;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
+  height: 30px;
+  line-height: 30px;
+
+  .icon {
+    height: 100%;
+    line-height: 100%;
+
+    img {
+      width: auto;
+      height: 100%;
+      color: $sspanel-titlebar-icon-color;
+    }
+  }
+}
+
+.sspanel_titlebar_draggable {
+  cursor: move;
+}
+
+/* 标题栏 标题 */
+.sspanel_titlebar_text {
+  color: $sspanel-titlebar-text-color;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 2px;
+  // height: 30px;
+  // line-height: 30px;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*标题 文本*/
+.sspanel_titlebar_text_span {
+  display: block;
+}
+
+/*标题栏 按钮*/
+.sspanel_titlebar_button {
+  cursor: pointer;
+  width: 22px;
+  height: 20px;
+  padding: 4px;
+  margin-left: 2px;
+  background-color: transparent;
+  stroke: $sspanel-titlebar-button-stroke;
+  border: none;
+  border-radius: 2px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  display: flex;
+
+  path {
+    fill: $sspanel-titlebar-button-stroke;
+  }
+}
+
+.sspanel_titlebar_button:hover {
+  background-color: $sspanel-titlebar-button-bgcolor-hover;
+  stroke: $sspanel-titlebar-button-stroke-hover;
+
+  path {
+    fill: $sspanel-titlebar-button-stroke-hover;
+  }
+}
+
+.sspanel_titlebar_button:active {
+  background-color: $sspanel-titlebar-button-bgcolor-active;
+}
+
+/* 用于自定义单个按钮 */
+.sspanel_titlebar_button_close {
+  font: icon;
+}
+
+.sspanel_titlebar_button_close:hover {
+  font: icon;
+}
+
+.sspanel_titlebar_button_close:active {
+  font: icon;
+}
+
+.sspanel_titlebar_button_maximize {
+  font: icon;
+}
+
+.sspanel_titlebar_button_maximize:hover {
+  font: icon;
+}
+
+.sspanel_titlebar_button_maximize:active {
+  font: icon;
+}
+.sspanel_titlebar_button_unmaximize{
+  font:icon;
+}
+.sspanel_titlebar_button_collapse {
+  font: icon;
+}
+
+.sspanel_titlebar_button_collapse:hover {
+  font: icon;
+}
+
+.sspanel_titlebar_button_collapse:active {
+  font: icon;
+}
+.sspanel_titlebar_button_uncollapse{
+  font:icon;
+}
+.sspanel_titlebar_button_minimize {
+  font: icon;
+}
+
+.sspanel_titlebar_button_minimize:hover {
+  font: icon;
+}
+
+.sspanel_titlebar_button_minimize:active {
+  font: icon;
+}
+
+.sspanel_titlebar_button_setting {
+  font: icon;
+}
+
+.sspanel_titlebar_button_setting:hover {
+  font: icon;
+}
+
+.sspanel_titlebar_button_setting:active {
+  font: icon;
+}
+
+
+/* 内容容器 */
+.sspanel_content {
+  border-top: 1px solid $sspanel-content-border-top;
+  padding: 10px;
+  /* 和sspanel_content:after中的高度一致 */
+  overflow: hidden; //由auto改为了hidden，不显示滚动条
+  position: relative;
+  /*loading只占满内容容器*/
+  flex: 1 1 auto;
+}
+
+.sspanel_content:after {
+  content: "";
+  display: block;
+  height: 10px;
+  /*sspanel_content的padding-bottom*/
+
+}
+
+/* 底部状态栏 */
+.sspanel_statusbar {
+  background-color: $sspanel-statusbar-bgcolor;
+  border-top: 1px solid $sspanel-statusbar-border-top;
+  padding: 5px;
+}
+
+/* 状态栏内容 */
+.sspanel_statusbar_content {
+  color: $sspanel-statusbar-content-color;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: normal;
+  padding-left: 4px;
+  text-align: right;
+}
+
+/* 状态栏 */
+.sspanel_statusbar_handle {
+  width: 10px;
+  height: 10px;
+  stroke: $sspanel-statusbar-handle-stroke;
+}
+
+.sspanel_resizer {
+  font: inherit;
+}
+
+.sspanel_resizer_top {
+  height: 5px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  cursor: ns-resize;
+}
+
+.sspanel_resizer_bottom {
+  bottom: -3px;
+  height: 5px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  cursor: ns-resize;
+}
+
+.sspanel_resizer_left {
+  left: -3px;
+  width: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: ew-resize
+}
+
+.sspanel_resizer_right {
+  right: -3px;
+  width: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: ew-resize;
+}
+
+.sspanel_resizer_topleft {
+  top: -3px;
+  left: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nwse-resize;
+}
+
+.sspanel_resizer_topright {
+  top: -3px;
+  right: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nesw-resize;
+}
+
+.sspanel_resizer_bottomleft {
+  bottom: -3px;
+  left: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nesw-resize;
+}
+
+.sspanel_resizer_bottomright {
+  bottom: -3px;
+  right: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nwse-resize;
+}
+
+/*
+  *停靠时背景
+  ffffffb3
+  */
+.sspanel .dockside {
+  background: -webkit-linear-gradient(to right, $sspanel-dockside-gradient-start, $sspanel-dockside-gradient-end);
+  background: linear-gradient(to right, $sspanel-dockside-gradient-start, $sspanel-dockside-gradient-end);
+}
+
+.sspanel .dockside .sspanel_titlebar_button {
+  stroke: $sspanel-dockside-titlebar-button-stroke;
+}
+
+.sspanel .dockside .sspanel_titlebar_text {
+  color: $sspanel-dockside-titlebar-text-color;
+}
+
+/*最小化占位*/
+.sspanel_minplaceholder {
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  display: none;
+}

@@ -1,0 +1,606 @@
+.ss-btn {
+    line-height:1.5;
+    position:relative;
+    display:inline-block;
+    font-weight:400;
+    white-space:nowrap;
+    text-align:center;
+    background-image:none;
+    border:1px solid $ss-btn-border-color;
+    box-shadow:0 2px 0 $ss-btn-box-shadow;
+    cursor:pointer;
+    transition:all .3s cubic-bezier(.645, .045, .355, 1);
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    touch-action:manipulation;
+    height:32px;
+    padding:0 15px;
+    font-size:14px;
+    border-radius:4px;
+    color:$ss-btn-color;
+    background-color:$ss-btn-bgcolor;
+}
+.ss-btn>.ssicon {
+    line-height:1
+}
+.ss-btn, .ss-btn:active, .ss-btn:focus {
+    outline:0
+}
+.ss-btn:not([disabled]):hover {
+    text-decoration:none
+}
+.ss-btn:not([disabled]):active {
+    outline:0;
+    box-shadow:none
+}
+.ss-btn.disabled, .ss-btn[disabled] {
+    cursor:not-allowed
+}
+.ss-btn.disabled>*, .ss-btn[disabled]>* {
+    pointer-events:none
+}
+.ss-btn-lg {
+    height:40px;
+    padding:0 15px;
+    font-size:16px;
+    border-radius:4px
+}
+.ss-btn-sm {
+    height:24px;
+    padding:0 7px;
+    font-size:14px;
+    border-radius:4px
+}
+.ss-btn>a:only-child {
+    color:currentColor
+}
+.ss-btn>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn:focus, .ss-btn:hover {
+    color:$ss-btn-color-focus-hover;
+    border-color:$ss-btn-border-color-focus-hover;
+}
+.ss-btn:focus>a:only-child, .ss-btn:hover>a:only-child {
+    color:currentColor
+}
+.ss-btn:focus>a:only-child::after, .ss-btn:hover>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn.active, .ss-btn:active {
+    color:$ss-btn-color-active;
+    border-color:$ss-btn-border-color-active
+}
+.ss-btn.active>a:only-child, .ss-btn:active>a:only-child {
+    color:$ss-btn-border-color-active-only-child;
+}
+.ss-btn.active>a:only-child::after, .ss-btn:active>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-disabled, .ss-btn-disabled.active, .ss-btn-disabled:active, .ss-btn-disabled:focus, .ss-btn-disabled:hover, .ss-btn.disabled, .ss-btn.disabled.active, .ss-btn.disabled:active, .ss-btn.disabled:focus, .ss-btn.disabled:hover, .ss-btn[disabled], .ss-btn[disabled].active, .ss-btn[disabled]:active, .ss-btn[disabled]:focus, .ss-btn[disabled]:hover {
+    color:$ss-btn-color-disabled;
+    background-color:$ss-btn-bgcolor-disabled;
+    border-color:$ss-btn-border-color-disabled;
+    text-shadow:none;
+    box-shadow:none
+}
+.ss-btn-disabled.active>a:only-child, .ss-btn-disabled:active>a:only-child, .ss-btn-disabled:focus>a:only-child, .ss-btn-disabled:hover>a:only-child, .ss-btn-disabled>a:only-child, .ss-btn.disabled.active>a:only-child, .ss-btn.disabled:active>a:only-child, .ss-btn.disabled:focus>a:only-child, .ss-btn.disabled:hover>a:only-child, .ss-btn.disabled>a:only-child, .ss-btn[disabled].active>a:only-child, .ss-btn[disabled]:active>a:only-child, .ss-btn[disabled]:focus>a:only-child, .ss-btn[disabled]:hover>a:only-child, .ss-btn[disabled]>a:only-child {
+    color:$ss-btn-color-disabled-active-only-child;
+}
+.ss-btn-disabled.active>a:only-child::after, .ss-btn-disabled:active>a:only-child::after, .ss-btn-disabled:focus>a:only-child::after, .ss-btn-disabled:hover>a:only-child::after, .ss-btn-disabled>a:only-child::after, .ss-btn.disabled.active>a:only-child::after, .ss-btn.disabled:active>a:only-child::after, .ss-btn.disabled:focus>a:only-child::after, .ss-btn.disabled:hover>a:only-child::after, .ss-btn.disabled>a:only-child::after, .ss-btn[disabled].active>a:only-child::after, .ss-btn[disabled]:active>a:only-child::after, .ss-btn[disabled]:focus>a:only-child::after, .ss-btn[disabled]:hover>a:only-child::after, .ss-btn[disabled]>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn.active, .ss-btn:active, .ss-btn:focus, .ss-btn:hover {
+    text-decoration:none;
+    background:$ss-btn-bgcolor-active;
+}
+.ss-btn>i, .ss-btn>span {
+    display:inline-block;
+    transition:margin-left .3s cubic-bezier(.645, .045, .355, 1);
+    pointer-events:none
+}
+.ss-btn-primary {
+    color:$ss-btn-primary-color;
+    background-color:$ss-btn-primary-bgcolor;
+    border-color:$ss-btn-primary-border-color;
+    text-shadow:0 -1px 0 $ss-btn-primary-text-shadow;
+    box-shadow:0 2px 0 $ss-btn-primary-box-shadow;
+}
+.ss-btn-primary>a:only-child {
+    color:$ss-btn-primary-color-only-child
+}
+.ss-btn-primary>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-primary:focus, .ss-btn-primary:hover {
+    color:$ss-btn-primary-color-focus-hover;
+    background-color:$ss-btn-primary-bgcolor-focus-hover;
+    border-color:$ss-btn-primary-border-color-focus-hover
+}
+.ss-btn-primary:focus>a:only-child, .ss-btn-primary:hover>a:only-child {
+    color:$ss-btn-primary-color-focus-hover-only-child
+}
+.ss-btn-primary:focus>a:only-child::after, .ss-btn-primary:hover>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-primary.active, .ss-btn-primary:active {
+    color:$ss-btn-primary-color-active;
+    background-color:$ss-btn-primary-bgcolor-active;
+    border-color:$ss-btn-primary-border-color-active;
+}
+.ss-btn-primary.active>a:only-child, .ss-btn-primary:active>a:only-child {
+    color:$ss-btn-primary-color-active-only-child
+}
+.ss-btn-primary.active>a:only-child::after, .ss-btn-primary:active>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-primary-disabled, .ss-btn-primary-disabled.active, .ss-btn-primary-disabled:active, .ss-btn-primary-disabled:focus, .ss-btn-primary-disabled:hover, .ss-btn-primary.disabled, .ss-btn-primary.disabled.active, .ss-btn-primary.disabled:active, .ss-btn-primary.disabled:focus, .ss-btn-primary.disabled:hover, .ss-btn-primary[disabled], .ss-btn-primary[disabled].active, .ss-btn-primary[disabled]:active, .ss-btn-primary[disabled]:focus, .ss-btn-primary[disabled]:hover {
+    color:$ss-btn-primary-color-disabled;
+    background-color:$ss-btn-primary-bgcolor-disabled;
+    border-color:$ss-btn-primary-border-color-disabled;
+    text-shadow:none;
+    box-shadow:none
+}
+.ss-btn-primary-disabled.active>a:only-child, .ss-btn-primary-disabled:active>a:only-child, .ss-btn-primary-disabled:focus>a:only-child, .ss-btn-primary-disabled:hover>a:only-child, .ss-btn-primary-disabled>a:only-child, .ss-btn-primary.disabled.active>a:only-child, .ss-btn-primary.disabled:active>a:only-child, .ss-btn-primary.disabled:focus>a:only-child, .ss-btn-primary.disabled:hover>a:only-child, .ss-btn-primary.disabled>a:only-child, .ss-btn-primary[disabled].active>a:only-child, .ss-btn-primary[disabled]:active>a:only-child, .ss-btn-primary[disabled]:focus>a:only-child, .ss-btn-primary[disabled]:hover>a:only-child, .ss-btn-primary[disabled]>a:only-child {
+    color:$ss-btn-primary-color-disabled-only-child
+}
+.ss-btn-primary-disabled.active>a:only-child::after, .ss-btn-primary-disabled:active>a:only-child::after, .ss-btn-primary-disabled:focus>a:only-child::after, .ss-btn-primary-disabled:hover>a:only-child::after, .ss-btn-primary-disabled>a:only-child::after, .ss-btn-primary.disabled.active>a:only-child::after, .ss-btn-primary.disabled:active>a:only-child::after, .ss-btn-primary.disabled:focus>a:only-child::after, .ss-btn-primary.disabled:hover>a:only-child::after, .ss-btn-primary.disabled>a:only-child::after, .ss-btn-primary[disabled].active>a:only-child::after, .ss-btn-primary[disabled]:active>a:only-child::after, .ss-btn-primary[disabled]:focus>a:only-child::after, .ss-btn-primary[disabled]:hover>a:only-child::after, .ss-btn-primary[disabled]>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-group .ss-btn-primary:not(:first-child):not(:last-child) {
+    border-right-color:$ss-btn-group-primary-not-first-last-child-border-right-color;
+    border-left-color:$ss-btn-group-primary-not-first-last-child-border-left-color;
+}
+.ss-btn-group .ss-btn-primary:not(:first-child):not(:last-child):disabled {
+    border-color:$ss-btn-group-primary-not-first-last-child-border-color-disabled
+}
+.ss-btn-group .ss-btn-primary:first-child:not(:last-child) {
+    border-right-color:$ss-btn-group-primary-first-child-not-last-child-border-right-color
+}
+.ss-btn-group .ss-btn-primary:first-child:not(:last-child)[disabled] {
+    border-right-color:$ss-btn-group-primary-first-child-not-last-child-border-right-color-disabled
+}
+.ss-btn-group .ss-btn-primary+.ss-btn-primary, .ss-btn-group .ss-btn-primary:last-child:not(:first-child) {
+    border-left-color:$ss-btn-group-primary-last-child-not-first-child-border-left-color
+}
+.ss-btn-group .ss-btn-primary+.ss-btn-primary[disabled], .ss-btn-group .ss-btn-primary:last-child:not(:first-child)[disabled] {
+    border-left-color:$ss-btn-group-primary-last-child-not-first-child-border-left-color-disabled
+}
+.ss-btn-ghost {
+    color:$ss-btn-ghost-color;
+    background-color:$ss-btn-ghost-bgcolor;
+    border-color:$ss-btn-ghost-border-color;
+}
+.ss-btn-ghost>a:only-child {
+    color:$ss-btn-ghost-color-only-child;
+}
+.ss-btn-ghost>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-ghost:focus, .ss-btn-ghost:hover {
+    color:$ss-btn-ghost-color-focus-hover;
+    background-color:$ss-btn-ghost-bgcolor-focus-hover;
+    border-color:$ss-btn-ghost-border-color-focus-hover;
+}
+.ss-btn-ghost:focus>a:only-child, .ss-btn-ghost:hover>a:only-child {
+    color:$ss-btn-ghost-color-focus-hover-only-child
+}
+.ss-btn-ghost:focus>a:only-child::after, .ss-btn-ghost:hover>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-ghost.active, .ss-btn-ghost:active {
+    color:$ss-btn-ghost-color-active;
+    background-color:$ss-btn-ghost-bgcolor-active;
+    border-color:$ss-btn-ghost-border-color-active;
+}
+.ss-btn-ghost.active>a:only-child, .ss-btn-ghost:active>a:only-child {
+    color:$ss-btn-ghost-color-active-only-child
+}
+.ss-btn-ghost.active>a:only-child::after, .ss-btn-ghost:active>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-ghost-disabled, .ss-btn-ghost-disabled.active, .ss-btn-ghost-disabled:active, .ss-btn-ghost-disabled:focus, .ss-btn-ghost-disabled:hover, .ss-btn-ghost.disabled, .ss-btn-ghost.disabled.active, .ss-btn-ghost.disabled:active, .ss-btn-ghost.disabled:focus, .ss-btn-ghost.disabled:hover, .ss-btn-ghost[disabled], .ss-btn-ghost[disabled].active, .ss-btn-ghost[disabled]:active, .ss-btn-ghost[disabled]:focus, .ss-btn-ghost[disabled]:hover {
+    color:$ss-btn-ghost-color-disabled;
+    background-color:$ss-btn-ghost-bgcolor-disabled;
+    border-color:$ss-btn-ghost-border-color-disabled;
+    text-shadow:none;
+    box-shadow:none
+}
+.ss-btn-ghost-disabled.active>a:only-child, .ss-btn-ghost-disabled:active>a:only-child, .ss-btn-ghost-disabled:focus>a:only-child, .ss-btn-ghost-disabled:hover>a:only-child, .ss-btn-ghost-disabled>a:only-child, .ss-btn-ghost.disabled.active>a:only-child, .ss-btn-ghost.disabled:active>a:only-child, .ss-btn-ghost.disabled:focus>a:only-child, .ss-btn-ghost.disabled:hover>a:only-child, .ss-btn-ghost.disabled>a:only-child, .ss-btn-ghost[disabled].active>a:only-child, .ss-btn-ghost[disabled]:active>a:only-child, .ss-btn-ghost[disabled]:focus>a:only-child, .ss-btn-ghost[disabled]:hover>a:only-child, .ss-btn-ghost[disabled]>a:only-child {
+    color:currentColor
+}
+.ss-btn-ghost-disabled.active>a:only-child::after, .ss-btn-ghost-disabled:active>a:only-child::after, .ss-btn-ghost-disabled:focus>a:only-child::after, .ss-btn-ghost-disabled:hover>a:only-child::after, .ss-btn-ghost-disabled>a:only-child::after, .ss-btn-ghost.disabled.active>a:only-child::after, .ss-btn-ghost.disabled:active>a:only-child::after, .ss-btn-ghost.disabled:focus>a:only-child::after, .ss-btn-ghost.disabled:hover>a:only-child::after, .ss-btn-ghost.disabled>a:only-child::after, .ss-btn-ghost[disabled].active>a:only-child::after, .ss-btn-ghost[disabled]:active>a:only-child::after, .ss-btn-ghost[disabled]:focus>a:only-child::after, .ss-btn-ghost[disabled]:hover>a:only-child::after, .ss-btn-ghost[disabled]>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-dashed {
+    color:$ss-btn-dashed-color;
+    background-color:$ss-btn-dashed-bgcolor;
+    border-color:$ss-btn-dashed-border-color;
+    border-style:dashed
+}
+.ss-btn-dashed>a:only-child {
+    color:currentColor
+}
+.ss-btn-dashed>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-dashed:focus, .ss-btn-dashed:hover {
+    color:$ss-btn-dashed-color-focus-hover;
+    background-color:$ss-btn-dashed-bgcolor-focus-hover;
+    border-color:$ss-btn-dashed-border-color-focus-hover;
+}
+.ss-btn-dashed:focus>a:only-child, .ss-btn-dashed:hover>a:only-child {
+    color:currentColor
+}
+.ss-btn-dashed:focus>a:only-child::after, .ss-btn-dashed:hover>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-dashed.active, .ss-btn-dashed:active {
+    color:$ss-btn-dashed-color-active;
+    background-color:$ss-btn-dashed-bgcolor-active;
+    border-color:$ss-btn-dashed-border-color-active
+}
+.ss-btn-dashed.active>a:only-child, .ss-btn-dashed:active>a:only-child {
+    color:currentColor
+}
+.ss-btn-dashed.active>a:only-child::after, .ss-btn-dashed:active>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-dashed-disabled, .ss-btn-dashed-disabled.active, .ss-btn-dashed-disabled:active, .ss-btn-dashed-disabled:focus, .ss-btn-dashed-disabled:hover, .ss-btn-dashed.disabled, .ss-btn-dashed.disabled.active, .ss-btn-dashed.disabled:active, .ss-btn-dashed.disabled:focus, .ss-btn-dashed.disabled:hover, .ss-btn-dashed[disabled], .ss-btn-dashed[disabled].active, .ss-btn-dashed[disabled]:active, .ss-btn-dashed[disabled]:focus, .ss-btn-dashed[disabled]:hover {
+    color:$ss-btn-dashed-color-disabled;
+    background-color:$ss-btn-dashed-bgcolor-disabled;
+    border-color:$ss-btn-dashed-border-color-disabled;
+    text-shadow:none;
+    box-shadow:none
+}
+.ss-btn-dashed-disabled.active>a:only-child, .ss-btn-dashed-disabled:active>a:only-child, .ss-btn-dashed-disabled:focus>a:only-child, .ss-btn-dashed-disabled:hover>a:only-child, .ss-btn-dashed-disabled>a:only-child, .ss-btn-dashed.disabled.active>a:only-child, .ss-btn-dashed.disabled:active>a:only-child, .ss-btn-dashed.disabled:focus>a:only-child, .ss-btn-dashed.disabled:hover>a:only-child, .ss-btn-dashed.disabled>a:only-child, .ss-btn-dashed[disabled].active>a:only-child, .ss-btn-dashed[disabled]:active>a:only-child, .ss-btn-dashed[disabled]:focus>a:only-child, .ss-btn-dashed[disabled]:hover>a:only-child, .ss-btn-dashed[disabled]>a:only-child {
+    color:currentColor
+}
+.ss-btn-dashed-disabled.active>a:only-child::after, .ss-btn-dashed-disabled:active>a:only-child::after, .ss-btn-dashed-disabled:focus>a:only-child::after, .ss-btn-dashed-disabled:hover>a:only-child::after, .ss-btn-dashed-disabled>a:only-child::after, .ss-btn-dashed.disabled.active>a:only-child::after, .ss-btn-dashed.disabled:active>a:only-child::after, .ss-btn-dashed.disabled:focus>a:only-child::after, .ss-btn-dashed.disabled:hover>a:only-child::after, .ss-btn-dashed.disabled>a:only-child::after, .ss-btn-dashed[disabled].active>a:only-child::after, .ss-btn-dashed[disabled]:active>a:only-child::after, .ss-btn-dashed[disabled]:focus>a:only-child::after, .ss-btn-dashed[disabled]:hover>a:only-child::after, .ss-btn-dashed[disabled]>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-danger {
+    color:$ss-btn-danger-color;
+    background-color:$ss-btn-danger-bgcolor;
+    border-color:$ss-btn-danger-border-color;
+    text-shadow:0 -1px 0 $ss-btn-danger-text-shadow;
+    box-shadow:0 2px 0 $ss-btn-danger-box-shadow;
+}
+.ss-btn-danger>a:only-child {
+    color:currentColor
+}
+.ss-btn-danger>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-danger:focus, .ss-btn-danger:hover {
+    color:$ss-btn-danger-color-focus-hover;
+    background-color:$ss-btn-danger-bgcolor-focus-hover;
+    border-color:$ss-btn-danger-border-color-focus-hover
+}
+.ss-btn-danger:focus>a:only-child, .ss-btn-danger:hover>a:only-child {
+    color:currentColor
+}
+.ss-btn-danger:focus>a:only-child::after, .ss-btn-danger:hover>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-danger.active, .ss-btn-danger:active {
+    color:$ss-btn-danger-color-active;
+    background-color:$ss-btn-danger-bgcolor-active;
+    border-color:$ss-btn-danger-border-color-active;
+}
+.ss-btn-danger.active>a:only-child, .ss-btn-danger:active>a:only-child {
+    color:currentColor
+}
+.ss-btn-danger.active>a:only-child::after, .ss-btn-danger:active>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-danger-disabled, .ss-btn-danger-disabled.active, .ss-btn-danger-disabled:active, .ss-btn-danger-disabled:focus, .ss-btn-danger-disabled:hover, .ss-btn-danger.disabled, .ss-btn-danger.disabled.active, .ss-btn-danger.disabled:active, .ss-btn-danger.disabled:focus, .ss-btn-danger.disabled:hover, .ss-btn-danger[disabled], .ss-btn-danger[disabled].active, .ss-btn-danger[disabled]:active, .ss-btn-danger[disabled]:focus, .ss-btn-danger[disabled]:hover {
+    color:$ss-btn-danger-color-disabled;
+    background-color:$ss-btn-danger-bgcolor-disabled;
+    border-color:$ss-btn-danger-border-color-disabled;
+    text-shadow:none;
+    box-shadow:none
+}
+.ss-btn-danger-disabled.active>a:only-child, .ss-btn-danger-disabled:active>a:only-child, .ss-btn-danger-disabled:focus>a:only-child, .ss-btn-danger-disabled:hover>a:only-child, .ss-btn-danger-disabled>a:only-child, .ss-btn-danger.disabled.active>a:only-child, .ss-btn-danger.disabled:active>a:only-child, .ss-btn-danger.disabled:focus>a:only-child, .ss-btn-danger.disabled:hover>a:only-child, .ss-btn-danger.disabled>a:only-child, .ss-btn-danger[disabled].active>a:only-child, .ss-btn-danger[disabled]:active>a:only-child, .ss-btn-danger[disabled]:focus>a:only-child, .ss-btn-danger[disabled]:hover>a:only-child, .ss-btn-danger[disabled]>a:only-child {
+    color:currentColor
+}
+.ss-btn-danger-disabled.active>a:only-child::after, .ss-btn-danger-disabled:active>a:only-child::after, .ss-btn-danger-disabled:focus>a:only-child::after, .ss-btn-danger-disabled:hover>a:only-child::after, .ss-btn-danger-disabled>a:only-child::after, .ss-btn-danger.disabled.active>a:only-child::after, .ss-btn-danger.disabled:active>a:only-child::after, .ss-btn-danger.disabled:focus>a:only-child::after, .ss-btn-danger.disabled:hover>a:only-child::after, .ss-btn-danger.disabled>a:only-child::after, .ss-btn-danger[disabled].active>a:only-child::after, .ss-btn-danger[disabled]:active>a:only-child::after, .ss-btn-danger[disabled]:focus>a:only-child::after, .ss-btn-danger[disabled]:hover>a:only-child::after, .ss-btn-danger[disabled]>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-link {
+    color:$ss-btn-link-color;
+    background-color:$ss-btn-link-bgcolor;
+    border-color:$ss-btn-link-border-color;
+    box-shadow:none
+}
+.ss-btn-link>a:only-child {
+    color:currentColor
+}
+.ss-btn-link>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-link:focus, .ss-btn-link:hover {
+    color:$ss-btn-link-color-focus-hover;
+    background-color:$ss-btn-link-bgcolor-focus-hover;
+}
+.ss-btn-link:focus>a:only-child, .ss-btn-link:hover>a:only-child {
+    color:currentColor
+}
+.ss-btn-link:focus>a:only-child::after, .ss-btn-link:hover>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-link.active, .ss-btn-link:active {
+    color:$ss-btn-link-color-active;
+    background-color:$ss-btn-link-bgcolor-active;
+    border-color:$ss-btn-link-border-color-active;
+}
+.ss-btn-link.active>a:only-child, .ss-btn-link:active>a:only-child {
+    color:currentColor
+}
+.ss-btn-link.active>a:only-child::after, .ss-btn-link:active>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-link-disabled, .ss-btn-link-disabled.active, .ss-btn-link-disabled:active, .ss-btn-link-disabled:focus, .ss-btn-link-disabled:hover, .ss-btn-link.disabled, .ss-btn-link.disabled.active, .ss-btn-link.disabled:active, .ss-btn-link.disabled:focus, .ss-btn-link.disabled:hover, .ss-btn-link[disabled], .ss-btn-link[disabled].active, .ss-btn-link[disabled]:active, .ss-btn-link[disabled]:focus, .ss-btn-link[disabled]:hover {
+    box-shadow:none;
+    color:$ss-btn-link-color-disabled;
+    background-color:$ss-btn-link-bgcolor-disabled;
+    border-color:$ss-btn-link-border-color-disabled;
+    text-shadow:none;
+    box-shadow:none
+}
+.ss-btn-link:active, .ss-btn-link:focus, .ss-btn-link:hover {
+    border-color:$ss-btn-link-border-color-active-focus-hover
+}
+.ss-btn-link-disabled.active>a:only-child, .ss-btn-link-disabled:active>a:only-child, .ss-btn-link-disabled:focus>a:only-child, .ss-btn-link-disabled:hover>a:only-child, .ss-btn-link-disabled>a:only-child, .ss-btn-link.disabled.active>a:only-child, .ss-btn-link.disabled:active>a:only-child, .ss-btn-link.disabled:focus>a:only-child, .ss-btn-link.disabled:hover>a:only-child, .ss-btn-link.disabled>a:only-child, .ss-btn-link[disabled].active>a:only-child, .ss-btn-link[disabled]:active>a:only-child, .ss-btn-link[disabled]:focus>a:only-child, .ss-btn-link[disabled]:hover>a:only-child, .ss-btn-link[disabled]>a:only-child {
+    color:currentColor
+}
+.ss-btn-link-disabled.active>a:only-child::after, .ss-btn-link-disabled:active>a:only-child::after, .ss-btn-link-disabled:focus>a:only-child::after, .ss-btn-link-disabled:hover>a:only-child::after, .ss-btn-link-disabled>a:only-child::after, .ss-btn-link.disabled.active>a:only-child::after, .ss-btn-link.disabled:active>a:only-child::after, .ss-btn-link.disabled:focus>a:only-child::after, .ss-btn-link.disabled:hover>a:only-child::after, .ss-btn-link.disabled>a:only-child::after, .ss-btn-link[disabled].active>a:only-child::after, .ss-btn-link[disabled]:active>a:only-child::after, .ss-btn-link[disabled]:focus>a:only-child::after, .ss-btn-link[disabled]:hover>a:only-child::after, .ss-btn-link[disabled]>a:only-child::after {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:0 0;
+    content:''
+}
+.ss-btn-icon-only {
+    width:32px;
+    height:32px;
+    padding:0;
+    font-size:16px;
+    border-radius:4px
+}
+.ss-btn-icon-only.ss-btn-lg {
+    width:40px;
+    height:40px;
+    padding:0;
+    font-size:18px;
+    border-radius:4px
+}
+.ss-btn-icon-only.ss-btn-sm {
+    width:24px;
+    height:24px;
+    padding:0;
+    font-size:14px;
+    border-radius:4px
+}
+.ss-btn-round {
+    height:32px;
+    padding:0 16px;
+    font-size:14px;
+    border-radius:32px
+}
+.ss-btn-round.ss-btn-lg {
+    height:40px;
+    padding:0 20px;
+    font-size:16px;
+    border-radius:40px
+}
+.ss-btn-round.ss-btn-sm {
+    height:24px;
+    padding:0 12px;
+    font-size:14px;
+    border-radius:24px
+}
+.ss-btn-round.ss-btn-icon-only {
+    width:auto
+}
+.ss-btn-circle, .ss-btn-circle-outline {
+    min-width:32px;
+    padding-right:0;
+    padding-left:0;
+    text-align:center;
+    border-radius:50%
+}
+.ss-btn-circle-outline.ss-btn-lg, .ss-btn-circle.ss-btn-lg {
+    min-width:40px;
+    border-radius:50%
+}
+.ss-btn-circle-outline.ss-btn-sm, .ss-btn-circle.ss-btn-sm {
+    min-width:24px;
+    border-radius:50%
+}
+.ss-btn::before {
+    position:absolute;
+    top:-1px;
+    right:-1px;
+    bottom:-1px;
+    left:-1px;
+    z-index:1;
+    display:none;
+    background:$ss-btn-bgcolor-before;
+    border-radius:inherit;
+    opacity:.35;
+    transition:opacity .2s;
+    content:'';
+    pointer-events:none
+}
+.ss-btn .ssicon {
+    transition:margin-left .3s cubic-bezier(.645, .045, .355, 1)
+}
+.ss-btn .ssicon.ssicon-minus>svg, .ss-btn .ssicon.ssicon-plus>svg {
+    shape-rendering:optimizeSpeed
+}
+.ss-btn.ss-btn-loading {
+    position:relative;
+    pointer-events:none
+}
+.ss-btn.ss-btn-loading::before {
+    display:block
+}
+.ss-btn.ss-btn-loading:not(.ss-btn-circle):not(.ss-btn-circle-outline):not(.ss-btn-icon-only) {
+    padding-left:29px
+}
+.ss-btn.ss-btn-loading:not(.ss-btn-circle):not(.ss-btn-circle-outline):not(.ss-btn-icon-only) .ssicon:not(:last-child) {
+    margin-left:-14px
+}
+.ss-btn-sm.ss-btn-loading:not(.ss-btn-circle):not(.ss-btn-circle-outline):not(.ss-btn-icon-only) {
+    padding-left:24px
+}
+.ss-btn-sm.ss-btn-loading:not(.ss-btn-circle):not(.ss-btn-circle-outline):not(.ss-btn-icon-only) .ssicon {
+    margin-left:-17px
+}
+.ssmodal_statusbar_content button+button {
+    margin-bottom: 0;
+    margin-left: 8px;
+}

@@ -1,0 +1,57 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+ul {
+    // margin-top: 150px;
+    // display: flex;
+}
+img{
+    width: 70px;
+    height: 70px;
+}
+li {
+    float: left;
+    list-style: none;
+    // width: 70px;
+    height: 100px;
+    cursor: pointer;
+}
+.backimg {
+    width: 70px;
+    height: 70px;
+    border: 1px solid;
+    border-radius: 3px;
+    background: gray;
+    margin: 3px;
+    span {
+        display: inline-block;
+        width: 70px;
+        text-align: center;
+    }
+}
+
+.ipt,.ipt1,.ipt2{
+    margin-bottom: 5px;
+}
+.ant-input{
+    width: 70%;
+}
+nz-select{
+    width: 50%;
+}
+.footer{
+    margin-top: 5px;
+    float: right;
+    button{
+        width: 50px;
+    }
+}
+.schema{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+::ng-deep .ant-tabs-tab{
+    padding: 0;
+}

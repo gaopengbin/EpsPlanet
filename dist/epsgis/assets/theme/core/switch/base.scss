@@ -1,0 +1,98 @@
+.ssSwitch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    background: #dcdcdc;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 0 5px #dcdcdc;
+    overflow: hidden;
+    vertical-align: middle;
+
+}
+
+.ssSwitch input {
+    visibility: hidden;
+}
+
+.ssSwitch i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    border-radius: 100%;
+    background: #fff;
+}
+
+.ssSwitch i::before {
+    content: " ";
+    display: none;
+    width: 200%;
+    height: 100%;
+    border-radius: 25%;
+    background: #61cafd;
+}
+
+.ssSwitch i::after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background: #fff;
+}
+
+.ssSwitch input:checked+i {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+}
+
+.ssSwitch input:checked+i:before {
+    display: inline-block;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+//------
+// switch组件
+.switch-component {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background-color: #dadada;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    transition: all .2s ease;
+}
+
+// 按钮
+.switch-component::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: all .2s ease;
+}
+
+// checked状态时，背景颜色改变
+.switch-component:checked {
+    background-color: #86c0fa;
+}
+
+// checked状态时，按钮位置改变
+.switch-component:checked::after {
+    left: 50%;
+}

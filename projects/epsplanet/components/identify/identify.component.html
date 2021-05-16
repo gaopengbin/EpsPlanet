@@ -1,0 +1,21 @@
+<nz-switch [(ngModel)]="switchValue" (ngModelChange)="switch($event)"></nz-switch>
+<!-- <button nz-button (click)="test()">test</button> -->
+<!-- <epsgis-planet-layer-manager></epsgis-planet-layer-manager> -->
+
+<div [hidden]="!showInfo" class="dialog"
+    [ngStyle]="{ 'left': (winPos[0]-65 ) + 'px', 'bottom': (winPos[3]) + 'px' }">
+    <div class="panel">
+        <span>{{title}}</span><i nz-icon nzType="close" nzTheme="outline" (click)="close()" style="float: right;"></i>
+        <nz-table #basicTable [nzData]="propertyList" [nzFrontPagination]="false" [nzShowPagination]="false"
+            [nzTitle]="null">
+            <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.value }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <i nz-icon nzType="zoom-in" nzTheme="outline" (click)="zoomTo()"></i><span>缩放至</span>
+    </div>
+    <div class="arrow"></div>
+</div>

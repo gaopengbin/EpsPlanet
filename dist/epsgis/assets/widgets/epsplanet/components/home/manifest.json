@@ -1,0 +1,13 @@
+{
+    "name": "home",
+    "platform": "pc",
+    "version": "1.0",
+    "author": "Sunway",
+    "description": "",
+    "copyright": "",    
+    "license": "UNLICENSED",
+    "properties": {
+        "hasConfig": false,
+        "inPanel": false
+    }
+}

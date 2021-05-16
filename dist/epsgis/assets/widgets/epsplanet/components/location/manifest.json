@@ -1,0 +1,14 @@
+{
+    "name": "epsgis-planet-location",
+    "platform": "pc",
+    "version": "1.0",
+    "author": "Sunway",
+    "description": "",
+    "copyright": "",
+    "icon": "icon-epsgis-location",
+    "license": "UNLICENSED",
+    "properties": {
+        "hasConfig": true,
+        "inPanel": true
+    }
+}

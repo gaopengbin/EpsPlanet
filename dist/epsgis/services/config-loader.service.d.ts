@@ -1,0 +1,44 @@
+import { WidgetManagerService } from './widget-manager.service';
+import { UtilsService } from './utils.service';
+import { AppGlobalConfig } from '../models/app-config';
+import { CommonService } from './common.service';
+import { ComponentLoaderService } from './component-loader.service';
+import { HttpReqService } from './request.service';
+import * as i0 from "@angular/core";
+export declare class ConfigLoaderService {
+    private widgetManager;
+    private utils;
+    private httpService;
+    private globalParams;
+    private commonService;
+    private componentLoader;
+    urlParams: any;
+    appConfig: any;
+    rawAppConfig: any;
+    configFile: string;
+    _configLoaded: boolean;
+    portalSelf: any;
+    options: any;
+    constructor(widgetManager: WidgetManagerService, utils: UtilsService, httpService: HttpReqService, globalParams: AppGlobalConfig, commonService: CommonService, componentLoader: ComponentLoaderService);
+    private _removeHash;
+    loadConfig(config?: any): Promise<any>;
+    getAppConfig(): any;
+    _addAuthorizedCrossOriginDomains(portalSelf: any, appConfig: any): void;
+    _tryLoadConfig(configJsonFile?: string): Promise<Object>;
+    _processAfterTryLoad(appConfig: any): any;
+    getUriInfo(uri: any): void;
+    processWidgetSetting(setting: any): void;
+    _processWidgetJsons(appConfig: any): void;
+    _processNoUriWidgets(appConfig: any): void;
+    _addElementId(appConfig: any): void;
+    addNeedValues(appConfig: any): void;
+    processProxy(appConfig: any): void;
+    _upgradeAppConfig(appConfig: any): any;
+    _upgradeAllWidgetsConfig(appConfig: any): Promise<any>;
+    loadWidgetsManifest(config: any): Promise<any>;
+    _addNeedValuesForManifest(manifest: Object): void;
+    _loadMergedWidgetManifests(): Promise<Object>;
+    static ɵfac: i0.ɵɵFactoryDef<ConfigLoaderService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<ConfigLoaderService>;
+}
+//# sourceMappingURL=config-loader.service.d.ts.map

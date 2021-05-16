@@ -1,0 +1,64 @@
+<!-- <h3>{{selectedNode.title}}</h3> -->
+<div class="schema" *ngIf="type=='影像'">
+  <nz-row *ngFor="let item of config.basemapSchema">
+      <nz-col nzSpan="4">
+          <span>{{item.zh}}</span>
+      </nz-col>
+      <nz-col nzSpan="14">
+          <nz-slider [nzMin]="0" [nzMax]="1" [nzStep]="0.01" [(ngModel)]="selectedNode['origin'][item.en]"></nz-slider>
+      </nz-col>
+      <nz-col nzSpan="2">
+          <nz-input-number [nzMin]="0" [nzMax]="1" [nzStep]="0.01" [ngStyle]="{ marginLeft: '16px' }"
+              [(ngModel)]="selectedNode['origin'][item.en]">
+          </nz-input-number>
+      </nz-col>
+  </nz-row>
+</div>
+<div class="schema" *ngIf="type!=='影像'">
+  <nz-row *ngFor="let item of config.tilesSchema">
+      <nz-col nzSpan="4">
+          <span>{{item.zh}}</span>
+      </nz-col>
+      <nz-col nzSpan="14" *ngIf="item.zh=='镜面强度'">
+          <nz-slider [nzMin]="0" [nzMax]="1" [nzStep]="0.01" [(ngModel)]="selectedNode['origin'][item.en][1]"></nz-slider>
+      </nz-col>
+      <nz-col nzSpan="14" *ngIf="item.zh=='散射强度'">
+          <nz-slider [nzMin]="0" [nzMax]="1" [nzStep]="0.01" [(ngModel)]="selectedNode['origin'][item.en][0]"></nz-slider>
+      </nz-col>
+      <nz-col nzSpan="14" *ngIf="item.zh=='显示精度'">
+          <nz-slider [nzMin]="0" [nzMax]="256" [nzStep]="1" [(ngModel)]="selectedNode['origin'][item.en]"></nz-slider>
+      </nz-col>
+      <nz-col nzSpan="14" *ngIf="item.zh=='材质底色'">
+          <nz-slider [nzMin]="0" [nzMax]="5" [nzStep]="0.01" [(ngModel)]="selectedNode['origin'][item.en]"></nz-slider>
+      </nz-col>
+
+      <nz-col nzSpan="2" *ngIf="item.zh=='镜面强度'">
+          <nz-input-number [nzMin]="0" [nzMax]="1" [nzStep]="0.01" [ngStyle]="{ marginLeft: '16px' }"
+              [(ngModel)]="selectedNode['origin'][item.en][1]">
+          </nz-input-number>
+      </nz-col>
+      <nz-col nzSpan="2" *ngIf="item.zh=='散射强度'">
+          <nz-input-number [nzMin]="0" [nzMax]="1" [nzStep]="0.01" [ngStyle]="{ marginLeft: '16px' }"
+              [(ngModel)]="selectedNode['origin'][item.en][0]">
+          </nz-input-number>
+      </nz-col>
+      <nz-col nzSpan="2" *ngIf="item.zh=='显示精度'">
+          <nz-input-number [nzMin]="0" [nzMax]="256" [nzStep]="1" [ngStyle]="{ marginLeft: '16px' }"
+              [(ngModel)]="selectedNode['origin'][item.en]">
+          </nz-input-number>
+      </nz-col>
+      <nz-col nzSpan="2" *ngIf="item.zh=='材质底色'">
+          <nz-input-number [nzMin]="0" [nzMax]="5" [nzStep]="0.01" [ngStyle]="{ marginLeft: '16px' }"
+              [(ngModel)]="selectedNode['origin'][item.en]">
+          </nz-input-number>
+      </nz-col>
+  </nz-row>
+</div>
+<!-- <button nz-button (click)="test()">test</button>
+<button nz-button nz-popover nzPopoverTitle="Title" [nzPopoverContent]="contentTemplate" nzPopoverTrigger="click" (click)="loadlocate()">加载&定位</button>
+<ng-template #contentTemplate>
+  <div>
+    <p>Content</p>
+    <p>Content</p>
+  </div>
+</ng-template> -->

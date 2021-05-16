@@ -1,0 +1,14 @@
+{
+    "name": "epsgis-planet-status-bar",
+    "platform": "pc",
+    "version": "1.0",
+    "author": "Sunway",
+    "description": "",
+    "copyright": "",
+    "license": "UNLICENSED",
+    "icon":"icon-epsgis-layer",
+    "properties": {
+        "hasConfig": true,
+        "inPanel": false
+    }
+}

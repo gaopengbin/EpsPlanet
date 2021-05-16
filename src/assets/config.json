@@ -1,0 +1,89 @@
+{
+    "map": {
+        "uri": "epsgis-planet-earth",
+        "position": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+        }
+    },
+    "widgetOnScreen": {
+        "widgets": [
+            {
+                "uri": "epsgis-planet-basemap-gallery",
+                "label": "底图选择",
+                "position": {
+                    "top": 300,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            },
+            {
+                "uri": "epsgis-planet-layer-list",
+                "label": "图层列表",
+                "position": {
+                    "top": 60,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            },
+            {
+                "uri": "epsgis-planet-status-bar",
+                "label": "状态栏",
+                "position": {
+                    "bottom": 20,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            },
+            {
+                "uri": "epsgis-planet-home",
+                "label": "home",
+                "position": {
+                    "top": 20,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            },
+            {
+                "uri": "epsgis-planet-location",
+                "label": "定位",
+                "position": {
+                    "top": 100,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            },
+            {
+                "uri": "epsgis-planet-mode-switch",
+                "label": "模式切换",
+                "position": {
+                    "top": 160,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            },
+            {
+                "uri": "epsgis-planet-zoom",
+                "label": "缩放",
+                "position": {
+                    "top": 220,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            },
+            {
+                "uri": "epsgis-planet-identify",
+                "label": "识别",
+                "position": {
+                    "top": 400,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
+            }
+
+        ]
+    },
+    "widgetPool": {}
+}

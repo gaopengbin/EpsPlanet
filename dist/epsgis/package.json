@@ -1,0 +1,25 @@
+{
+  "name": "epsgis",
+  "version": "0.0.1",
+  "schematics": "./schematics/collection.json",
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "add": {
+    "save": "devDependencies"
+  },
+  "main": "bundles/epsgis.umd.js",
+  "module": "fesm2015/epsgis.js",
+  "es2015": "fesm2015/epsgis.js",
+  "esm2015": "esm2015/epsgis.js",
+  "fesm2015": "fesm2015/epsgis.js",
+  "typings": "epsgis.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy. This is not allowed.\\nPlease delete and rebuild the package, without compiling with Ivy, before attempting to publish.\\n')\" && exit 1"
+  }
+}

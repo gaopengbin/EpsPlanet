@@ -1,0 +1,23 @@
+.icon {
+    height: 32px;
+}
+
+.container {
+    width: auto;
+    height: 50px;
+    margin: -10px;
+
+    .mode {
+        float: left;
+        cursor: pointer;
+        height: 40px;
+        line-height: 40px;
+        margin: 5px;
+        fill: #4e555d;
+
+        :hover {
+            background-color: #4e555d;
+            fill: #ffffff;
+        }
+    }
+}

@@ -1,0 +1,64 @@
+import { WidgetWindowState, WidgetOpenOptions } from '../models/base-widget';
+import { ComponentFactoryResolver, ComponentRef, ApplicationRef } from '@angular/core';
+import { CommonService } from './common.service';
+import { WidgetManagerService } from './widget-manager.service';
+import { PanelOptions } from '../models/base-panel';
+import { ComponentLoaderService } from './component-loader.service';
+import { AppGlobalConfig } from '../models/app-config';
+import { EventEmitterService } from './event-emitter.service';
+import { OnScreenWidgetPanelComponent } from '../components/on-screen-widget-panel/on-screen-widget-panel.component';
+import { BaseWidgetComponent } from '../components/base-widget/base-widget.component';
+import * as i0 from "@angular/core";
+export declare class PanelManagerService {
+    private globalParams;
+    commonService: CommonService;
+    widgetManager: WidgetManagerService;
+    private appRef;
+    private componentFactoryResolver;
+    private componentLoader;
+    eventService: EventEmitterService;
+    panels: Array<ComponentRef<OnScreenWidgetPanelComponent>>;
+    activePanel: ComponentRef<OnScreenWidgetPanelComponent>;
+    map: any;
+    view: any;
+    panelContainer: Element;
+    panelAddToMap: boolean;
+    constructor(globalParams: AppGlobalConfig, commonService: CommonService, widgetManager: WidgetManagerService, appRef: ApplicationRef, componentFactoryResolver: ComponentFactoryResolver, componentLoader: ComponentLoaderService, eventService: EventEmitterService);
+    private create;
+    private createPanelContainer;
+    private show;
+    setMap(map: any): void;
+    private _findPanelUri;
+    showPanel(config: any, widget?: ComponentRef<BaseWidgetComponent>, options?: PanelOptions, openOptions?: WidgetOpenOptions): Promise<ComponentRef<OnScreenWidgetPanelComponent>>;
+    showPanelNotWidget(panelOptions: PanelOptions): Promise<any>;
+    closeOtherPanelsInTheSameGroup(panel: string | ComponentRef<OnScreenWidgetPanelComponent>): void;
+    closeAllPanelsInGroup(groupId: string): void;
+    openPanel(panel: ComponentRef<OnScreenWidgetPanelComponent>): Promise<any>;
+    closePanel(panel: ComponentRef<OnScreenWidgetPanelComponent> | string): Promise<any>;
+    minimizePanel(panel: ComponentRef<OnScreenWidgetPanelComponent> | string): void;
+    maximizePanel(panel: ComponentRef<OnScreenWidgetPanelComponent> | string): void;
+    normalizePanel(panel: ComponentRef<OnScreenWidgetPanelComponent> | string): void;
+    changeWindowStateTo(panel: ComponentRef<OnScreenWidgetPanelComponent> | string, state: WidgetWindowState): void;
+    getPanelById(pid: string): ComponentRef<OnScreenWidgetPanelComponent>;
+    onWindowResize(): void;
+    onMapResize(): void;
+    destroyPanel(panel: string | ComponentRef<OnScreenWidgetPanelComponent>): void;
+    destroyAllPanels(): void;
+    playOpenPanelAnimation(panel: string | ComponentRef<OnScreenWidgetPanelComponent>): Promise<boolean>;
+    playClosePanelAnimation(panel: string | ComponentRef<OnScreenWidgetPanelComponent>): Promise<boolean>;
+    getPositionOnMobile(panel: string | ComponentRef<OnScreenWidgetPanelComponent>): {};
+    _onPanelClick(panel: any): void;
+    _activePanel(panel: ComponentRef<OnScreenWidgetPanelComponent> | string): void;
+    _removePanel(panel: ComponentRef<OnScreenWidgetPanelComponent>): void;
+    _onMoveStart(mover: any): void;
+    _onWidgetActived(widget: any): void;
+    _loadPanelClass(panelUri: any): void;
+    _loadThemeI18N(panelUri: any): void;
+    getAllPanels(): ComponentRef<OnScreenWidgetPanelComponent>[];
+    static ɵfac: i0.ɵɵFactoryDef<PanelManagerService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<PanelManagerService>;
+}
+export interface ComponentType<T> {
+    new (...args: any[]): T;
+}
+//# sourceMappingURL=panel-manager.service.d.ts.map

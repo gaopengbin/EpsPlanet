@@ -1,0 +1,11 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/epsplanet",
+  "lib": {
+    "entryFile": "public-api.ts",
+    "umdModuleIds": {
+      "ng-zorro-antd": "^11.1.0",
+      "epsgis": "epsgis"
+    }
+  }
+}

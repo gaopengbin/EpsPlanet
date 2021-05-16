@@ -1,0 +1,14 @@
+{
+    "name": "epsgis-planet-identify",
+    "platform": "pc",
+    "version": "1.0",
+    "author": "Sunway",
+    "description": "",
+    "copyright": "",
+    "license": "UNLICENSED",
+    "icon":"icon-epsgis-weibiaoti-",
+    "properties": {
+        "hasConfig": false,
+        "inPanel": false
+    }
+}

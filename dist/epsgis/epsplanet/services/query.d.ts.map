@@ -1,0 +1,1 @@
+{"version":3,"file":"query.d.ts","sourceRoot":"","sources":["../../../projects/epsplanet/services/query.ts"],"names":[],"mappings":"AAIA,qBAAa,KAAK;IACd,MAAM,CAAC,kBAAkB,EAAE,GAAG,CAAC;;IAS/B,MAAM,CAAC,WAAW,CAAC,SAAS,KAAA,EAAE,KAAK,KAAA,EAAE,MAAM,KAAA,EAAE,QAAQ,KAAA;IA6FrD,MAAM,CAAC,cAAc,CAAC,SAAS,KAAA,EAAE,MAAM,KAAA;IAsCvC,MAAM,CAAC,cAAc;CAGxB"}

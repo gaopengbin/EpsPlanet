@@ -1,0 +1,22 @@
+{
+  "name": "pro-layout",
+  "version": "0.0.23",
+  "dependencies": {
+    "resize-observer-polyfill": "^1.5.1",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^11.2.3",
+    "@angular/core": "^11.2.3"
+  },
+  "main": "bundles/pro-layout.umd.js",
+  "module": "fesm2015/pro-layout.js",
+  "es2015": "fesm2015/pro-layout.js",
+  "esm2015": "esm2015/pro-layout.js",
+  "fesm2015": "fesm2015/pro-layout.js",
+  "typings": "pro-layout.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy. This is not allowed.\\nPlease delete and rebuild the package, without compiling with Ivy, before attempting to publish.\\n')\" && exit 1"
+  }
+}

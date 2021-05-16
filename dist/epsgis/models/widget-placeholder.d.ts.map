@@ -1,0 +1,1 @@
+{"version":3,"file":"widget-placeholder.d.ts","sourceRoot":"","sources":["../../../projects/epsgis/models/widget-placeholder.ts"],"names":[],"mappings":"AAGA,qBAAa,iBAAiB;IAE1B,KAAK,EAAE,MAAM,CAAK;IAClB,QAAQ,EAAE,MAAM,CAAM;IACtB,EAAE,SAAqC;IACvC,KAAK,SAA6B;IAClC,MAAM,EAAE,GAAG,CAAQ;gBACP,OAAO,EAAE,GAAG;IAMxB,UAAU;IAQV,MAAM,CAAC,QAAQ,KAAA;IAOf,QAAQ,CAAC,KAAK,EAAE,MAAM;CAGzB"}

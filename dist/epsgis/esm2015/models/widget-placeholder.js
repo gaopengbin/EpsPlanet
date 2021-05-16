@@ -1,0 +1,17 @@
+export class WidgetPlaceholder {
+    constructor(options) {
+        this.index = 0;
+        this.configId = "";
+        this.id = "dijit__WidgetBase_" + this.index;
+        this.class = 'jimu-widget-placeholder';
+        this.params = null;
+        this.params = options;
+    }
+    postCreate() {
+    }
+    moveTo(position) {
+    }
+    setIndex(index) {
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoid2lkZ2V0LXBsYWNlaG9sZGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vcHJvamVjdHMvZXBzZ2lzL21vZGVscy93aWRnZXQtcGxhY2Vob2xkZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0EsTUFBTSxPQUFPLGlCQUFpQjtJQU8xQixZQUFZLE9BQVk7UUFMeEIsVUFBSyxHQUFXLENBQUMsQ0FBQztRQUNsQixhQUFRLEdBQVcsRUFBRSxDQUFDO1FBQ3RCLE9BQUUsR0FBRyxvQkFBb0IsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDO1FBQ3ZDLFVBQUssR0FBRyx5QkFBeUIsQ0FBQztRQUNsQyxXQUFNLEdBQVEsSUFBSSxDQUFDO1FBRWYsSUFBSSxDQUFDLE1BQU0sR0FBRyxPQUFPLENBQUM7SUFDMUIsQ0FBQztJQUlELFVBQVU7SUFHVixDQUFDO0lBS0QsTUFBTSxDQUFDLFFBQVE7SUFFZixDQUFDO0lBS0QsUUFBUSxDQUFDLEtBQWE7SUFFdEIsQ0FBQztDQUNKIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBcbiAqL1xuZXhwb3J0IGNsYXNzIFdpZGdldFBsYWNlaG9sZGVyIHtcblxuICAgIGluZGV4OiBudW1iZXIgPSAwO1xuICAgIGNvbmZpZ0lkOiBzdHJpbmcgPSBcIlwiO1xuICAgIGlkID0gXCJkaWppdF9fV2lkZ2V0QmFzZV9cIiArIHRoaXMuaW5kZXg7XG4gICAgY2xhc3MgPSAnamltdS13aWRnZXQtcGxhY2Vob2xkZXInO1xuICAgIHBhcmFtczogYW55ID0gbnVsbDtcbiAgICBjb25zdHJ1Y3RvcihvcHRpb25zOiBhbnkpIHtcbiAgICAgICAgdGhpcy5wYXJhbXMgPSBvcHRpb25zO1xuICAgIH1cbiAgICAvKipcbiAgICAgKiBcbiAgICAgKi9cbiAgICBwb3N0Q3JlYXRlKCkge1xuXG5cbiAgICB9XG4gICAgLyoqXG4gICAgICogXG4gICAgICogQHBhcmFtIHBvc2l0aW9uIFxuICAgICAqL1xuICAgIG1vdmVUbyhwb3NpdGlvbikge1xuXG4gICAgfVxuICAgIC8qKlxuICAgICAqIFxuICAgICAqIEBwYXJhbSBpbmRleCBcbiAgICAgKi9cbiAgICBzZXRJbmRleChpbmRleDogbnVtYmVyKSB7XG5cbiAgICB9XG59XG4iXX0=

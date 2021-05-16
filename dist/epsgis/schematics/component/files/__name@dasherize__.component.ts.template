@@ -1,0 +1,28 @@
+import { Component } from "@angular/core";
+import { BaseWidgetComponent, ComponentRegister } from "epsgis";
+
+@ComponentRegister({
+  uri:"<%= selector %>",
+  path:"<%=compPath %>",
+  name:"<%=classify(name)%>Component"
+})
+@Component({
+  selector: "<%= selector %>",
+  templateUrl: "./<%= dasherize(name) %>.component.html",
+  styleUrls: ["./<%= dasherize(name) %>.component.scss"]
+})
+export class <%=classify(name)%>Component extends BaseWidgetComponent {
+
+  constructor() {
+    super();
+  }
+  ngOnInit() {
+    super.ngOnInit();
+  }
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+  }
+  ngOnDestroy() {
+    super.ngOnDestroy();
+  }
+}

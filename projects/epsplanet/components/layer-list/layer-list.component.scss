@@ -1,0 +1,11 @@
+i{
+    font-size: 16px;
+    margin-right: 5px;
+    // line-height: 2;
+}
+i:hover{
+    font-size: 20px;
+}
+::ng-deep .sspanel_content{
+    overflow: overlay !important;
+}

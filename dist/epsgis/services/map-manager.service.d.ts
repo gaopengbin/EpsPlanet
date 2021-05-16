@@ -1,0 +1,44 @@
+import { ComponentLoaderService } from './component-loader.service';
+import { ComponentRef } from '@angular/core';
+import { UtilsService } from './utils.service';
+import { HttpReqService } from './request.service';
+import { EventEmitterService } from './event-emitter.service';
+import { CommonService } from './common.service';
+import { AppGlobalConfig } from '../models/app-config';
+import * as i0 from "@angular/core";
+export declare class MapManagerService {
+    private utils;
+    private httpService;
+    private globalParams;
+    private eventService;
+    private commonService;
+    private componentLoader;
+    originMapPosition: any;
+    mapPosition: any;
+    appConfig: any;
+    id: string;
+    mapDivId: string;
+    map: any;
+    view: any;
+    previousInfoWindow: any;
+    mobileInfoWindow: any;
+    isMobileInfoWindow: boolean;
+    tiandituToken: string;
+    layerInfosObj: any;
+    options: any;
+    urlParams: any;
+    comRefMap: ComponentRef<any>;
+    constructor(utils: UtilsService, httpService: HttpReqService, globalParams: AppGlobalConfig, eventService: EventEmitterService, commonService: CommonService, componentLoader: ComponentLoaderService);
+    setAppConfig(config: any): void;
+    restorePosition(): void;
+    changeMapPosition(position: any, triggerEvent?: boolean): void;
+    setMapPosition(position: any): void;
+    getMapPosition(): any;
+    centerAtMap(lgtd: any, lttd: any, s: any): void;
+    showMap(): Promise<void>;
+    destoryMap(): void;
+    initMap(): void;
+    static ɵfac: i0.ɵɵFactoryDef<MapManagerService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<MapManagerService>;
+}
+//# sourceMappingURL=map-manager.service.d.ts.map

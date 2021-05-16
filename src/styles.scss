@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./theme/variables.scss";
+@import "./global.scss";
+// @import "../node_modules/cesium/Build/Cesium/Widgets/widgets.css";
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.min.css";
+@import "../dist/epsgis/assets/theme/arcgis.scss";
+html,body{
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding: 0;
+    position: absolute;
+}
+app-root{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+app-ruirtest-home{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+epsgis-comp-container{
+    position: absolute;
+}

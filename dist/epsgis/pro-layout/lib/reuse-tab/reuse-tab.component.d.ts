@@ -1,0 +1,57 @@
+import { ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
+import { ReuseContextCloseEvent, ReuseItem } from "./reuse-tab.interface";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ReuseTabService } from "./reuse-tab.service";
+import { ReuseTabMenuService } from "./reuse-tab-menu.service";
+import * as i0 from "@angular/core";
+export declare class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
+    private reuseTabService;
+    private reuseTabContextService;
+    private cdr;
+    private router;
+    private route;
+    private doc;
+    private tabset;
+    private unsubscribe$;
+    private updatePos$;
+    private _keepingScrollContainer;
+    list: ReuseItem[];
+    item: ReuseItem;
+    pos: number;
+    debug: boolean;
+    max: number;
+    tabMaxWidth: number;
+    excludes: RegExp[];
+    allowClose: boolean;
+    allowRefresh: boolean;
+    keepingScroll: boolean;
+    set keepingScrollContainer(value: string | Element);
+    tabBarExtraContent: TemplateRef<void>;
+    tabBarGutter: number;
+    tabBarStyle: {
+        [key: string]: string;
+    };
+    readonly change: EventEmitter<ReuseItem>;
+    readonly close: EventEmitter<ReuseItem>;
+    constructor(reuseTabService: ReuseTabService, reuseTabContextService: ReuseTabMenuService, cdr: ChangeDetectorRef, router: Router, route: ActivatedRoute, doc: any);
+    private genTit;
+    private get curUrl();
+    private get curUrlQueryParam();
+    private genCurItem;
+    private genList;
+    private updateTitle;
+    private refresh;
+    contextMenuChange(res: ReuseContextCloseEvent): void;
+    _to(index: number, cb?: () => void): void;
+    _close(e: Event | null, idx: number, includeNonCloseable: boolean): boolean;
+    myClose(event: any): void;
+    activate(instance: any): void;
+    openMenu(event: any, item: ReuseItem): void;
+    ngOnInit(): void;
+    ngOnChanges(changes: {
+        [P in keyof this]?: SimpleChange;
+    } & SimpleChanges): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDef<ReuseTabComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<ReuseTabComponent, "pro-reuse-tab", ["proReuseTab"], { "debug": "debug"; "max": "max"; "tabMaxWidth": "tabMaxWidth"; "excludes": "excludes"; "allowClose": "allowClose"; "allowRefresh": "allowRefresh"; "keepingScroll": "keepingScroll"; "keepingScrollContainer": "keepingScrollContainer"; "tabBarExtraContent": "tabBarExtraContent"; "tabBarGutter": "tabBarGutter"; "tabBarStyle": "tabBarStyle"; }, { "change": "change"; "close": "close"; }, never, never>;
+}

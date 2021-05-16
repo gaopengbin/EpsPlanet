@@ -1,0 +1,31 @@
+/**Panel Colors**/
+/*模态阴影*/
+$sspanel-overlay-bgcolor:rgba(199, 199, 199, 0.5) !default;
+/*Panel*/
+$sspanel-color:#303030 !default;
+$sspanel-bgcolor:#fcfcfc !default;
+$sspanel-border:#c8c8c8 !default;
+$sspanel-box-shadow:#a0a0a0 !default;
+/*标题栏*/
+$sspanel-titlebar-bgcolor:#4390f7 !default;
+$sspanel-titlebar-icon-color:#ffffff !default;
+$sspanel-titlebar-text-color:#ffffff !default;
+$sspanel-titlebar-button-bgcolor:transparent !default;
+$sspanel-titlebar-button-stroke: floralwhite !default;
+
+$sspanel-titlebar-button-bgcolor-hover:#fafafa !default;
+$sspanel-titlebar-button-stroke-hover:#6e6e6e !default;
+$sspanel-titlebar-button-bgcolor-active:#e0e0e0 !default;
+/*内容*/
+$sspanel-content-border-top:#c8c8c8 !default;
+/*状态栏*/
+$sspanel-statusbar-bgcolor:#f0f0f0 !default;
+$sspanel-statusbar-border-top:#c8c8c8 !default;
+$sspanel-statusbar-content-color:#303030 !default;
+$sspanel-statusbar-handle-stroke: #a0a0a0 !default;
+
+/*停靠*/
+$sspanel-dockside-gradient-start:#eee !default;
+$sspanel-dockside-gradient-end:#fff !default;
+$sspanel-dockside-titlebar-button-stroke:#929AA4 !default;
+$sspanel-dockside-titlebar-text-color: grey !default;

@@ -1,0 +1,329 @@
+@import './button.scss';
+
+/*最外层容器*/
+.ssmodal_container {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  pointer-events: none;
+}
+
+/* 覆盖层(遮罩) */
+.ssmodal_overlay {
+  background-color: $ssmodal-overlay-bgcolor;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 面板 */
+.ssmodal {
+  position: absolute;
+  color: $ssmodal-color;
+  background-color: $ssmodal-bgcolor;
+  // border: 1px solid $ssmodal-border;
+  box-shadow: 0 2px 4px $ssmodal-box-shadow;
+  line-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
+  pointer-events: auto;
+  z-index: auto;
+  border-radius: 5px;
+}
+
+.ssmodal_minimized {
+  width: 200px;
+  box-shadow: none;
+}
+
+/* 标题栏 */
+.ssmodal_titlebar {
+  padding: 4px;
+  background-color: $ssmodal-titlebar-bgcolor;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  border-radius: 4px 4px 0 0;
+}
+
+/*
+自定义按钮
+*/
+.ssmodal_titlebar_custom_buttons {
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  .ssmodal_titlebar_button {
+    i {
+      color: #ffffff;
+    }
+  }
+
+  .ssmodal_titlebar_button:hover {
+    background-color: $ssmodal-titlebar-button-bgcolor-hover;
+
+    &>i {
+      color: $ssmodal-titlebar-button-stroke-hover;
+    }
+  }
+}
+
+.ssmodal_titlebar_draggable {
+  cursor: move;
+}
+
+/* 标题栏 标题 */
+.ssmodal_titlebar_text {
+  color: $ssmodal-titlebar-text-color;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 2px;
+  height: 30px;
+  line-height: 30px;
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*标题 文本*/
+.ssmodal_titlebar_text_span {
+  display: block;
+}
+
+/*标题栏 按钮*/
+.ssmodal_titlebar_button {
+  cursor: pointer;
+  width: 22px;
+  height: 20px;
+  padding: 4px;
+  margin-left: 2px;
+  background-color: $ssmodal-titlebar-button-bgcolor;
+  stroke: $ssmodal-titlebar-button-stroke;
+  border: none;
+  border-radius: 2px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  display: flex;
+}
+
+.ssmodal_titlebar_button:hover {
+  background-color: $ssmodal-titlebar-button-bgcolor-hover;
+  stroke: $ssmodal-titlebar-button-stroke-hover;
+}
+
+.ssmodal_titlebar_button:active {
+  background-color: $ssmodal-titlebar-button-bgcolor-active;
+}
+
+/* 用于自定义单个按钮 */
+.ssmodal_titlebar_button_close {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_close:hover {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_close:active {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_maximize {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_maximize:hover {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_maximize:active {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_collapse {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_collapse:hover {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_collapse:active {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_minimize {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_minimize:hover {
+  font: inherit;
+}
+
+.ssmodal_titlebar_button_minimize:active {
+  font: inherit;
+}
+
+/* 内容容器 */
+.ssmodal_content {
+  border-top: 1px solid $ssmodal-content-border-top;
+  padding: 10px;
+  /* 和ssmodal_content:after中的高度一致 */
+  overflow: hidden; //由auto改为了hidden，不显示滚动条
+  position: relative;
+  /*loading只占满内容容器*/
+  flex: 1 1 auto;
+}
+
+.ssmodal_content:after {
+  content: "";
+  display: block;
+  height: 10px;
+  /*ssmodal_content的padding-bottom*/
+
+}
+
+/* 底部状态栏 */
+.ssmodal_statusbar {
+  background-color: $ssmodal-statusbar-bgcolor;
+  border-top: 1px solid $ssmodal-statusbar-border-top;
+  padding: 5px;
+  border-radius: 0 0 4px 4px;
+}
+
+/* 状态栏内容 */
+.ssmodal_statusbar_content {
+  color: $ssmodal-statusbar-content-color;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: normal;
+  padding-left: 4px;
+  text-align: right;
+}
+
+/* 状态栏 */
+.ssmodal_statusbar_handle {
+  width: 10px;
+  height: 10px;
+  stroke: $ssmodal-statusbar-handle-stroke;
+}
+
+.ssmodal_resizer {
+  font: inherit;
+}
+
+.ssmodal_resizer_top {
+  height: 5px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  cursor: ns-resize;
+}
+
+.ssmodal_resizer_bottom {
+  bottom: -3px;
+  height: 5px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  cursor: ns-resize;
+}
+
+.ssmodal_resizer_left {
+  left: -3px;
+  width: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: ew-resize
+}
+
+.ssmodal_resizer_right {
+  right: -3px;
+  width: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: ew-resize;
+}
+
+.ssmodal_resizer_topleft {
+  top: -3px;
+  left: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nwse-resize;
+}
+
+.ssmodal_resizer_topright {
+  top: -3px;
+  right: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nesw-resize;
+}
+
+.ssmodal_resizer_bottomleft {
+  bottom: -3px;
+  left: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nesw-resize;
+}
+
+.ssmodal_resizer_bottomright {
+  bottom: -3px;
+  right: -3px;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  cursor: nwse-resize;
+}
+
+/*
+    *停靠时背景
+    ffffffb3
+    */
+.ssmodal .dockside {
+  background: -webkit-linear-gradient(to right, $ssmodal-dockside-gradient-start, $ssmodal-dockside-gradient-end);
+  background: linear-gradient(to right, $ssmodal-dockside-gradient-start, $ssmodal-dockside-gradient-end);
+}
+
+.ssmodal .dockside .ssmodal_titlebar_button {
+  stroke: $ssmodal-dockside-titlebar-button-stroke;
+}
+
+.ssmodal .dockside .ssmodal_titlebar_text {
+  color: $ssmodal-dockside-titlebar-text-color;
+}
+
+/*最小化占位*/
+.ssmodal_minplaceholder {
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  display: none;
+}

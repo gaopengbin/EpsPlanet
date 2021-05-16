@@ -1,0 +1,76 @@
+// 浏览器前缀
+@mixin prefix($stylename, $value, $options: webkit moz o ms) {
+    #{$stylename}: $value;
+
+    @each $option in $options {
+        @if $option==webkit {
+            -webkit-#{$stylename}: $value;
+        }
+
+        @else if $option==moz {
+            -moz-#{$stylename}: #{$value};
+        }
+
+        @else if $option==o {
+            -o-#{$stylename}: #{$value};
+        }
+
+        @else if $option==ms {
+            -ms-#{$stylename}: #{$value};
+        }
+    }
+}
+
+// 浮动
+@mixin float($f: left) {
+    float: $f;
+}
+
+// 清除浮动
+@mixin clearfix() {
+    zoom: 1;
+
+    &:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+}
+
+// 三角形
+@mixin triangle($size, $dir, $color) {
+    display: block;
+    width: 0;
+    height: 0;
+    border: $size solid transparent;
+    border-#{$dir}: $size solid #{$color};
+}
+
+// 设置宽高
+@mixin size($w, $h: auto) {
+    width: $w;
+    height: $h;
+}
+
+// 标题一行，多余用省略号
+@mixin text-overflow {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// 文字不换行
+@mixin word-break {
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+// 圆角
+@mixin border-radius($radius) {
+    //-webkit-border-radius: $radius;
+   //-moz-border-radius: $radius;
+    //border-radius: $radius;
+    @include prefix(border-radius, $radius);
+}

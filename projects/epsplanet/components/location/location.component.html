@@ -1,0 +1,31 @@
+<div>
+  <span>{{item.X.label}}</span>
+  <nz-input-number
+      [(ngModel)]="XValue" 
+      [nzMin]="item.X.min" 
+      [nzMax]="item.X.max"
+      [nzStep]="0.0001" 
+      [nzPlaceHolder]="item.X.placeHolder">
+  </nz-input-number>
+</div>
+<div>
+  <span>{{item.Y.label}}</span>
+  <nz-input-number 
+      [(ngModel)]="YValue" 
+      [nzMin]="item.Y.min" 
+      [nzMax]="item.Y.max"
+      [nzStep]="0.0001" 
+      [nzPlaceHolder]="item.Y.placeHolder">
+  </nz-input-number>
+</div>
+<div *ngIf="item.Z">
+  <span>{{item.Z.label}}</span>
+  <nz-input-number 
+      [(ngModel)]="ZValue" 
+      [nzStep]="1" 
+      [nzPlaceHolder]="item.Z.placeHolder">
+  </nz-input-number>
+</div>
+<div>
+  <button nz-button nzType="primary" (click)="location()">定位</button>
+</div>

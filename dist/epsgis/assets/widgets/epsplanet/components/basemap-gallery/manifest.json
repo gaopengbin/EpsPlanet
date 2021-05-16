@@ -1,0 +1,14 @@
+{
+    "name": "epsgis-planet-basemap-gallery",
+    "platform": "pc",
+    "version": "1.0",
+    "author": "Sunway",
+    "description": "",
+    "copyright": "",
+    "license": "UNLICENSED",
+    "icon":"icon-epsgis-basemap",
+    "properties": {
+        "hasConfig": true,
+        "inPanel": true
+    }
+}

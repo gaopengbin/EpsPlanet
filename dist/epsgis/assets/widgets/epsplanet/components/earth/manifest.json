@@ -1,0 +1,13 @@
+{
+    "name": "epsgis-planet-earth",
+    "platform": "pc",
+    "version": "1.0",
+    "author": "Sunway",
+    "description": "",
+    "copyright": "",
+    "license": "UNLICENSED",
+    "properties": {
+        "hasConfig": true,
+        "inPanel": false
+    }
+}

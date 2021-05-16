@@ -1,0 +1,42 @@
+{
+    "title": "EPS Planet测试",
+    "subtitle": "山维科技",
+    "logo": "images/sunwaylogo.png",
+    "apiRootUrl": "http://2.2.2.3/nrless.webapi",
+    "widgetRootPath": "widgets-dev",
+    "log":true,
+    "path": "",
+    "urlParams": {
+      "mode": ""
+    },
+    "jimuConfig": {
+      "zIndex": "auto",
+      "isDesignMode": false,
+      "isSettings": false,
+      "mapId": "mapContainer"
+    },
+    "appInfo": {
+      "path": "",
+      "configFile": "assets/config.json",
+      "extendInitjs": "",
+      "folderUrlPrefix": "",
+      "appPath": "",
+      "isRunInMobile": false
+    },
+    "dojoConfig": {
+      "locale": ""
+    },
+    "epsoConfig": {
+      "showWorkAreaInAddUser": true,
+      "defaultCityCode": "520100"
+    },
+    "menuConfig": {
+      "notReuseRoutes": [],
+      "notShowInTabRoutes": [],
+      "menuData": []
+    },
+    "mapConfig": {
+      "is3D": true,
+      "jsApi": "assets/EPSPlanet_SDK"
+    }
+  }

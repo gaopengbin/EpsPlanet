@@ -1,0 +1,135 @@
+// 全局 config.json 文件的配置描述
+// 版本 1.0
+// 时间 2020/5/26
+// 版本 1.01
+// modify by sy 2020/6/22
+// 版本 1.02
+// modify by sy 2020/7/19
+// widget增加对configPath和config节点
+{
+  // title 可选的 string webgis的标题
+  "title": "湖北省国土测绘院",
+  // subtitle 可选的 string webgis的副标题
+  "subtitle": "不动产二三维展示系统",
+  // logo 可选的 string webgis的logo
+  "logo": "images/sunwaylogo.png",
+  // appAuthKey 必需的 string webgis的授权参数
+  appAuthKey":"9be2831ca8e13518a8c3a0b64c05b37507bb79b08ce266f5ed9bbfe45b00832f821979f64f392ce75f3ac1a19a752144fd37202d7fc33444f62484d82e9003072fe7",
+  // map 必需的 object webgis视图的相关参数
+  "map": {
+    // jsApi 必需的 string webgis引用的api地址
+    "jsApi": "http://localhost/arcgis_js_v413_api/init.js",
+    // uri 必需的 string webgis view或map的模块路径
+    "uri": "epsgis-arc3d-View",
+    // position 必需的 object 地图视图在浏览器的位置信息
+    "position": {
+      // left 必需的 number 地图视图到浏览器左边框的距离
+      "left": 0,
+      // top 必需的 number 地图视图到浏览器上边框的距离
+      "top": 0,
+      // right 必需的 number 地图视图到浏览器右边框的距离
+      "right": 0,
+      // bottom 必需的 number 地图视图到浏览器下边框的距离
+      "bottom": 0,
+      // relativeTo 必需的 string 地图视图定位基点，这里永远是browser
+      "relativeTo": "browser"
+    }
+  },
+  // geometryServiceUrl 可选的 string geometryService的服务地址，某些需要运算的模块可能会需要使用
+  "geometryServiceUrl": "http://sun:6080/arcgis/rest/services/Utilities/Geometry/GeometryServer",
+  // widgetOnScreen 必需的 object 屏幕上的模块
+  "widgetOnScreen": {
+    // widgets 必需的 object[] 屏幕上的模块列表
+    "widgets": [
+      {
+        // label 必需的 string 模块名称
+        "label": "图层列表",
+        // uri 必需的 string 模块的地址
+        "uri": "epsgis-arc3d-LayerList",
+        // icon 必需的 string 模块的图标
+        "icon": "images/icon.png",
+        // position 必需的 object 模块的位置
+        "position": {
+          // left 可选的 number|string 模块图标到基点左边框的距离
+          "left": 15,
+          // top 可选的 number|string 模块图标到基点上边框的距离
+          "top": 300,
+          // right 可选的 number|string 模块图标到基点右边框的距离
+          "right": 0,
+          // bottom 可选的 number|string 模块图标到基点下边框的距离
+          "bottom": 0,
+          // relativeTo 必需的 string 模块定位基点，这里可以是browser或map
+          "relativeTo": "map"
+        },
+        // configPath 可选的 string 模块配置文件的路径，默认为config.json
+        "configPath":"configs/2.json",
+        // config 可选的 object 模块的配置文件内容，优先级高于模块下的配置文件
+        "config":{}
+      },
+      {
+        "label": "底图",
+        "uri": "epsgis-arc3d-BasemapGallery",
+        "icon": "images/icon.png",
+        "position": {
+          "top": 350,
+          "left": 15,
+          "relativeTo": "map"
+        }
+      },
+      {
+        "label": "图例",
+        "uri": "epsgis-arc3d-Legend",
+        "icon": "images/icon.png",
+        "position": {
+          "top": 400,
+          "left": 15,
+          "relativeTo": "map"
+        }
+      },
+      {
+        "label": "查询",
+        "uri": "epsgis-arc3d-eQuery",
+        "icon": "images/icon.png",
+        "position": {
+          "top": 500,
+          "left": 15,
+          "relativeTo": "map"
+        }
+      },
+      {
+        "label": "定位",
+        "uri": "epsgis-arc3d-Location",
+        "icon": "images/icon.png",
+        "position": {
+          "left": 15,
+          "bottom": 20,
+          "width": 200,
+          "height": 200,
+          "relativeTo": "map"
+        }
+      },
+      {
+        "label": "坐标",
+        "uri": "epsgis-arc3d-Coordinate",
+        "icon": "images/icon.png",
+        "position": {
+          "left": 0,
+          "bottom": 0,
+          "relativeTo": "map"
+        }
+      },
+      {
+        "label": "分屏显示",
+        "uri": "epsgis-arc3d-SplitScreen",
+        "position": {
+          "left": 100,
+          "top": 10,
+          "width": "auto",
+          "height": "auto",
+          "relativeTo": "map"
+        }
+      }
+    ]
+  },
+  "widgetPool": {}
+}

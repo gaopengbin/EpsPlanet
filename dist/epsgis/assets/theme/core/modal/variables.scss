@@ -1,0 +1,171 @@
+/**Modal Button Colors**/
+$ss-btn-border-color:#d9d9d9 !default;
+$ss-btn-box-shadow:rgba(0, 0, 0, .015) !default;
+$ss-btn-color:rgba(0, 0, 0, .65) !default;
+$ss-btn-bgcolor:#fff !default;
+
+$ss-btn-color-focus-hover:#40a9ff !default;
+$ss-btn-border-color-focus-hover:#40a9ff !default;
+
+
+$ss-btn-color-active:#096dd9 !default;
+$ss-btn-border-color-active:#096dd9 !default;
+$ss-btn-border-color-active-only-child:currentColor !default;
+
+$ss-btn-color-disabled:rgba(0, 0, 0, .25) !default;
+$ss-btn-bgcolor-disabled:#f5f5f5 !default;
+$ss-btn-border-color-disabled:#d9d9d9 !default;
+$ss-btn-color-disabled-active-only-child:currentColor !default;
+$ss-btn-bgcolor-active:#fff !default;
+
+
+$ss-btn-primary-color:#fff !default;
+$ss-btn-primary-bgcolor:#1890ff !default;
+$ss-btn-primary-border-color:#1890ff !default;
+$ss-btn-primary-text-shadow:rgba(0, 0, 0, .12) !default;
+$ss-btn-primary-box-shadow:rgba(0, 0, 0, .045) !default;
+$ss-btn-primary-color-only-child:currentColor !default;
+
+$ss-btn-primary-color-focus-hover:#fff !default;
+$ss-btn-primary-bgcolor-focus-hover:#40a9ff !default;
+$ss-btn-primary-border-color-focus-hover:#40a9ff !default;
+
+$ss-btn-primary-color-focus-hover-only-child:currentColor !default;
+
+$ss-btn-primary-color-active:#fff !default;
+$ss-btn-primary-bgcolor-active:#096dd9 !default;
+$ss-btn-primary-border-color-active:#096dd9 !default;
+$ss-btn-primary-color-active-only-child:currentColor !default;
+
+$ss-btn-primary-color-disabled:rgba(0, 0, 0, .25) !default;
+$ss-btn-primary-bgcolor-disabled:#f5f5f5 !default;
+$ss-btn-primary-border-color-disabled:#d9d9d9 !default;
+$ss-btn-primary-color-disabled-only-child:currentColor !default;
+
+$ss-btn-group-primary-not-first-last-child-border-right-color:#40a9ff !default;
+$ss-btn-group-primary-not-first-last-child-border-left-color:#40a9ff !default;
+$ss-btn-group-primary-not-first-last-child-border-color-disabled:#d9d9d9 !default;
+$ss-btn-group-primary-first-child-not-last-child-border-right-color:#40a9ff !default;
+$ss-btn-group-primary-first-child-not-last-child-border-right-color-disabled:#d9d9d9 !default;
+$ss-btn-group-primary-last-child-not-first-child-border-left-color:#40a9ff !default;
+$ss-btn-group-primary-last-child-not-first-child-border-left-color-disabled:#d9d9d9 !default;
+
+
+$ss-btn-ghost-color:rgba(0, 0, 0, .65) !default;
+$ss-btn-ghost-bgcolor:transparent !default;
+$ss-btn-ghost-border-color:#d9d9d9 !default;
+$ss-btn-ghost-color-only-child:currentColor !default;
+
+$ss-btn-ghost-color-focus-hover:#40a9ff !default;
+$ss-btn-ghost-bgcolor-focus-hover:transparent !default;
+$ss-btn-ghost-border-color-focus-hover:#40a9ff !default;
+
+$ss-btn-ghost-color-focus-hover-only-child:currentColor !default;
+
+$ss-btn-ghost-color-active:#096dd9 !default;
+$ss-btn-ghost-bgcolor-active:transparent !default;
+$ss-btn-ghost-border-color-active:#096dd9 !default;
+
+$ss-btn-ghost-color-active-only-child:currentColor !default;
+
+
+$ss-btn-ghost-color-disabled:rgba(0, 0, 0, .25) !default;
+$ss-btn-ghost-bgcolor-disabled:#f5f5f5 !default;
+$ss-btn-ghost-border-color-disabled:#d9d9d9 !default;
+
+//.ss-btn-ghost-disabled.active>a:only-child
+
+$ss-btn-dashed-color:rgba(0, 0, 0, .65) !default;
+$ss-btn-dashed-bgcolor:fff !default;
+$ss-btn-dashed-border-color:#d9d9d9 !default;
+//.ss-btn-dashed>a:only-child
+
+$ss-btn-dashed-color-focus-hover:#40a9ff !default;
+$ss-btn-dashed-bgcolor-focus-hover:#fff !default;
+$ss-btn-dashed-border-color-focus-hover:#40a9ff !default;
+//.ss-btn-dashed:focus>a:only-child, .ss-btn-dashed:hover>a:only-child
+
+$ss-btn-dashed-color-active:#096dd9 !default;
+$ss-btn-dashed-bgcolor-active:#fff !default;
+$ss-btn-dashed-border-color-active:#096dd9 !default;
+//ss-btn-dashed.active>a:only-child, .ss-btn-dashed:active>a:only-child
+
+$ss-btn-dashed-color-disabled:rgba(0, 0, 0, .25) !default;
+$ss-btn-dashed-bgcolor-disabled:#f5f5f5 !default;
+$ss-btn-dashed-border-color-disabled:#d9d9d9 !default;
+//.ss-btn-dashed-disabled.active>a:only-child
+
+$ss-btn-danger-color:#fff !default;
+$ss-btn-danger-bgcolor:#ff4d4f !default;
+$ss-btn-danger-border-color:#ff4d4f !default;
+$ss-btn-danger-text-shadow:rgba(0, 0, 0, .12) !default;
+$ss-btn-danger-box-shadow:rgba(0, 0, 0, .045) !default;
+//.ss-btn-danger>a:only-child
+
+$ss-btn-danger-color-focus-hover:#fff !default;
+$ss-btn-danger-bgcolor-focus-hover:#ff7875 !default;
+$ss-btn-danger-border-color-focus-hover:#ff7875 !default;
+
+$ss-btn-danger-color-active:#fff !default;
+$ss-btn-danger-bgcolor-active:#d9363e !default;
+$ss-btn-danger-border-color-active:#d9363e !default;
+// .ss-btn-danger.active>a:only-child
+
+$ss-btn-danger-color-disabled:rgba(0, 0, 0, .25) !default;
+$ss-btn-danger-bgcolor-disabled:#f5f5f5 !default;
+$ss-btn-danger-border-color-disabled:#d9d9d9 !default;
+//.ss-btn-danger-disabled.active>a:only-child
+
+$ss-btn-link-color:#1890ff !default;
+$ss-btn-link-bgcolor:transparent !default;
+$ss-btn-link-border-color:transparent !default;
+//.ss-btn-link>a:only-child
+
+$ss-btn-link-color-focus-hover:#40a9ff !default;
+$ss-btn-link-bgcolor-focus-hover:transparent !default;
+//.ss-btn-link:focus>a:only-child
+
+$ss-btn-link-color-active:#096dd9 !default;
+$ss-btn-link-bgcolor-active:transparent !default;
+$ss-btn-link-border-color-active:#096dd9 !default;
+//.ss-btn-link.active>a:only-child
+
+$ss-btn-link-color-disabled:rgba(0, 0, 0, .25) !default;
+$ss-btn-link-bgcolor-disabled:transparent !default;
+$ss-btn-link-border-color-disabled:transparent !default;
+$ss-btn-link-border-color-active-focus-hover :transparent !default;
+//.ss-btn-link-disabled.active>a:only-child
+
+$ss-btn-bgcolor-before:#fff !default;
+
+
+/**Modal Colors**/
+/*模态阴影*/
+$ssmodal-overlay-bgcolor:rgba(0, 0, 0, 0.5) !default;
+/*Panel*/
+$ssmodal-color:#303030 !default;
+$ssmodal-bgcolor:#fcfcfc !default;
+$ssmodal-border:#c8c8c8 !default;
+$ssmodal-box-shadow:#a0a0a0 !default;
+/*标题栏*/
+$ssmodal-titlebar-bgcolor:#4390f7 !default;
+$ssmodal-titlebar-text-color:#ffffff !default;
+$ssmodal-titlebar-button-bgcolor:transparent !default;
+$ssmodal-titlebar-button-stroke: floralwhite !default;
+
+$ssmodal-titlebar-button-bgcolor-hover:#fafafa !default;
+$ssmodal-titlebar-button-stroke-hover:#6e6e6e !default;
+$ssmodal-titlebar-button-bgcolor-active:#e0e0e0 !default;
+/*内容*/
+$ssmodal-content-border-top:#c8c8c8 !default;
+/*状态栏*/
+$ssmodal-statusbar-bgcolor:#f0f0f0 !default;
+$ssmodal-statusbar-border-top:#c8c8c8 !default;
+$ssmodal-statusbar-content-color:#303030 !default;
+$ssmodal-statusbar-handle-stroke: #a0a0a0 !default;
+
+/*停靠*/
+$ssmodal-dockside-gradient-start:#eee !default;
+$ssmodal-dockside-gradient-end:#fff !default;
+$ssmodal-dockside-titlebar-button-stroke:#929AA4 !default;
+$ssmodal-dockside-titlebar-text-color: grey !default;
