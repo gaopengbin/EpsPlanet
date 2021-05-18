@@ -51,11 +51,13 @@ export class PlanetBasemapGalleryComponent extends BasePlanetWidgetComponent {
   * 选中状态改变
   */
   onCheckedChange(evt: NzFormatEmitEvent): void {
+    // SceneTreeUtils.GetXbsjCzmObject(evt.node).show = false
     if (evt.eventName !== "check" || !evt.node) {
       return;
     }
     if (evt.node.isChecked) {
       //加载图层
+      // evt.node.origin.origin.show=true
       SceneTreeUtils.GetXbsjCzmObject(evt.node).show = true;
     } else {
       //移除图层
@@ -83,9 +85,11 @@ export class PlanetBasemapGalleryComponent extends BasePlanetWidgetComponent {
   }
   selectImage(item) {
     console.log(SceneTreeUtils.loadLayerNode(item))
+    let node=SceneTreeUtils.loadLayerNode(item)
+    node.czmObject.show=true;
     const earth = this.view;
     // earth.sceneTree.root.children[0] = {};
-    earth.sceneTree.$refs.basemap.children[0] = SceneTreeUtils.loadLayerNode(item);
+    earth.sceneTree.$refs.basemap.children[0] = node;
   }
   selectTerrain(item) {
     this.view.sceneTree.$refs.basemap.children.push(item)

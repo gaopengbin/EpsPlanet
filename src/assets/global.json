@@ -37,6 +37,6 @@
     },
     "mapConfig": {
       "is3D": true,
-      "jsApi": "assets/EPSPlanet_SDK"
+      "jsApi": "http://39.152.17.16:11281/cesiumlab2/dist"
     }
   }

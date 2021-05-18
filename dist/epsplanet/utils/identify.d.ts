@@ -13,7 +13,7 @@ export declare class Identify {
     };
     Cartesian2ToCartographic(viewer: any, position: any): any[];
     GetWFSUrl(ImageryProvider: any): string;
-    Buffer(position: any): string;
+    Buffer(position: any, meters: any): string;
     pointsToDegreesArray(points: any): string;
     ClearHighLight(): void;
     xml2Json(xml: any): {};

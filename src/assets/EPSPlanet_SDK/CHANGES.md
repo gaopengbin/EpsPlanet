@@ -1,10 +1,11 @@
 Change Log
 ==========
 
-### 1.6.1 - 2021-4-16
-##### Fixes :wrench:
+### 1.6.1 - 2021-5-17
+##### Fixes :jojo:
 * 让3dtiles数据的allowPicking属性生效
 * 3dtiles加载采用共享纹理模式
+* WMS图层透明度支持 
 
 ### 1.6.0 - 2021-4-13
 ##### Fixes :wrench:

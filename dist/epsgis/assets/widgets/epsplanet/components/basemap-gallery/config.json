@@ -49,22 +49,24 @@
             "ref": "openStreetmap"
         }
     ],
-    "basemapSchema": [
+    "terrain": [
         {
-            "en": "alpha",
-            "zh": "透明度"
-        },
-        {
-            "en": "brightness",
-            "zh": "亮度"
-        },
-        {
-            "en": "saturation",
-            "zh": "饱和度"
-        },
-        {
-            "en": "contrast",
-            "zh": "对比度"
+            "czmObject": {
+                "xbsjType": "Terrain",
+                "xbsjGuid": "0b34ebd4-5a5b-4f1d-b2e8-a41797193aa8",
+                "name": "中国14级（测试）",
+                "xbsjTerrainProvider": {
+                    "type": "XbsjCesiumTerrainProvider",
+                    "XbsjEllipsoidTerrainProvider": {},
+                    "XbsjCesiumTerrainProvider": {
+                        "url": "https://lab.earthsdk.com/terrain/577fd5b0ac1f11e99dbd8fd044883638",
+                        "requestVertexNormals": true,
+                        "requestWaterMask": true
+                    },
+                    "GoogleEarthEnterpriseTerrainProvider": {}
+                }
+            },
+            "imgUrl":"https://lab2.cesiumlab.com/upload/3fd1ac60-2683-4ae8-a5da-c0250edc836b/2019_08_02_19_45_38.jpg"
         }
     ]
 }

@@ -9,3 +9,6 @@ i:hover{
 ::ng-deep .sspanel_content{
     overflow: overlay !important;
 }
+::ng-deep .leaf .ant-tree-checkbox-inner{
+    left: 30px;
+}

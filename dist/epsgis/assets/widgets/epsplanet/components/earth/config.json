@@ -10,355 +10,178 @@
     "basemaps": [
         {
             "type": "Imagery",
-            "title": "百度黑色风格",
-            "url": "http://api2.map.bdimg.com/customimage/tile?=&x={x}&y={y}&z={z}&scale=1&customid=dark",
+            "title": "百度地图",
+            "url": "http://online1.map.bdimg.com/onlinelabel/?qt=tile&x={x}&y={y}&z={z}&styles=pl&scaler=1&p=1",
             "srcCoordType": "BD09",
-            "ref": "baiduheise",
-            "guid": "baiduheise2729f6df"
+            "ref": "baidu",
+            "guid": "baidub42daae8"
         }
     ],
     "layers": [
         {
-            "title": "三维测试",
-            "expand": false,
+            "title": "数据资源列表",
             "children": [
                 {
+                    "type": "Imagery",
+                    "title": "高德影像",
+                    "imgUrl": "https://lab2.cesiumlab.com/upload/860ede97-8461-408c-979e-dc4a213849b8/2019_07_30_19_39_07.jpg",
+                    "url": "//webst02.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}",
+                    "srcCoordType": "GCJ02",
+                    "ref": "gaodeyingxiang",
+                    "show": true
+                },
+                {
                     "type": "Tileset",
-                    "title": "故宫",
-                    "url": "https://lab.earthsdk.com/model/be0b1610c0d711e99f7ddd77cbe22fea/tileset.json",
+                    "title": "地形",
+                    "url": "https://lab.earthsdk.com/terrain/577fd5b0ac1f11e99dbd8fd044883638",
                     "ref": "gugong",
-                    "show": false,
-                    "extendOptions": {}
-                },
-                {
-                    "type": "Tileset",
-                    "title": "小工厂",
-                    "url": "https://lab.earthsdk.com/model/887b3db0cd4f11eab7a4adf1d6568ff7/tileset.json",
-                    "ref": "factory",
-                    "show": false,
-                    "extendOptions": {}
-                },
-                {
-                    "type": "Tileset",
-                    "title": "武汉白膜",
-                    "url": "http://www.sunwaywh.top:180/wuhan/tileset.json",
-                    "ref": "wuhan",
-                    "show": false,
-                    "extendOptions": {}
-                },
-                {
-                    "type": "Tileset",
-                    "title": "美丽乡村",
-                    "url": "http://lab.earthsdk.com/model/b2039420837611eaae25edb63a66f405/tileset.json",
-                    "ref": "xiangcun",
-                    "show": false,
-                    "extendOptions": {}
-                },
-                {
-                    "type": "Tileset",
-                    "title": "BIM",
-                    "url": "https://lab.earthsdk.com/model/8028ba40ce5b11eab7a4adf1d6568ff7/tileset.json",
-                    "ref": "bim",
-                    "show": false,
-                    "extendOptions": {}
-                }
-            ]
-        },
-        {
-            "title": "二维数据",
-            "expand": false,
-            "children": [
-                {
-                    "type": "Imagery",
-                    "title": "building",
-                    "url": " ",
-                    "show": false,
-                    "guid": "676f89eec73d-48e39d60d6fd5bf27f5b",
+                    "show": true,
+                    "guid": "977ecbf31111",
                     "extendOptions": {
-                        "rectangle": [
-                            1.810843473238408,
-                            0.44539413288643337,
-                            1.8108792654971753,
-                            0.44543061563296155
-                        ],
-                        "xbsjImageryProvider": {
-                            "XbsjImageryProvider": {},
-                            "UrlTemplateImageryProvider": {},
-                            "SSWebMapServiceImageryProvider": {
-                                "url": "http://39.152.17.16:11202/arcgis/services/bdc/MapServer/WMSServer",
-                                "layer": "0,1,2,3"
+                        "xbsjType": "Terrain",
+                        "xbsjGuid": "1e0c36e6-2f17-464d-af84-1ae5afa514ee",
+                        "name": "中国14级（测试）",
+                        "xbsjTerrainProvider": {
+                            "type": "XbsjCesiumTerrainProvider",
+                            "XbsjEllipsoidTerrainProvider": {},
+                            "XbsjCesiumTerrainProvider": {
+                                "url": "https://lab.earthsdk.com/terrain/577fd5b0ac1f11e99dbd8fd044883638",
+                                "requestVertexNormals": true,
+                                "requestWaterMask": true
                             },
-                            "WebMapTileServiceImageryProvider": {},
-                            "ArcGisMapServerImageryProvider": {},
-                            "createTileMapServiceImageryProvider": {},
-                            "type": "SSWebMapServiceImageryProvider"
+                            "GoogleEarthEnterpriseTerrainProvider": {}
                         }
                     }
                 },
                 {
-                    "type": "Imagery",
-                    "title": "wms(arcgis server)",
-                    "url": " ",
-                    "show": false,
-                    "guid": "676f89eec73d-48e39d60d6fd5bf27b5b",
-                    "extendOptions": {
-                        "rectangle": [
-                            1.2818912775805744,
-                            0.05948914612849877,
-                            2.3576925237426245,
-                            0.9347621492394765
-                        ],
-                        "xbsjImageryProvider": {
-                            "XbsjImageryProvider": {},
-                            "UrlTemplateImageryProvider": {},
-                            "SSWebMapServiceImageryProvider": {
-                                "url": "http://82.156.16.159:6080/arcgis/services/xzqh/MapServer/WMSServer",
-                                "layer": "0,1,2"
-                            },
-                            "WebMapTileServiceImageryProvider": {},
-                            "ArcGisMapServerImageryProvider": {},
-                            "createTileMapServiceImageryProvider": {},
-                            "type": "SSWebMapServiceImageryProvider"
+                    "type": "Tileset",
+                    "title": "test",
+                    "url": "https://zcxt-model.oss-accelerate.aliyuncs.com/LJZ1_3DTiles/tileset.json",
+                    "ref": "test",
+                    "guid": "977ecbf32222",
+                    "extendOptions": {}
+                },
+                {
+                    "title": "小区",
+                    "children": [
+                        {
+                            "type": "Tileset",
+                            "title": "和谐家园",
+                            "url": "http://39.152.17.16:11280/star/3dtile/530302106007GB00001/tileset.json",
+                            "ref": "lou",
+                            "guid": "977ecbf3333",
+                            "extendOptions": {
+                                "xbsjPosition": [
+                                    1.8116696144971485,
+                                    0.44461381139539835,
+                                    1867.6978893564242
+                                ],
+                                "xbsjUseOriginTransform": false
+                            }
+                        },
+                        {
+                            "type": "Tileset",
+                            "title": "靖和园",
+                            "url": "http://39.152.17.16:11280/star/3dtile/530302110018GB00004/tileset.json",
+                            "ref": "lou",
+                            "guid": "977ecbf3333",
+                            "extendOptions": {
+                                "xbsjPosition": [
+                                    1.811847879717855,
+                                    0.44519897216651805,
+                                    1866.3252606030628
+                                ],
+                                "xbsjUseOriginTransform": false
+                            }
+                        },
+                        {
+                            "type": "Tileset",
+                            "title": "祥和家园",
+                            "url": "http://39.152.17.16:11280/star/3dtile/530302112035GB00001/tileset.json",
+                            "ref": "lou",
+                            "guid": "977ecbf3333",
+                            "extendOptions": {
+                                "xbsjPosition": [
+                                    1.8118317308016416,
+                                    0.44486837764796777,
+                                    1864.912398788424
+                                ],
+                                "xbsjUseOriginTransform": false
+                            }
+                        },
+                        {
+                            "show":true,
+                            "type": "Tileset",
+                            "title": "西区逸都",
+                            "url": "http://39.152.17.16:11280/star/3dtile/530302108005GB00001/tileset.json",
+                            "ref": "lou",
+                            "guid": "977ecbf3333",
+                            "extendOptions": {}
+                        },
+                        {
+                            "title":"xxq",
+                            "children":[
+                                {
+                                    "show":false,
+                                    "type": "Tileset",
+                                    "title": "和谐家园",
+                                    "url": "http://39.152.17.16:11280/star/3dtile/530302106007GB00001/tileset.json",
+                                    "ref": "lou",
+                                    "guid": "977ecbf3333",
+                                    "extendOptions": {
+                                        "xbsjPosition": [
+                                            1.8116696144971485,
+                                            0.44461381139539835,
+                                            1867.6978893564242
+                                        ],
+                                        "xbsjUseOriginTransform": false
+                                    }
+                                }
+                            ]
                         }
-                    }
+                    ]
+                },
+                {
+                    "type": "Tileset",
+                    "title": "OSGB",
+                    "url": "  http://39.152.17.16:11280/star/osgb/tileset.json",
+                    "ref": "dong",
+                    "guid": "977ecbf3444",
+                    "extendOptions": {}
                 },
                 {
                     "type": "Imagery",
-                    "title": "wms(geoserver)",
+                    "title": "MMS",
                     "url": " ",
-                    "show": false,
-                    "guid": "676f89eec73d-48e39d60d6fd5bff7b5b",
+                    "show": true,
+                    "guid": "676f89eec73d-48e39dl0d6fd5bf27b5b",
                     "extendOptions": {
                         "rectangle": [
-                            -2.1769739945944906,
-                            0.4355637921690517,
-                            -1.1688443646134319,
-                            0.8616993331721227
+                            1.811343057343621,
+                            0.44492801688197303,
+                            1.8121665859201868,
+                            0.4452768640853593
                         ],
                         "xbsjImageryProvider": {
                             "XbsjImageryProvider": {},
                             "UrlTemplateImageryProvider": {},
-                            "SSWebMapServiceImageryProvider": {
-                                "url": "http://localhost:8801/geoserver/topp/wms",
-                                "layer": "states"
-                            },
-                            "WebMapTileServiceImageryProvider": {},
-                            "ArcGisMapServerImageryProvider": {},
-                            "createTileMapServiceImageryProvider": {},
-                            "type": "SSWebMapServiceImageryProvider"
-                        }
-                    }
-                },
-                {
-                    "type": "Imagery",
-                    "title": "wmts(arcgis server)",
-                    "url": " ",
-                    "show": false,
-                    "guid": "676f89eec73d-48e39d60d6fd5bf27b8b",
-                    "extendOptions": {
-                        "rectangle": [
-                            2.0421587955079454,
-                            0.42648713908077746,
-                            2.052536601643766,
-                            0.4362044812662586
-                        ],
-                        "xbsjImageryProvider": {
-                            "XbsjImageryProvider": {},
-                            "UrlTemplateImageryProvider": {},
-                            "WebMapTileServiceImageryProvider": {
-                                "url": "http://82.156.16.159:6080/arcgis/rest/services/dxm/MapServer/WMTS/tile/1.0.0/{layer}/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}",
+                            "WebMapServiceImageryProvider": {
+                                "url": "http://39.152.17.16:11202/arcgis/services/bdc/MapServer/WMSServer?",
                                 "format": "image/png",
-                                "layer": "dxm",
+                                "layers": "0,1,2,3",
                                 "style": "default",
-                                "tileMatrixSetID": "default028mm",
-                                "tileMatrixLabels": [
-                                    "0",
-                                    "1",
-                                    "2",
-                                    "3",
-                                    "4",
-                                    "5",
-                                    "6",
-                                    "7",
-                                    "8",
-                                    "9",
-                                    "10",
-                                    "11",
-                                    "12",
-                                    "13",
-                                    "14",
-                                    "15",
-                                    "16",
-                                    "17",
-                                    "18",
-                                    "19",
-                                    "20",
-                                    "21"
-                                ],
-                                "maximumLevel": 19
+                                "tileWidth": null,
+                                "tileHeight": null,
+                                "tilingScheme": "",
+                                "minimumLevel": 1,
+                                "maximumLevel": "18",
+                                "srs": "EPSG:4326",
+                                "transparent":"true"
                             },
+                            "WebMapTileServiceImageryProvider": {},
+                            "ArcGisMapServerImageryProvider": {},
                             "createTileMapServiceImageryProvider": {},
-                            "type": "WebMapTileServiceImageryProvider"
-                        }
-                    }
-                },
-                {
-                    "type": "Imagery",
-                    "title": "wmts(geoserver)",
-                    "url": " ",
-                    "show": false,
-                    "guid": "676f89eec73d-48e39d60d6fd5bf27b8c",
-                    "extendOptions": {
-                        "rectangle": [
-                            2.510391257826561,
-                            -0.761802289294866,
-                            2.5914498809829065,
-                            -0.6906946957753514
-                        ],
-                        "xbsjImageryProvider": {
-                            "XbsjImageryProvider": {},
-                            "UrlTemplateImageryProvider": {},
-                            "WebMapTileServiceImageryProvider": {
-                                "url": "http://82.156.16.159:8888/geoserver/gwc/service/wmts?REQUEST=GetTile&VERSION=1.0.0&SERVICE=wmts&LAYER=topp:tasmania_state_boundaries&STYLE={style}&TILEMATRIXSET={TileMatrixSet}&TILEMATRIX={TileMatrix}&TILEROW={TileRow}&TILECOL={TileCol}&format=image/png",
-                                "format": "image/png",
-                                "layer": "topp:tasmania_state_boundaries",
-                                "style": "",
-                                "tileMatrixSetID": "EPSG:4326",
-                                "tileMatrixLabels": [
-                                    "EPSG:4326:0",
-                                    "EPSG:4326:1",
-                                    "EPSG:4326:2",
-                                    "EPSG:4326:3",
-                                    "EPSG:4326:4",
-                                    "EPSG:4326:5",
-                                    "EPSG:4326:6",
-                                    "EPSG:4326:7",
-                                    "EPSG:4326:8",
-                                    "EPSG:4326:9",
-                                    "EPSG:4326:10",
-                                    "EPSG:4326:11",
-                                    "EPSG:4326:12",
-                                    "EPSG:4326:13",
-                                    "EPSG:4326:14",
-                                    "EPSG:4326:15",
-                                    "EPSG:4326:16",
-                                    "EPSG:4326:17",
-                                    "EPSG:4326:18",
-                                    "EPSG:4326:19",
-                                    "EPSG:4326:20",
-                                    "EPSG:4326:21"
-                                ],
-                                "tilingScheme": "Geographic",
-                                "maximumLevel": 21
-                            },
-                            "createTileMapServiceImageryProvider": {},
-                            "type": "WebMapTileServiceImageryProvider"
-                        }
-                    }
-                },
-                {
-                    "type": "Imagery",
-                    "title": "测试图层1",
-                    "url": " ",
-                    "show": false,
-                    "guid": "676f89eec73d-48e39d6ad6fd5bf27b8c",
-                    "extendOptions": {
-                        "rectangle": [
-                            2.547685366016712,
-                            -0.7510491063338188,
-                            2.569468418985126,
-                            -0.7291210339578572
-                        ],
-                        "xbsjImageryProvider": {
-                            "XbsjImageryProvider": {},
-                            "UrlTemplateImageryProvider": {},
-                            "WebMapTileServiceImageryProvider": {
-                                "url": "http://82.156.16.159:8888/geoserver/gwc/service/wmts?REQUEST=GetTile&VERSION=1.0.0&SERVICE=wmts&LAYER=topp:tasmania_water_bodies&STYLE={style}&TILEMATRIXSET={TileMatrixSet}&TILEMATRIX={TileMatrix}&TILEROW={TileRow}&TILECOL={TileCol}&format=image/png",
-                                "format": "image/png",
-                                "layer": "topp:tasmania_water_bodies",
-                                "style": "cite_lakes",
-                                "tileMatrixSetID": "EPSG:4326",
-                                "tileMatrixLabels": [
-                                    "EPSG:4326:0",
-                                    "EPSG:4326:1",
-                                    "EPSG:4326:2",
-                                    "EPSG:4326:3",
-                                    "EPSG:4326:4",
-                                    "EPSG:4326:5",
-                                    "EPSG:4326:6",
-                                    "EPSG:4326:7",
-                                    "EPSG:4326:8",
-                                    "EPSG:4326:9",
-                                    "EPSG:4326:10",
-                                    "EPSG:4326:11",
-                                    "EPSG:4326:12",
-                                    "EPSG:4326:13",
-                                    "EPSG:4326:14",
-                                    "EPSG:4326:15",
-                                    "EPSG:4326:16",
-                                    "EPSG:4326:17",
-                                    "EPSG:4326:18",
-                                    "EPSG:4326:19",
-                                    "EPSG:4326:20",
-                                    "EPSG:4326:21"
-                                ],
-                                "tilingScheme": "Geographic",
-                                "maximumLevel": 21
-                            },
-                            "createTileMapServiceImageryProvider": {},
-                            "type": "WebMapTileServiceImageryProvider"
-                        }
-                    }
-                },
-                {
-                    "type": "Imagery",
-                    "title": "测试图层2",
-                    "url": " ",
-                    "extendOptions": {
-                        "rectangle": [
-                            -1.2923671800833572,
-                            0.7099937961523263,
-                            -1.2899348019713155,
-                            0.7135268661571383
-                        ],
-                        "xbsjImageryProvider": {
-                            "XbsjImageryProvider": {},
-                            "UrlTemplateImageryProvider": {},
-                            "WebMapTileServiceImageryProvider": {
-                                "url": "http://82.156.16.159:8888/geoserver/gwc/service/wmts?REQUEST=GetTile&VERSION=1.0.0&SERVICE=wmts&LAYER=tiger:poly_landmarks&STYLE={style}&TILEMATRIXSET={TileMatrixSet}&TILEMATRIX={TileMatrix}&TILEROW={TileRow}&TILECOL={TileCol}&format=image/png",
-                                "format": "image/png",
-                                "layer": "tiger:poly_landmarks",
-                                "style": "",
-                                "tileMatrixSetID": "EPSG:4326",
-                                "tileMatrixLabels": [
-                                    "EPSG:4326:0",
-                                    "EPSG:4326:1",
-                                    "EPSG:4326:2",
-                                    "EPSG:4326:3",
-                                    "EPSG:4326:4",
-                                    "EPSG:4326:5",
-                                    "EPSG:4326:6",
-                                    "EPSG:4326:7",
-                                    "EPSG:4326:8",
-                                    "EPSG:4326:9",
-                                    "EPSG:4326:10",
-                                    "EPSG:4326:11",
-                                    "EPSG:4326:12",
-                                    "EPSG:4326:13",
-                                    "EPSG:4326:14",
-                                    "EPSG:4326:15",
-                                    "EPSG:4326:16",
-                                    "EPSG:4326:17",
-                                    "EPSG:4326:18",
-                                    "EPSG:4326:19",
-                                    "EPSG:4326:20",
-                                    "EPSG:4326:21"
-                                ],
-                                "tilingScheme": "Geographic",
-                                "maximumLevel": 21
-                            },
-                            "createTileMapServiceImageryProvider": {},
-                            "type": "WebMapTileServiceImageryProvider"
+                            "type": "WebMapServiceImageryProvider"
                         }
                     }
                 }
@@ -367,17 +190,16 @@
     ],
     "mapOptions": {
         "center": [
-            111.76443,
-            30.34533,
-            50000
+            116.26984645340727,
+            40.10171604578351
         ],
         "extent": {
-            "xmin": 117.31627684978743,
-            "ymin": 24.465184434647206,
-            "xmax": 117.49630292132372,
-            "ymax": 24.665075646345503,
+            "xmin": 111.62833703451375,
+            "ymin": 30.44611769018731,
+            "xmax": 111.81645684742912,
+            "ymax": 30.60042366836017,
             "spatialReference": {
-                "wkid": 4490
+                "wkid": 4326
             }
         }
     }

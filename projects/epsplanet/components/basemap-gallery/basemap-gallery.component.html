@@ -36,9 +36,9 @@
     </nz-tab> -->
     <nz-tab nzTitle="地形">
           <ul>
-            <li *ngFor="let item of terrainData" (click)="selectTerrain(item)">
+            <li *ngFor="let item of this.config.terrain" (click)="selectTerrain(item)">
                 <div class="backimg">
-                    <img [src]="item.czmObject.img"><br>
+                    <img [src]="item.imgUrl"><br>
                     <span [title]="item.czmObject.name"
                         style="width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align: left;">{{item.czmObject.name}}</span>
                 </div>

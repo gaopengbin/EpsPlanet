@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/common/http'), require('@angular/core'), require('@angular/forms'), require('epsgis'), require('ng-zorro-antd/icon'), require('ng-zorro-antd/input'), require('ng-zorro-antd/input-number'), require('ng-zorro-antd/tree'), require('ng-zorro-antd/tree-view'), require('ng-zorro-antd/popover'), require('ng-zorro-antd/divider'), require('ng-zorro-antd/select'), require('ng-zorro-antd/button'), require('ng-zorro-antd/menu'), require('ng-zorro-antd/dropdown'), require('ng-zorro-antd/grid'), require('ng-zorro-antd/slider'), require('ng-zorro-antd/tabs'), require('ng-zorro-antd/modal'), require('ng-zorro-antd/table'), require('ng-zorro-antd/switch'), require('ng-zorro-antd/tooltip'), require('ng-zorro-antd/form'), require('lodash'), require('ng-zorro-antd/core/transition-patch'), require('ng-zorro-antd/core/wave'), require('turf')) :
     typeof define === 'function' && define.amd ? define('epsplanet', ['exports', '@angular/common', '@angular/common/http', '@angular/core', '@angular/forms', 'epsgis', 'ng-zorro-antd/icon', 'ng-zorro-antd/input', 'ng-zorro-antd/input-number', 'ng-zorro-antd/tree', 'ng-zorro-antd/tree-view', 'ng-zorro-antd/popover', 'ng-zorro-antd/divider', 'ng-zorro-antd/select', 'ng-zorro-antd/button', 'ng-zorro-antd/menu', 'ng-zorro-antd/dropdown', 'ng-zorro-antd/grid', 'ng-zorro-antd/slider', 'ng-zorro-antd/tabs', 'ng-zorro-antd/modal', 'ng-zorro-antd/table', 'ng-zorro-antd/switch', 'ng-zorro-antd/tooltip', 'ng-zorro-antd/form', 'lodash', 'ng-zorro-antd/core/transition-patch', 'ng-zorro-antd/core/wave', 'turf'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.epsplanet = {}, global.ng.common, global.ng.common.http, global.ng.core, global.ng.forms, global.epsgis, global.i1$1, global.input, global.i6, global.i2, global.treeView, global.i1$3, global.i4$2, global.select, global.i4$1, global.menu, global.i1$2, global.i3, global.i4, global.i2$3, global.modal, global.i7, global.i2$4, global.tooltip, global.form, global.lodash, global.i2$1, global.i5$1, global.turf));
-}(this, (function (exports, i2$2, http, i0, i5, i1, i1$1, input, i6, i2, treeView, i1$3, i4$2, select, i4$1, menu, i1$2, i3, i4, i2$3, modal, i7, i2$4, tooltip, form, lodash, i2$1, i5$1, turf) { 'use strict';
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.epsplanet = {}, global.ng.common, global.ng.common.http, global.ng.core, global.ng.forms, global.epsgis, global.i1$1, global.input, global.i6, global.i2, global.treeView, global.i1$3, global.i4$2, global.select, global.i4$1, global.menu, global.i1$2, global.i3, global.i4, global.i2$3, global.modal, global.i5$2, global._switch, global.tooltip, global.form, global.lodash, global.i2$1, global.i5$1, global.turf));
+}(this, (function (exports, i2$2, http, i0, i5, i1, i1$1, input, i6, i2, treeView, i1$3, i4$2, select, i4$1, menu, i1$2, i3, i4, i2$3, modal, i5$2, _switch, tooltip, form, lodash, i2$1, i5$1, turf) { 'use strict';
 
     function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -415,6 +415,7 @@
                     isLeaf: false,
                     parentNode: null
                 });
+                rootNode.level = -1;
             }
             var _layerNodes = [];
             if (rootNode) {
@@ -436,28 +437,62 @@
                 var node = null;
                 if (item.children) {
                     node = new i2.NzTreeNode({
+                        level: parentNode.level + 1,
                         title: item.title,
-                        expanded: item.expand === true,
-                        isChecked: true,
+                        isExpanded: item.expand === true,
                         key: item.guid || item.xbsjGuid || i1.IdGenerater.newGuid(),
                         origin: item,
                         isLeaf: false,
                         parentNode: parentNode
                     });
+                    node.parentNode = parentNode;
+                    node.level = parentNode.level + 1;
                     if (item.children.length >= 1) {
                         (_a = node.children).push.apply(_a, __spread(SceneTreeUtils.convertChildren(item.children, node)));
                     }
-                    console.log(node);
-                    node.isChecked = true;
+                    var checkList_1 = [];
+                    node.children.forEach(function (child) {
+                        if (child.children && child.children.length > 0) {
+                            checkList_1.push(child.isChecked);
+                        }
+                        else {
+                            if (child.origin.origin.show) {
+                                checkList_1.push(true);
+                            }
+                            else {
+                                checkList_1.push(false);
+                            }
+                        }
+                    });
+                    if (SceneTreeUtils.isAllEqual(checkList_1) && checkList_1[0] == true) {
+                        node.isChecked = true;
+                    }
+                    else if (SceneTreeUtils.isAllEqual(checkList_1) && checkList_1[0] == false) {
+                        node.isChecked = false;
+                    }
+                    else if (!SceneTreeUtils.isAllEqual(checkList_1)) {
+                        node.isHalfChecked = true;
+                    }
                     _layerNodes.push(node);
                 }
                 else {
                     var childNode = SceneTreeUtils.convertCzmObject(item.czmObject, parentNode);
                     childNode.parentNode = childNode.origin.parentNode;
+                    childNode.level = childNode.parentNode.level + 1;
                     _layerNodes.push(childNode);
                 }
             });
             return _layerNodes;
+        };
+        SceneTreeUtils.isAllEqual = function (array) {
+            if (array.length > 0) {
+                return !array.some(function (value, index) {
+                    return value !== array[0];
+                });
+            }
+            else {
+                return true;
+            }
         };
         SceneTreeUtils.convertCzmObject = function (czmObject, parentNode) {
             if (!czmObject) {
@@ -525,6 +560,7 @@
             else if (item.url || item.layer) {
                 var node = newXbsjLayerNode(item.type, item.title, item.url);
                 node.czmObject.xbsjGuid = item.guid;
+                node.czmObject.show = item.show ? true : false;
                 node.ref = item.ref;
                 if (node.czmObject.hasOwnProperty("xbsjImageryProvider")) {
                     if (item.srcCoordType) {
@@ -1160,11 +1196,10 @@
                 }] });
     })();
 
-    var _c0$2 = ["nzTreeComponent"];
     function PlanetLayerListComponent_ng_template_2_span_1_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementStart(0, "span");
-            i0.ɵɵelementStart(1, "span", 5);
+            i0.ɵɵelementStart(1, "span", 6);
             i0.ɵɵtext(2);
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
@@ -1178,14 +1213,14 @@
     function PlanetLayerListComponent_ng_template_2_span_2_Template(rf, ctx) {
         if (rf & 1) {
             var _r10_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "span");
-            i0.ɵɵelementStart(1, "span", 5);
+            i0.ɵɵelementStart(0, "span", 7);
+            i0.ɵɵelementStart(1, "span", 6);
             i0.ɵɵtext(2);
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(3, "i", 6);
+            i0.ɵɵelementStart(3, "i", 8);
             i0.ɵɵlistener("click", function PlanetLayerListComponent_ng_template_2_span_2_Template_i_click_3_listener() { i0.ɵɵrestoreView(_r10_1); var node_r3 = i0.ɵɵnextContext().$implicit; var ctx_r8 = i0.ɵɵnextContext(); return ctx_r8.setting(node_r3); });
             i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(4, "i", 7);
+            i0.ɵɵelementStart(4, "i", 9);
             i0.ɵɵlistener("click", function PlanetLayerListComponent_ng_template_2_span_2_Template_i_click_4_listener() { i0.ɵɵrestoreView(_r10_1); var node_r3 = i0.ɵɵnextContext().$implicit; var ctx_r11 = i0.ɵɵnextContext(); return ctx_r11.flyTo(node_r3); });
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
@@ -1204,7 +1239,7 @@
         if (rf & 1) {
             i0.ɵɵelementStart(0, "span", 3);
             i0.ɵɵtemplate(1, PlanetLayerListComponent_ng_template_2_span_1_Template, 3, 1, "span", 4);
-            i0.ɵɵtemplate(2, PlanetLayerListComponent_ng_template_2_span_2_Template, 5, 3, "span", 4);
+            i0.ɵɵtemplate(2, PlanetLayerListComponent_ng_template_2_span_2_Template, 5, 3, "span", 5);
             i0.ɵɵelementEnd();
         }
         if (rf & 2) {
@@ -1220,6 +1255,26 @@
         function PlanetLayerListComponent(modalService) {
             var _this = _super.call(this) || this;
             _this.modalService = modalService;
+            _this.testnode = [
+                {
+                    title: 'parent 0',
+                    key: '100',
+                    author: 'NG ZORRO',
+                    children: [
+                        { title: 'leaf 0-0', key: '1000', author: 'NG ZORRO' },
+                        { title: 'leaf 0-1', key: '1001', author: 'NG ZORRO', isLeaf: true }
+                    ]
+                },
+                {
+                    title: 'parent 1',
+                    key: '101',
+                    author: 'NG ZORRO',
+                    children: [
+                        { title: 'leaf 1-0', key: '1010', author: 'NG ZORRO', isLeaf: true },
+                        { title: 'leaf 1-1', key: '1011', author: 'NG ZORRO', isLeaf: true }
+                    ]
+                }
+            ];
             _this.layerNodes = [];
             _this.listOfData = [];
             _this.isShow = false;
@@ -1251,7 +1306,8 @@
             setTimeout(function () {
                 var _layerNodes = SceneTreeUtils.SceneTree2NgZorroTree(_this.view.sceneTree.$refs.layerlist);
                 console.log("sceneTree:", _layerNodes);
-                _this.layerNodes = __spread(_layerNodes[0]["children"]);
+                _this.layerNodes = _layerNodes[0]["children"];
+                console.log(_this.layerNodes);
             }, 100);
         };
         PlanetLayerListComponent.prototype.setting = function (node) {
@@ -1316,15 +1372,7 @@
         return PlanetLayerListComponent;
     }(BasePlanetWidgetComponent));
     exports.PlanetLayerListComponent.ɵfac = function PlanetLayerListComponent_Factory(t) { return new (t || exports.PlanetLayerListComponent)(i0.ɵɵdirectiveInject(i1.ModalManagerService)); };
-    exports.PlanetLayerListComponent.ɵcmp = i0.ɵɵdefineComponent({ type: exports.PlanetLayerListComponent, selectors: [["epsgis-planet-layer-list"]], viewQuery: function PlanetLayerListComponent_Query(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵviewQuery(_c0$2, 1);
-            }
-            if (rf & 2) {
-                var _t = void 0;
-                i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.nzTreeComponent = _t.first);
-            }
-        }, features: [i0.ɵɵInheritDefinitionFeature], decls: 4, vars: 2, consts: [["nzBlockNode", "", "nzCheckable", "", 3, "nzData", "nzTreeTemplate", "nzClick", "nzDblClick", "nzCheckBoxChange", "nzContextMenu"], ["nzTreeComponent", ""], ["nzTreeTemplate", ""], [1, "custom-node"], [4, "ngIf"], [1, "folder-name"], ["title", "\u53C2\u6570\u8C03\u6574", "nz-icon", "", 2, "float", "right", 3, "nzIconfont", "click"], ["title", "\u7F29\u653E\u81F3", "nz-icon", "", 2, "float", "right", 3, "nzIconfont", "click"]], template: function PlanetLayerListComponent_Template(rf, ctx) {
+    exports.PlanetLayerListComponent.ɵcmp = i0.ɵɵdefineComponent({ type: exports.PlanetLayerListComponent, selectors: [["epsgis-planet-layer-list"]], features: [i0.ɵɵInheritDefinitionFeature], decls: 4, vars: 2, consts: [["nzBlockNode", "", "nzCheckable", "", 3, "nzData", "nzTreeTemplate", "nzClick", "nzDblClick", "nzCheckBoxChange", "nzContextMenu"], ["nzTreeComponent", ""], ["nzTreeTemplate", ""], [1, "custom-node"], [4, "ngIf"], ["class", "leaf", 4, "ngIf"], [1, "folder-name"], [1, "leaf"], ["title", "\u53C2\u6570\u8C03\u6574", "nz-icon", "", 2, "float", "right", 3, "nzIconfont", "click"], ["title", "\u7F29\u653E\u81F3", "nz-icon", "", 2, "float", "right", 3, "nzIconfont", "click"]], template: function PlanetLayerListComponent_Template(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵelementStart(0, "nz-tree", 0, 1);
                 i0.ɵɵlistener("nzClick", function PlanetLayerListComponent_Template_nz_tree_nzClick_0_listener($event) { return ctx.onLeftClickNode($event); })("nzDblClick", function PlanetLayerListComponent_Template_nz_tree_nzDblClick_0_listener($event) { return ctx.onDblClickNode($event); })("nzCheckBoxChange", function PlanetLayerListComponent_Template_nz_tree_nzCheckBoxChange_0_listener($event) { return ctx.onCheckedChange($event); })("nzContextMenu", function PlanetLayerListComponent_Template_nz_tree_nzContextMenu_0_listener($event) { return ctx.onRightClick($event); });
@@ -1335,7 +1383,7 @@
                 var _r1 = i0.ɵɵreference(3);
                 i0.ɵɵproperty("nzData", ctx.layerNodes)("nzTreeTemplate", _r1);
             }
-        }, directives: [i2.NzTreeComponent, i2$2.NgIf, i1$1.NzIconDirective, i2$1.ɵNzTransitionPatchDirective], styles: ["i[_ngcontent-%COMP%]{font-size:16px;margin-right:5px}i[_ngcontent-%COMP%]:hover{font-size:20px}  .sspanel_content{overflow:overlay!important}"] });
+        }, directives: [i2.NzTreeComponent, i2$2.NgIf, i1$1.NzIconDirective, i2$1.ɵNzTransitionPatchDirective], styles: ["i[_ngcontent-%COMP%]{font-size:16px;margin-right:5px}i[_ngcontent-%COMP%]:hover{font-size:20px}  .sspanel_content{overflow:overlay!important}  .leaf .ant-tree-checkbox-inner{left:30px}"] });
     exports.PlanetLayerListComponent = __decorate([
         i1.ComponentRegister({
             uri: "epsgis-planet-layer-list",
@@ -1351,10 +1399,7 @@
                         templateUrl: './layer-list.component.html',
                         styleUrls: ['./layer-list.component.scss'],
                     }]
-            }], function () { return [{ type: i1.ModalManagerService }]; }, { nzTreeComponent: [{
-                    type: i0.ViewChild,
-                    args: ['nzTreeComponent', { static: false }]
-                }] });
+            }], function () { return [{ type: i1.ModalManagerService }]; }, null);
     })();
 
     function PlanetLocationComponent_div_8_Template(rf, ctx) {
@@ -1983,7 +2028,7 @@
         if (rf & 2) {
             var item_r7 = ctx.$implicit;
             i0.ɵɵadvance(2);
-            i0.ɵɵproperty("src", item_r7.czmObject.img, i0.ɵɵsanitizeUrl);
+            i0.ɵɵproperty("src", item_r7.imgUrl, i0.ɵɵsanitizeUrl);
             i0.ɵɵadvance(2);
             i0.ɵɵproperty("title", item_r7.czmObject.name);
             i0.ɵɵadvance(1);
@@ -2096,8 +2141,10 @@
         };
         PlanetBasemapGalleryComponent.prototype.selectImage = function (item) {
             console.log(SceneTreeUtils.loadLayerNode(item));
+            var node = SceneTreeUtils.loadLayerNode(item);
+            node.czmObject.show = true;
             var earth = this.view;
-            earth.sceneTree.$refs.basemap.children[0] = SceneTreeUtils.loadLayerNode(item);
+            earth.sceneTree.$refs.basemap.children[0] = node;
         };
         PlanetBasemapGalleryComponent.prototype.selectTerrain = function (item) {
             this.view.sceneTree.$refs.basemap.children.push(item);
@@ -2138,7 +2185,7 @@
                 i0.ɵɵadvance(3);
                 i0.ɵɵproperty("ngForOf", ctx.config.basemaps);
                 i0.ɵɵadvance(4);
-                i0.ɵɵproperty("ngForOf", ctx.terrainData);
+                i0.ɵɵproperty("ngForOf", ctx.config.terrain);
                 i0.ɵɵadvance(2);
                 i0.ɵɵproperty("nzData", ctx.layerNodes)("nzTreeTemplate", _r2);
             }
@@ -2199,7 +2246,7 @@
                 resList = [];
                 earth.sceneTree.$refs.pin1.czmObject.position = _this.Cartesian2ToCartographic(viewer, click.position);
                 var position = _this.Cartesian2ToWGS84(viewer, click.position);
-                var bufferCoordinates = _this.Buffer([position.lon, position.lat]);
+                var bufferCoordinates = _this.Buffer([position.lon, position.lat], 100);
                 if (type == 'point') {
                     filter = "<Filter xmlns=\"http://www.opengis.net/ogc\" xmlns:gml=\"http://www.opengis.net/gml\"><Intersects><PropertyName>the_geom</PropertyName><gml:outerBoundaryIs><gml:LinearRing><gml:coordinates>" + bufferCoordinates + "</gml:coordinates></gml:LinearRing></gml:outerBoundaryIs></Intersects></Filter>";
                 }
@@ -2283,7 +2330,6 @@
                 requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
             }
             this.httpReq('get', requestUrl).then(function (res) {
-                console.log(res);
                 handler.setInputAction(function (click) {
                     if (res.layers == undefined)
                         return;
@@ -2295,85 +2341,168 @@
                     earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                     earth.sceneTree.$refs.pin1.czmObject.position = _this.Cartesian2ToCartographic(earth.czm.viewer, click.position);
                     var position = _this.Cartesian2ToWGS84(earth.czm.viewer, click.position);
-                    var bufferCoordinates = _this.Buffer([position.lon, position.lat]);
+                    var bufferCoordinates = _this.Buffer([position.lon, position.lat], 1);
                     var addr = _this.GetWFSUrl(czmObject.xbsjImageryProvider);
                     var typeName = url.split('/MapServer')[0].split('services/')[1];
                     var resList = [];
                     var geometryList = [];
-                    var _loop_1 = function (i) {
-                        var item = res.layers[i];
-                        var query = "" + addr
-                            + ("typename=" + typeName + ":" + item.name + "&Filter=")
-                            + "<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>"
-                            + "<gml:Polygon srsName=\"urn:x-ogc:def:crs:EPSG:4326\"><gml:outerBoundaryIs><gml:LinearRing>"
-                            + ("<gml:coordinates>" + bufferCoordinates + "</gml:coordinates>")
-                            + "</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>";
-                        _this.httpReq('get', query).then().catch(function (err) {
-                            var res = err.error.text;
-                            if (_this.xml2Json(_this.stringToXml(res))['FeatureCollection']['featureMember']) {
-                                var properties_2 = _this.xml2Json(_this.stringToXml(res))['FeatureCollection']['featureMember'][item.name];
-                                var propertyList_2 = [];
-                                var geojson_1 = {};
-                                if (properties_2 == undefined || properties_2 == null)
-                                    return;
-                                Object.keys(properties_2).map(function (key) {
-                                    if (key !== "Shape") {
-                                        propertyList_2.push({
-                                            name: key,
-                                            value: properties_2[key].value
-                                        });
-                                    }
-                                    else {
-                                        if (properties_2[key].MultiSurface) {
-                                            var posList = properties_2[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
-                                            posList.shift();
-                                            var list = [];
-                                            for (var i_1 = 0; i_1 < posList.length; i_1 += 2) {
-                                                list.push([posList[i_1], posList[i_1 + 1]]);
-                                            }
-                                            geojson_1 = {
-                                                type: "Feature",
-                                                geometry: {
-                                                    type: "LineString",
-                                                    coordinates: list
+                    if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                        var _loop_1 = function (i) {
+                            var item = res.layers[i];
+                            var query = "" + addr
+                                + ("typename=" + typeName + ":" + item.name + "&Filter=")
+                                + "<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>"
+                                + "<gml:Polygon srsName=\"urn:x-ogc:def:crs:EPSG:4326\"><gml:outerBoundaryIs><gml:LinearRing>"
+                                + ("<gml:coordinates>" + bufferCoordinates + "</gml:coordinates>")
+                                + "</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>";
+                            _this.httpReq('get', query).then().catch(function (err) {
+                                var res = err.error.text;
+                                if (_this.xml2Json(_this.stringToXml(res))['FeatureCollection']['featureMember']) {
+                                    var properties_2 = _this.xml2Json(_this.stringToXml(res))['FeatureCollection']['featureMember'][item.name];
+                                    var propertyList_2 = [];
+                                    var geojson_1 = {};
+                                    if (properties_2 == undefined || properties_2 == null)
+                                        return;
+                                    Object.keys(properties_2).map(function (key) {
+                                        if (key !== "Shape") {
+                                            propertyList_2.push({
+                                                name: key,
+                                                value: properties_2[key].value
+                                            });
+                                        }
+                                        else {
+                                            if (properties_2[key].MultiSurface) {
+                                                var posList = properties_2[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                                posList.shift();
+                                                var list = [];
+                                                for (var i_1 = 0; i_1 < posList.length; i_1 += 2) {
+                                                    list.push([posList[i_1], posList[i_1 + 1]]);
                                                 }
-                                            };
-                                        }
-                                        else if (properties_2[key].Point) {
-                                            var posList = properties_2[key].Point.pos.value.split(" ");
-                                            geojson_1 =
-                                                {
-                                                    type: "Feature",
-                                                    geometry: {
-                                                        type: "Point",
-                                                        coordinates: posList
-                                                    }
-                                                };
-                                        }
-                                        else if (properties_2[key].MultiCurve) {
-                                            var posList = properties_2[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
-                                            var list = [];
-                                            for (var i_2 = 0; i_2 < posList.length; i_2 += 2) {
-                                                list.push([posList[i_2], posList[i_2 + 1]]);
-                                            }
-                                            geojson_1 =
-                                                {
+                                                geojson_1 = {
                                                     type: "Feature",
                                                     geometry: {
                                                         type: "LineString",
                                                         coordinates: list
                                                     }
                                                 };
+                                            }
+                                            else if (properties_2[key].Point) {
+                                                var posList = properties_2[key].Point.pos.value.split(" ");
+                                                geojson_1 =
+                                                    {
+                                                        type: "Feature",
+                                                        geometry: {
+                                                            type: "Point",
+                                                            coordinates: posList
+                                                        }
+                                                    };
+                                            }
+                                            else if (properties_2[key].MultiCurve) {
+                                                var posList = properties_2[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                                var list = [];
+                                                for (var i_2 = 0; i_2 < posList.length; i_2 += 2) {
+                                                    list.push([posList[i_2], posList[i_2 + 1]]);
+                                                }
+                                                geojson_1 =
+                                                    {
+                                                        type: "Feature",
+                                                        geometry: {
+                                                            type: "LineString",
+                                                            coordinates: list
+                                                        }
+                                                    };
+                                            }
                                         }
-                                    }
-                                });
-                                resList.push(propertyList_2);
-                                geometryList.push(geojson_1);
-                            }
-                        });
-                    };
-                    for (var i = 0; i < res.layers.length; i++) {
-                        _loop_1(i);
+                                    });
+                                    resList.push(propertyList_2);
+                                    geometryList.push(geojson_1);
+                                }
+                            });
+                        };
+                        for (var i = 0; i < res.layers.length; i++) {
+                            _loop_1(i);
+                        }
+                    }
+                    else if (czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+                        var llist = czmObject.xbsjImageryProvider.SSWebMapServiceImageryProvider.layer.split(",");
+                        var _loop_2 = function (i) {
+                            var item = res.layers[res.layers.length - 1 - llist[i]];
+                            var query = "" + addr
+                                + ("typename=" + typeName + ":" + item.name + "&Filter=")
+                                + "<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>"
+                                + "<gml:Polygon srsName=\"urn:x-ogc:def:crs:EPSG:4326\"><gml:outerBoundaryIs><gml:LinearRing>"
+                                + ("<gml:coordinates>" + bufferCoordinates + "</gml:coordinates>")
+                                + "</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>";
+                            console.log(item.name);
+                            _this.httpReq('get', query).then().catch(function (err) {
+                                var res = err.error.text;
+                                if (_this.xml2Json(_this.stringToXml(res))['FeatureCollection'] == undefined)
+                                    return;
+                                if (_this.xml2Json(_this.stringToXml(res))['FeatureCollection']['featureMember']) {
+                                    var properties_3 = _this.xml2Json(_this.stringToXml(res))['FeatureCollection']['featureMember'][item.name];
+                                    var propertyList_3 = [];
+                                    var geojson_2 = {};
+                                    if (properties_3 == undefined || properties_3 == null)
+                                        return;
+                                    Object.keys(properties_3).map(function (key) {
+                                        if (key !== "Shape") {
+                                            propertyList_3.push({
+                                                name: key,
+                                                value: properties_3[key].value
+                                            });
+                                        }
+                                        else {
+                                            if (properties_3[key].MultiSurface) {
+                                                var posList = properties_3[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                                posList.shift();
+                                                var list = [];
+                                                for (var i_3 = 0; i_3 < posList.length; i_3 += 2) {
+                                                    list.push([posList[i_3], posList[i_3 + 1]]);
+                                                }
+                                                geojson_2 = {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "LineString",
+                                                        coordinates: list
+                                                    }
+                                                };
+                                            }
+                                            else if (properties_3[key].Point) {
+                                                var posList = properties_3[key].Point.pos.value.split(" ");
+                                                geojson_2 =
+                                                    {
+                                                        type: "Feature",
+                                                        geometry: {
+                                                            type: "Point",
+                                                            coordinates: posList
+                                                        }
+                                                    };
+                                            }
+                                            else if (properties_3[key].MultiCurve) {
+                                                var posList = properties_3[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                                var list = [];
+                                                for (var i_4 = 0; i_4 < posList.length; i_4 += 2) {
+                                                    list.push([posList[i_4], posList[i_4 + 1]]);
+                                                }
+                                                geojson_2 =
+                                                    {
+                                                        type: "Feature",
+                                                        geometry: {
+                                                            type: "LineString",
+                                                            coordinates: list
+                                                        }
+                                                    };
+                                            }
+                                        }
+                                    });
+                                    resList.push(propertyList_3);
+                                    geometryList.push(geojson_2);
+                                }
+                            });
+                        };
+                        for (var i = 0; i < llist.length; i++) {
+                            _loop_2(i);
+                        }
                     }
                     setTimeout(function () {
                         if (resList.length > 0 && geometryList.length > 0) {
@@ -2451,9 +2580,9 @@
             }
             return WFSUrl;
         };
-        Identify.prototype.Buffer = function (position) {
+        Identify.prototype.Buffer = function (position, meters) {
             var pointF = turf__default['default'].point(position);
-            var buffered = turf__default['default'].buffer(pointF, 100, 'meters');
+            var buffered = turf__default['default'].buffer(pointF, meters, 'meters');
             var coordinates = buffered.geometry.coordinates;
             var points = coordinates[0];
             var degreesListStr = this.pointsToDegreesArray(points);
@@ -2538,7 +2667,7 @@
             }], function () { return [{ type: i1.HttpReqService }]; }, null);
     })();
 
-    function PlanetIdentifyComponent_tr_9_Template(rf, ctx) {
+    function PlanetIdentifyComponent_tr_10_Template(rf, ctx) {
         if (rf & 1) {
             i0.ɵɵelementStart(0, "tr");
             i0.ɵɵelementStart(1, "td");
@@ -2557,7 +2686,7 @@
             i0.ɵɵtextInterpolate(data_r2.value);
         }
     }
-    var _c0$3 = function (a0, a1) { return { "left": a0, "bottom": a1 }; };
+    var _c0$2 = function (a0, a1) { return { "left": a0, "bottom": a1 }; };
     exports.PlanetIdentifyComponent = /** @class */ (function (_super) {
         __extends(PlanetIdentifyComponent, _super);
         function PlanetIdentifyComponent(identify) {
@@ -2649,9 +2778,16 @@
             var entityCollection = this.view.czm.viewer.dataSources.getByName("highLight")[0].entities;
             this.view.czm.viewer.flyTo(entityCollection);
         };
-        PlanetIdentifyComponent.prototype.switch = function ($event) {
-            window["allowClick"] = $event;
-            if (!$event) {
+        PlanetIdentifyComponent.prototype.switch = function (e) {
+            console.log(e);
+            if (e.srcElement.style.color == 'aqua') {
+                e.srcElement.style.color = "";
+            }
+            else {
+                e.srcElement.style.color = 'aqua';
+            }
+            window["allowClick"] = !window["allowClick"];
+            if (!window["allowClick"]) {
                 this.identify.ClearHighLight();
             }
         };
@@ -2681,39 +2817,42 @@
             if (rf & 2) {
                 i0.ɵɵclassProp("jimu-widget-onscreen-icon", true);
             }
-        }, features: [i0.ɵɵInheritDefinitionFeature], decls: 14, vars: 12, consts: [[3, "ngModel", "ngModelChange"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline", 3, "click"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) {
+        }, features: [i0.ɵɵInheritDefinitionFeature], decls: 15, vars: 12, consts: [["title", "\u8BC6\u522B", 1, "jimu-widget-onscreen-icon"], ["nz-icon", "", 3, "nzIconfont", "click"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline", 3, "click"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) {
             if (rf & 1) {
-                i0.ɵɵelementStart(0, "nz-switch", 0);
-                i0.ɵɵlistener("ngModelChange", function PlanetIdentifyComponent_Template_nz_switch_ngModelChange_0_listener($event) { return ctx.switchValue = $event; })("ngModelChange", function PlanetIdentifyComponent_Template_nz_switch_ngModelChange_0_listener($event) { return ctx.switch($event); });
+                i0.ɵɵelementStart(0, "div", 0);
+                i0.ɵɵelementStart(1, "i", 1);
+                i0.ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_1_listener($event) { return ctx.switch($event); });
                 i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(1, "div", 1);
+                i0.ɵɵelementEnd();
                 i0.ɵɵelementStart(2, "div", 2);
-                i0.ɵɵelementStart(3, "span");
-                i0.ɵɵtext(4);
+                i0.ɵɵelementStart(3, "div", 3);
+                i0.ɵɵelementStart(4, "span");
+                i0.ɵɵtext(5);
                 i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(5, "i", 3);
-                i0.ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_5_listener() { return ctx.close(); });
+                i0.ɵɵelementStart(6, "i", 4);
+                i0.ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_6_listener() { return ctx.close(); });
                 i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(6, "nz-table", 4, 5);
-                i0.ɵɵelementStart(8, "tbody");
-                i0.ɵɵtemplate(9, PlanetIdentifyComponent_tr_9_Template, 5, 2, "tr", 6);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(10, "i", 7);
-                i0.ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_10_listener() { return ctx.zoomTo(); });
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(11, "span");
-                i0.ɵɵtext(12, "\u7F29\u653E\u81F3");
+                i0.ɵɵelementStart(7, "nz-table", 5, 6);
+                i0.ɵɵelementStart(9, "tbody");
+                i0.ɵɵtemplate(10, PlanetIdentifyComponent_tr_10_Template, 5, 2, "tr", 7);
                 i0.ɵɵelementEnd();
                 i0.ɵɵelementEnd();
-                i0.ɵɵelement(13, "div", 8);
+                i0.ɵɵelementStart(11, "i", 8);
+                i0.ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_11_listener() { return ctx.zoomTo(); });
+                i0.ɵɵelementEnd();
+                i0.ɵɵelementStart(12, "span");
+                i0.ɵɵtext(13, "\u7F29\u653E\u81F3");
+                i0.ɵɵelementEnd();
+                i0.ɵɵelementEnd();
+                i0.ɵɵelement(14, "div", 9);
                 i0.ɵɵelementEnd();
             }
             if (rf & 2) {
-                var _r0 = i0.ɵɵreference(7);
-                i0.ɵɵproperty("ngModel", ctx.switchValue);
+                var _r0 = i0.ɵɵreference(8);
                 i0.ɵɵadvance(1);
-                i0.ɵɵproperty("hidden", !ctx.showInfo)("ngStyle", i0.ɵɵpureFunction2(9, _c0$3, ctx.winPos[0] - 65 + "px", ctx.winPos[3] + "px"));
+                i0.ɵɵproperty("nzIconfont", "icon-epsgis-weibiaoti-");
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("hidden", !ctx.showInfo)("ngStyle", i0.ɵɵpureFunction2(9, _c0$2, ctx.winPos[0] - 65 + "px", ctx.winPos[3] + "px"));
                 i0.ɵɵadvance(3);
                 i0.ɵɵtextInterpolate(ctx.title);
                 i0.ɵɵadvance(2);
@@ -2721,7 +2860,7 @@
                 i0.ɵɵadvance(3);
                 i0.ɵɵproperty("ngForOf", _r0.data);
             }
-        }, directives: [i2$4.NzSwitchComponent, i5.NgControlStatus, i5.NgModel, i2$2.NgStyle, i1$1.NzIconDirective, i2$1.ɵNzTransitionPatchDirective, i7.NzTableComponent, i7.NzTbodyComponent, i2$2.NgForOf, i7.NzTrDirective, i7.NzTableCellDirective], styles: [".ant-table-tbody[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table-thead[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%]{padding:10px}  .ssmodal_content{overflow:overlay!important}.dialog[_ngcontent-%COMP%]{position:absolute;width:300px;min-height:60px;color:#000;border-radius:5px;cursor:pointer}.dialog[_ngcontent-%COMP%],   .ant-table-tbody>tr>td,   .ant-table-thead>tr>th{padding:5px}  tr.ant-table-row.ng-star-inserted:nth-child(odd){background-color:hsla(0,0%,66.3%,.6)}.arrow[_ngcontent-%COMP%]{margin-left:50px;width:0;height:0;border-top:10px solid #fff;border-left:10px solid transparent;border-right:10px solid transparent}.panel[_ngcontent-%COMP%]{background-color:#fff;padding:5px}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]{color:#000}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]:hover{color:#0ff}.panel[_ngcontent-%COMP%]   .ant-table-wrapper[_ngcontent-%COMP%]{max-height:350px;overflow:overlay}"] });
+        }, directives: [i1$1.NzIconDirective, i2$1.ɵNzTransitionPatchDirective, i2$2.NgStyle, i5$2.NzTableComponent, i5$2.NzTbodyComponent, i2$2.NgForOf, i5$2.NzTrDirective, i5$2.NzTableCellDirective], styles: [".ant-table-tbody[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table-thead[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%]{padding:10px}  .ssmodal_content{overflow:overlay!important}.dialog[_ngcontent-%COMP%]{position:absolute;width:300px;min-height:60px;color:#000;border-radius:5px;cursor:pointer}.dialog[_ngcontent-%COMP%],   .ant-table-tbody>tr>td,   .ant-table-thead>tr>th{padding:5px}  tr.ant-table-row.ng-star-inserted:nth-child(odd){background-color:hsla(0,0%,66.3%,.6)}.arrow[_ngcontent-%COMP%]{margin-left:50px;width:0;height:0;border-top:10px solid #fff;border-left:10px solid transparent;border-right:10px solid transparent}.panel[_ngcontent-%COMP%]{background-color:#fff;padding:5px}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]{color:#000}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]:hover{color:#0ff}.panel[_ngcontent-%COMP%]   .ant-table-wrapper[_ngcontent-%COMP%]{max-height:350px;overflow:overlay}"] });
     exports.PlanetIdentifyComponent = __decorate([
         i1.ComponentRegister({
             uri: "epsgis-planet-identify",
@@ -2782,8 +2921,8 @@
                 i3.NzGridModule,
                 i2$3.NzTabsModule,
                 modal.NzModalModule,
-                i7.NzTableModule,
-                i2$4.NzSwitchModule,
+                i5$2.NzTableModule,
+                _switch.NzSwitchModule,
                 tooltip.NzToolTipModule,
                 form.NzFormModule,
                 i1.EpsGisDirectivesModule
@@ -2817,8 +2956,8 @@
                 i3.NzGridModule,
                 i2$3.NzTabsModule,
                 modal.NzModalModule,
-                i7.NzTableModule,
-                i2$4.NzSwitchModule,
+                i5$2.NzTableModule,
+                _switch.NzSwitchModule,
                 tooltip.NzToolTipModule,
                 form.NzFormModule,
                 i1.EpsGisDirectivesModule], exports: [exports.PlanetEarthComponent,
@@ -2857,8 +2996,8 @@
                             i3.NzGridModule,
                             i2$3.NzTabsModule,
                             modal.NzModalModule,
-                            i7.NzTableModule,
-                            i2$4.NzSwitchModule,
+                            i5$2.NzTableModule,
+                            _switch.NzSwitchModule,
                             tooltip.NzToolTipModule,
                             form.NzFormModule,
                             i1.EpsGisDirectivesModule

@@ -92,7 +92,7 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
         group.children.forEach(item => {
           // console.log(item)
           if (item.czmObject.xbsjType !== "Imagery") return;
-          if (item.czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider" || item.czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+          if (item.czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider" || item.czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
             if (item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].url.indexOf("arcgis") !== -1) {
               this.identify.getLayers(item.czmObject, this.view, res => {
                 console.log("res:", res)
@@ -123,9 +123,17 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     let entityCollection = this.view.czm.viewer.dataSources.getByName("highLight")[0].entities
     this.view.czm.viewer.flyTo(entityCollection)
   }
-  switch($event) {
-    window["allowClick"] = $event;
-    if (!$event) {
+  switch(e) {
+    console.log(e)
+    if (e.srcElement.style.color == 'aqua') {
+      e.srcElement.style.color = ""
+    }else{
+      e.srcElement.style.color='aqua'
+    }
+
+
+    window["allowClick"] = !window["allowClick"];
+    if (!window["allowClick"]) {
       this.identify.ClearHighLight();
     }
 

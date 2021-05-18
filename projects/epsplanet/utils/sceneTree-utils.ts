@@ -27,6 +27,7 @@ export class SceneTreeUtils {
                 isLeaf: false,
                 parentNode: null
             });
+            rootNode.level = -1
             // rootNode.isExpanded = root.expand === true;
         }
         const _layerNodes: Array<NzTreeNode> = [];
@@ -51,33 +52,68 @@ export class SceneTreeUtils {
         const _layerNodes: Array<NzTreeNode> = [];
         children.forEach(item => {
             let node: NzTreeNode = null;
-            if (item.children) { //|| item.title
+            if (item.children) { // item.title
                 node = new NzTreeNode({
+                    level: parentNode.level + 1,
                     title: item.title,
-                    expanded: item.expand === true,
-                    isChecked: true,
+                    isExpanded: item.expand === true,
+                    // isChecked: true,
                     // checked:item.isSelected,
                     key: item.guid || item.xbsjGuid || IdGenerater.newGuid(),
                     origin: item,
                     isLeaf: false,
                     parentNode: parentNode
                 });
+                node.parentNode = parentNode;
+                node.level = parentNode.level + 1;
                 if (item.children.length >= 1) {
                     node.children.push(...SceneTreeUtils.convertChildren(item.children, node));
                 }
+
                 // node.isExpanded = item.expand === true;
-                console.log(node)
-                node.isChecked = true;//初始默认勾选父节点
+                let checkList = []
+                node.children.forEach((child: any) => {
+                    if (child.children && child.children.length > 0) {
+                        checkList.push(child.isChecked)
+                    } else {
+                        if (child.origin.origin.show) {
+                            checkList.push(true)
+                        } else {
+                            checkList.push(false)
+                        }
+                    }
+
+
+                })
+                if (SceneTreeUtils.isAllEqual(checkList) && checkList[0] == true) {
+                    node.isChecked = true
+                } else if (SceneTreeUtils.isAllEqual(checkList) && checkList[0] == false) {
+                    node.isChecked = false
+                } else if (!SceneTreeUtils.isAllEqual(checkList)) {
+                    node.isHalfChecked = true
+                }
+                // node.isChecked = true;//初始默认勾选父节点
                 _layerNodes.push(node);
             } else {
                 //之前叶节点拿不到parentNode,强行从它的origin中取到parentNode,用于实现节点的单选
                 let childNode = SceneTreeUtils.convertCzmObject(item.czmObject, parentNode)
                 childNode.parentNode = childNode.origin.parentNode;
+                childNode.level = childNode.parentNode.level + 1
                 _layerNodes.push(childNode);
                 // _layerNodes.push(SceneTreeUtils.convertCzmObject(item.czmObject, parentNode));
             }
         });
         return _layerNodes;
+    }
+
+    static isAllEqual(array) {
+        if (array.length > 0) {
+            return !array.some(function (value, index) {
+                return value !== array[0];
+            });
+        } else {
+            return true;
+        }
     }
     /**
      * 
@@ -171,6 +207,7 @@ export class SceneTreeUtils {
 
             const node: IXbsjCzmObject = newXbsjLayerNode(item.type, item.title, item.url);
             node.czmObject.xbsjGuid = item.guid;
+            node.czmObject.show = item.show?true:false;
             node.ref = item.ref;
             if (node.czmObject.hasOwnProperty("xbsjImageryProvider")) {
                 //影像图层处理

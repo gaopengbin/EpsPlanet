@@ -4,6 +4,7 @@ import { IXbsjCzmObject } from '../models/layer-xbsj';
 export declare class SceneTreeUtils {
     static SceneTree2NgZorroTree(root: any): Array<NzTreeNode>;
     private static convertChildren;
+    static isAllEqual(array: any): boolean;
     private static convertCzmObject;
     static GetXbsjCzmObject(node: NzTreeNode): any;
     static loadLayers(layerConfig: any): {

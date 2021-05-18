@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="xbsj-labels" content="Earth起步"></meta>
+    <meta name="xbsj-labels" content="Earth起步">
+    </meta>
     <title>创建地球</title>
     <!-- 0 引入js文件 -->
-    <script src="../../../XbsjEarth/XbsjEarth.js"></script>
+    <script src="../../XbsjEarth/XbsjEarth.js"></script>
     <style>
         html,
         body {
@@ -30,6 +31,9 @@
         function startup() {
             earth = new XE.Earth('earthContainer');
 
+
+
+
             earth.sceneTree.root = {
                 "children": [
                     {
@@ -37,20 +41,32 @@
                             "name": "默认离线影像",
                             "xbsjType": "Imagery",
                             "xbsjImageryProvider": {
-                                "createTileMapServiceImageryProvider": {
-                                    "url": XE.HTML.cesiumDir + 'Assets/Textures/NaturalEarthII',
-                                    "fileExtension": 'jpg',
+                                "WebMapServiceImageryProvider": {
+                                    "url": "http://jojo1986.f3322.net:8888/geoserver/HAO/wms",
+                                    "format": "image/png",
+                                    "layers": "HSS",
+                                    "style": "default",
+                                    "tileWidth": null,
+                                    "tileHeight": null,
+                                    "tilingScheme": "",
+                                    "minimumLevel": 1,
+                                    "maximumLevel": "18",
+                                    "srs": "EPSG:4326",
+                                    "transparent": "true"
                                 },
-                                "type": "createTileMapServiceImageryProvider"
+                                "type": "WebMapServiceImageryProvider"
                             }
                         }
                     },
                 ]
+
+
+
             };
         }
         window.earth = earth;
         // 1 XE.ready()会加载Cesium.js等其他资源，注意ready()返回一个Promise对象。
-        XE.ready().then(startup);            
+        XE.ready().then(startup);
     </script>
 </body>
 

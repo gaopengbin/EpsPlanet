@@ -1,11 +1,26 @@
 import { TemplateRef } from '@angular/core';
 import { ModalManagerService } from 'epsgis';
-import { NzFormatEmitEvent, NzTreeNode, NzTreeComponent } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd/tree';
 import { BasePlanetWidgetComponent } from '../base-widget/base-widget.component';
 import * as i0 from "@angular/core";
 export declare class PlanetLayerListComponent extends BasePlanetWidgetComponent {
     private modalService;
-    nzTreeComponent: NzTreeComponent;
+    testnode: {
+        title: string;
+        key: string;
+        author: string;
+        children: ({
+            title: string;
+            key: string;
+            author: string;
+            isLeaf?: undefined;
+        } | {
+            title: string;
+            key: string;
+            author: string;
+            isLeaf: boolean;
+        })[];
+    }[];
     layerNodes: any;
     selectedNode: any;
     type: any;

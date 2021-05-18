@@ -17,7 +17,7 @@ export declare class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     Init(): void;
     close(): void;
     zoomTo(): void;
-    switch($event: any): void;
+    switch(e: any): void;
     test(): void;
     ngOnInit(): void;
     ngAfterViewInit(): void;

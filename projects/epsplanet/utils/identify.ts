@@ -126,11 +126,11 @@ export class Identify {
     //arcgis
     getLayers(czmObject, earth, callback) {
         let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
-        let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.SSWebMapServiceImageryProvider.url;
+        let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.url;
         let requestUrl = ""
         if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
             requestUrl = url.split('MapServer')[0] + "MapServer/layers?f=pjson"
-        } else if (czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+        } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
             requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
         }
         // let layers=[];
@@ -224,8 +224,8 @@ export class Identify {
                             }
                         })
                     }
-                } else if (czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
-                    let llist = czmObject.xbsjImageryProvider.SSWebMapServiceImageryProvider.layer.split(",")
+                } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                    let llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",")
                     for (let i = 0; i < llist.length; i++) {
                         const item = res.layers[res.layers.length - 1 - llist[i]];
 
@@ -238,59 +238,10 @@ export class Identify {
                         console.log(item.name)
                         this.httpReq('get', query).then().catch((err: any) => {
                             let res = err.error.text
-
+                            if (this.xml2Json(this.stringToXml(res))['FeatureCollection'] == undefined) return
                             // debugger
                             if (this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember']) {
-                                console.log(this.xml2Json(this.stringToXml(res)))
-                                if (this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember'].length != undefined) {
-                                    let features = this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember'];
-                                    
-                                    features.forEach(feature => {
-                                        let prop=[]
-                                        Object.keys(feature[item.name]).map(key => {
-                                            if (key !== "Shape") {
-                                                prop.push({
-                                                    name: key,
-                                                    value: feature[item.name][key].value
-                                                })
-                                            }
-                                        })
-                                        let positions =
-                                            feature[item.name].Shape.MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ")
-                                        positions.shift();
-                                        let list = []
-                                        let floor = feature[item.name];
-                                        let height = (floor['层号'].value - 1) * 3
-                                        for (let i = 0; i < positions.length; i += 2) {
-                                            list.push(positions[i] / 180 * Math.PI, positions[i + 1] / 180 * Math.PI)
-                                        }
-                                        console.log(list)
-                                        var classificationpolygon = new XE.Obj.ClassificationPolygon(earth);
-                                        classificationpolygon.customProp=prop
-                                        classificationpolygon.positions = list;
-                                        classificationpolygon.height = height + 3;
-                                        classificationpolygon.extrudedHeight = height;
-                                        classificationpolygon.color[0] = floor['层号'].value % 2 == 0 ? 1 : 0
-                                        classificationpolygon.onclick = function (e) {
-                                            // console.log(classificationpolygon.customProp)
-                                            classificationpolygon.customProp.forEach(item=>{
-                                                console.log(item.name,item.value)
-                                            })
-
-                                        }
-                                        // let entity = earth.czm.viewer.entities.add({
-                                        //     polygon: {
-                                        //         height: height,
-                                        //         hierarchy: new Cesium.PolygonHierarchy(Cesium.Cartesian3.fromDegreesArray(positions)),
-                                        //         material: Cesium.Color.AQUA.withAlpha(0.5),
-                                        //         extrudedHeight: height + 10 * (i + 1),
-                                        //         // outline: true,
-                                        //         // outlineColor: Cesium.Color.MAGENTA,
-                                        //         // perPositionHeight: true,
-                                        //     }
-                                        // });
-                                    })
-                                }
+                                // console.log(this.xml2Json(this.stringToXml(res)))
                                 let properties = this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember'][item.name]
                                 let propertyList = []
                                 let geojson = {}
@@ -429,12 +380,12 @@ export class Identify {
                 WFSUrl = WMTSImageryProvider.url.split("gwc")[0] + WMTSImageryProvider.layer.split(":")[0] + "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + WMTSImageryProvider.layer + "&maxFeatures=1&outputFormat=json&filter="
             }
         }
-        if (ImageryProvider.type == "SSWebMapServiceImageryProvider") {
-            let SSWebMapServiceImageryProvider = ImageryProvider.SSWebMapServiceImageryProvider;
-            if (SSWebMapServiceImageryProvider.url.indexOf('arcgis') !== -1) {
-                WFSUrl = SSWebMapServiceImageryProvider.url.split("MapServer")[0] + "MapServer/WFSServer?request=GetFeature&service=WFS&version=1.1.0&";
-            } else if (SSWebMapServiceImageryProvider.url.indexOf('geoserver') !== -1) {
-                WFSUrl = SSWebMapServiceImageryProvider.url.split("wms")[0] + "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + SSWebMapServiceImageryProvider.layer + "&maxFeatures=1&outputFormat=json&filter=";
+        if (ImageryProvider.type == "WebMapServiceImageryProvider") {
+            let WebMapServiceImageryProvider = ImageryProvider.WebMapServiceImageryProvider;
+            if (WebMapServiceImageryProvider.url.indexOf('arcgis') !== -1) {
+                WFSUrl = WebMapServiceImageryProvider.url.split("MapServer")[0] + "MapServer/WFSServer?request=GetFeature&service=WFS&version=1.1.0&";
+            } else if (WebMapServiceImageryProvider.url.indexOf('geoserver') !== -1) {
+                WFSUrl = WebMapServiceImageryProvider.url.split("wms")[0] + "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + WebMapServiceImageryProvider.layers + "&maxFeatures=1&outputFormat=json&filter=";
             }
 
         }

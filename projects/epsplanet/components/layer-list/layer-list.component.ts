@@ -15,8 +15,28 @@ import { PlanetLayerManagerComponent } from '../layer-manager/layer-manager.comp
   styleUrls: ['./layer-list.component.scss'],
 })
 export class PlanetLayerListComponent extends BasePlanetWidgetComponent {
-  @ViewChild('nzTreeComponent', { static: false }) nzTreeComponent!: NzTreeComponent;
-
+  // @ViewChild('nzTreeComponent', { static: false }) nzTreeComponent!: NzTreeComponent;
+  testnode=[
+    {
+      title: 'parent 0',
+      key: '100',
+      author: 'NG ZORRO',
+      
+      children: [
+        { title: 'leaf 0-0', key: '1000', author: 'NG ZORRO' },
+        { title: 'leaf 0-1', key: '1001', author: 'NG ZORRO', isLeaf: true }
+      ]
+    },
+    {
+      title: 'parent 1',
+      key: '101',
+      author: 'NG ZORRO',
+      children: [
+        { title: 'leaf 1-0', key: '1010', author: 'NG ZORRO', isLeaf: true },
+        { title: 'leaf 1-1', key: '1011', author: 'NG ZORRO', isLeaf: true }
+      ]
+    }
+  ]
   layerNodes: any = [];
   selectedNode: any;
   type: any;
@@ -25,7 +45,6 @@ export class PlanetLayerListComponent extends BasePlanetWidgetComponent {
   activatedNode?: NzTreeNode;
   tplContent: TemplateRef<{}>
   constructor(private modalService: ModalManagerService) {
-
     super();
   }
   static getCompInfo() {
@@ -66,7 +85,8 @@ export class PlanetLayerListComponent extends BasePlanetWidgetComponent {
     setTimeout(() => {
       const _layerNodes = SceneTreeUtils.SceneTree2NgZorroTree(this.view.sceneTree.$refs.layerlist);
       console.log("sceneTree:", _layerNodes)
-      this.layerNodes = [..._layerNodes[0]["children"]];
+      this.layerNodes = _layerNodes[0]["children"];
+      console.log(this.layerNodes)
     }, 100);
 
   }
