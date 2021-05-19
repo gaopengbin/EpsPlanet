@@ -65,7 +65,7 @@ export class PlanetEarthComponent extends BaseMapComponent {
           });
           earth.interaction.picking.enabled = true
           earth.interaction.picking.hoverEnable = true
-          
+
           const layerNode = SceneTreeUtils.loadLayers(this.config).children
           console.log(layerNode)
           earth.sceneTree.root.children.push(...layerNode);
@@ -74,7 +74,7 @@ export class PlanetEarthComponent extends BaseMapComponent {
           //test
           window["earth"] = earth;
           if (this.config.mapOptions && this.config.mapOptions.center) {
-            let x = 116.26984645340727, y = 40.10171604578351, h = 230;
+            let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 0, pitch = -90;
             if (this.config.mapOptions.center.length >= 1) {
               x = this.config.mapOptions.center[0];
             }
@@ -84,11 +84,17 @@ export class PlanetEarthComponent extends BaseMapComponent {
             if (this.config.mapOptions.center.length >= 3) {
               h = this.config.mapOptions.center[2];
             }
+            if (this.config.mapOptions.heading) {
+              heading = this.config.mapOptions.heading;
+            }
+            if (this.config.mapOptions.pitch) {
+              pitch = this.config.mapOptions.pitch;
+            }
             earth.czm.viewer.camera.flyTo({
               destination: Cesium.Cartesian3.fromDegrees(x, y, h),
               orientation: {
-                heading: Cesium.Math.toRadians(5),
-                pitch: Cesium.Math.toRadians(-36.0),
+                heading: Cesium.Math.toRadians(heading),
+                pitch: Cesium.Math.toRadians(pitch),
               }
             });
           }

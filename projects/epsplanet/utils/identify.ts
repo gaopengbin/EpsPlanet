@@ -125,6 +125,10 @@ export class Identify {
     }
     //arcgis
     getLayers(czmObject, earth, callback) {
+        if (highLight == null) {
+            highLight = new Cesium.CustomDataSource('highLight');
+            earth.czm.viewer.dataSources.add(highLight);
+        }
         let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
         let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.url;
         let requestUrl = ""
@@ -141,7 +145,8 @@ export class Identify {
                 if (res.layers == undefined) return;
                 if (!window["allowClick"]) return;
                 if (!czmObject.show) return;
-                highLight.entities.removeAll();
+                if (highLight)
+                    highLight.entities.removeAll();
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                 earth.sceneTree.$refs.pin1.czmObject.position = this.Cartesian2ToCartographic(earth.czm.viewer, click.position)
 
@@ -235,7 +240,7 @@ export class Identify {
                             + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
                             + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
                             + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`
-                        console.log(item.name)
+                        console.log(item.name, query)
                         this.httpReq('get', query).then().catch((err: any) => {
                             let res = err.error.text
                             if (this.xml2Json(this.stringToXml(res))['FeatureCollection'] == undefined) return
@@ -303,9 +308,10 @@ export class Identify {
                     }
                 }
 
-
                 setTimeout(() => {
+
                     if (resList.length > 0 && geometryList.length > 0) {
+                        console.log(geometryList, highLight)
                         if (geometryList[0].geometry.type == "Point") {
                             Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
                                 dataSource.entities.values.forEach(entity => {
@@ -313,7 +319,8 @@ export class Identify {
                                     entity.point = new Cesium.PointGraphics({
                                         show: true,
                                         color: Cesium.Color.AQUA,
-                                        pixelSize: 10
+                                        pixelSize: 10,
+                                        clampToGround: true
                                     })
                                     highLight.entities.add(entity)
                                 })
@@ -322,6 +329,7 @@ export class Identify {
                             Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
                                 dataSource.entities.values.forEach(entity => {
                                     entity.polyline.width = 10
+                                    entity.polyline.clampToGround = true
                                     entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
                                         glowPower: 0.2,
                                         color: Cesium.Color.BLUE
@@ -339,11 +347,43 @@ export class Identify {
                         }
                         callback(resList[0])
                     }
-
                 }, 500);
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
         })
     }
+
+    pickModel(czmObject, earth, callback) {
+        let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
+
+
+
+        czmObject.onclick = (pickObj) => {
+            handler.setInputAction((click) => {
+                console.log(click)
+                let position = earth.czm.viewer.scene.pickPosition(click.position)
+                console.log(position)
+                let cartographic=Cesium.Cartographic.fromCartesian(position)
+                // earth.sceneTree.$refs.pin1.czmObject.customProp = false;
+                earth.sceneTree.$refs.pin1.czmObject.position = [cartographic.longitude,cartographic.latitude,cartographic.height]
+                
+                // console.log(this.Cartesian2ToCartographic(earth.czm.viewer, position))
+            }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
+            console.log(pickObj)
+
+            let PropertyNames = pickObj.getPropertyNames()
+            let propertyList = []
+            PropertyNames.forEach(property => {
+                propertyList.push({
+                    name: property,
+                    value: pickObj.getProperty(property)
+                })
+            })
+            callback(propertyList,handler)
+            // handler.destroy()
+            // console.log(propertyList)
+        }
+    }
+
     /**
      * 屏幕坐标转经纬度坐标
      * @param viewer 
