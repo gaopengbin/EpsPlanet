@@ -6,14 +6,19 @@ let propertyLists = []
 let czmObjectList = []
 let resList = []
 let highLight = null
-window["allowClick"] = false;
+
+// window["allowClick"] = false;
 @Injectable({
     providedIn: 'root'
 })
 export class Identify {
-
+    earth;
     constructor(private http: HttpReqService) {
         // debugger
+        window["allowClick"] = false
+        this.earth = window['earth']
+        this.earth.interaction.picking.enabled = false
+        this.earth.interaction.picking.hoverEnable = false
     }
     httpReq(method, url) {
         if (method == 'post') {
@@ -44,6 +49,10 @@ export class Identify {
         handler.setInputAction((click) => {
             if (!window["allowClick"]) return;
             if (!czmObject.show) return;
+            let pickObj = earth.czm.viewer.scene.pick(click.position)
+            if (Cesium.defined(pickObj)) {
+                return
+            }
             earth.sceneTree.$refs.pin1.czmObject.customProp = false;
             highLight.entities.removeAll();
             resList = [];
@@ -145,6 +154,10 @@ export class Identify {
                 if (res.layers == undefined) return;
                 if (!window["allowClick"]) return;
                 if (!czmObject.show) return;
+                let pickObj = earth.czm.viewer.scene.pick(click.position)
+                if (Cesium.defined(pickObj)) {
+                    return
+                }
                 if (highLight)
                     highLight.entities.removeAll();
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
@@ -351,25 +364,297 @@ export class Identify {
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
         })
     }
-
-    pickModel(czmObject, earth, callback) {
+    test(list, earth, callback) {
+        list.sort(function sortNumber(a, b) {
+            return b._ci - a._ci
+        })
+        // console.log(list)
+        if (highLight == null) {
+            highLight = new Cesium.CustomDataSource('highLight');
+            earth.czm.viewer.dataSources.add(highLight);
+        }
         let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
+        handler.setInputAction((click) => {
 
+            try {
+                let flag = false
+                let geometryList = []
+                list.forEach((czmObject, i) => {
+                    if (!window["allowClick"]) return;
+                    if (!czmObject.show) return;
+                    let pickObj = earth.czm.viewer.scene.pick(click.position)
+                    if (Cesium.defined(pickObj)) {
+                        return
+                    }
+                    console.log("看看循环了几次")
+                    // if(i==2) throw new Error("hahha");
 
+                    if (highLight)
+                        highLight.entities.removeAll();
+                    earth.sceneTree.$refs.pin1.czmObject.customProp = false;
+                    earth.sceneTree.$refs.pin1.czmObject.position = this.Cartesian2ToCartographic(earth.czm.viewer, click.position)
+                    let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.url;
+                    let requestUrl = ""
+                    if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                        requestUrl = url.split('MapServer')[0] + "MapServer/layers?f=pjson"
+                    } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                        requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
+                    }
+                    // let layers=[];
 
-        czmObject.onclick = (pickObj) => {
-            handler.setInputAction((click) => {
-                console.log(click)
-                let position = earth.czm.viewer.scene.pickPosition(click.position)
-                console.log(position)
-                let cartographic=Cesium.Cartographic.fromCartesian(position)
-                // earth.sceneTree.$refs.pin1.czmObject.customProp = false;
-                earth.sceneTree.$refs.pin1.czmObject.position = [cartographic.longitude,cartographic.latitude,cartographic.height]
-                
-                // console.log(this.Cartesian2ToCartographic(earth.czm.viewer, position))
-            }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
-            console.log(pickObj)
+                    let position = this.Cartesian2ToWGS84(earth.czm.viewer, click.position);
+                    let bufferCoordinates = this.Buffer([position.lon, position.lat], 1);
+                    let addr = this.GetWFSUrl(czmObject.xbsjImageryProvider);
+                    let typeName = url.split('/MapServer')[0].split('services/')[1];
 
+                    this.httpFuncA(czmObject, typeName, bufferCoordinates, addr, requestUrl, (resList, geometryList) => {
+                        if(highLight.entities.values&&highLight.entities.values.length>0)
+                         return
+                        if (resList.length > 0 && geometryList.length > 0) {
+                            if (geometryList[0].geometry.type == "Point") {
+                                Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                    dataSource.entities.values.forEach(entity => {
+                                        entity.billboard = null;
+                                        entity.point = new Cesium.PointGraphics({
+                                            show: true,
+                                            color: Cesium.Color.AQUA,
+                                            pixelSize: 10,
+                                            clampToGround: true
+                                        })
+                                        highLight.entities.add(entity)
+                                    })
+                                })
+                            } else if (geometryList[0].geometry.type == "LineString") {
+                                Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                    dataSource.entities.values.forEach(entity => {
+                                        entity.polyline.width = 10
+                                        entity.polyline.clampToGround = true
+                                        entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
+                                            glowPower: 0.2,
+                                            color: Cesium.Color.BLUE
+                                        });
+                                        highLight.entities.add(entity)
+                                    })
+                                })
+                            }
+                            else {
+                                Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                    dataSource.entities.values.forEach(entity => {
+                                        highLight.entities.add(entity)
+                                    })
+                                })
+                            }
+                            callback(resList[0])
+                        }
+                    })
+                    
+
+                })
+            } catch (err) {
+                console.log(err)
+            }
+
+        }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
+    }
+    httpFuncA(czmObject, typeName, bufferCoordinates, addr, requestUrl, callback) {
+        let resList = []
+        let geometryList = []
+        this.httpReq('get', requestUrl).then((res: any) => {
+            if (res.layers == undefined) return;
+            // resList = []
+            // geometryList = []
+            if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                for (let i = 0; i < res.layers.length; i++) {
+                    const item = res.layers[i];
+                    let query = `${addr}`
+                        + `typename=${typeName}:${item.name}&Filter=`
+                        + `<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>`
+                        + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
+                        + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
+                        + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`
+                    this.httpReq('get', query).then().catch((err: any) => {
+                        let res = err.error.text
+                        // debugger
+                        if (this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember']) {
+                            let properties = this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember'][item.name]
+                            let propertyList = []
+                            let geojson = {}
+                            // debugger
+                            if (properties == undefined || properties == null) return;
+                            Object.keys(properties).map(key => {
+                                if (key !== "Shape") {
+                                    propertyList.push({
+                                        name: key,
+                                        value: properties[key].value
+                                    })
+                                } else {
+                                    if (properties[key].MultiSurface) {
+                                        let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                        posList.shift();
+                                        let list = []
+                                        for (let i = 0; i < posList.length; i += 2) {
+                                            list.push([posList[i], posList[i + 1]])
+                                        }
+                                        geojson = {
+                                            type: "Feature",
+                                            geometry: {
+                                                type: "LineString",
+                                                coordinates: list
+                                            }
+                                        }
+                                    } else if (properties[key].Point) {
+                                        let posList = properties[key].Point.pos.value.split(" ");
+                                        geojson =
+                                        {
+                                            type: "Feature",
+                                            geometry: {
+                                                type: "Point",
+                                                coordinates: posList
+                                            }
+                                        }
+                                    } else if (properties[key].MultiCurve) {
+                                        let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+
+                                        let list = []
+                                        for (let i = 0; i < posList.length; i += 2) {
+                                            list.push([posList[i], posList[i + 1]])
+                                        }
+                                        geojson =
+                                        {
+                                            type: "Feature",
+                                            geometry: {
+                                                type: "LineString",
+                                                coordinates: list
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            resList.push(propertyList)
+                            geometryList.push(geojson)
+                        }
+                    })
+                }
+            } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                let llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",")
+                for (let i = 0; i < llist.length; i++) {
+                    
+                    console.log('zhelijicine')
+                    const item = res.layers[res.layers.length - 1 - llist[i]];
+                    console.log(item.name)
+                    let query = `${addr}`
+                        + `typename=${typeName}:${item.name}&Filter=`
+                        + `<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>`
+                        + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
+                        + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
+                        + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`
+                    // console.log(item.name, query)
+                    // this.httpReq('get', query).then().catch((err: any) => {
+                    this.httpFunc(query, err => {
+                        console.log(resList)
+                        if (resList.length > 0) return
+                        let res = err.error.text
+                        if (this.xml2Json(this.stringToXml(res))['FeatureCollection'] == undefined) return
+
+                        if (this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember']) {
+                            // console.log(this.xml2Json(this.stringToXml(res)))
+                            let properties = this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember'][item.name]
+                            let propertyList = []
+                            let geojson = {}
+
+                            if (properties == undefined || properties == null) return;
+                            Object.keys(properties).map(key => {
+                                if (key !== "Shape") {
+                                    propertyList.push({
+                                        name: key,
+                                        value: properties[key].value
+                                    })
+                                } else {
+                                    if (properties[key].MultiSurface) {
+                                        let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                        posList.shift();
+                                        let list = []
+                                        for (let i = 0; i < posList.length; i += 2) {
+                                            list.push([posList[i], posList[i + 1]])
+                                        }
+                                        geojson = {
+                                            type: "Feature",
+                                            geometry: {
+                                                type: "LineString",
+                                                coordinates: list
+                                            }
+                                        }
+                                    } else if (properties[key].Point) {
+                                        let posList = properties[key].Point.pos.value.split(" ");
+                                        geojson =
+                                        {
+                                            type: "Feature",
+                                            geometry: {
+                                                type: "Point",
+                                                coordinates: posList
+                                            }
+                                        }
+                                    } else if (properties[key].MultiCurve) {
+                                        let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+
+                                        let list = []
+                                        for (let i = 0; i < posList.length; i += 2) {
+                                            list.push([posList[i], posList[i + 1]])
+                                        }
+                                        geojson =
+                                        {
+                                            type: "Feature",
+                                            geometry: {
+                                                type: "LineString",
+                                                coordinates: list
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            resList.push(propertyList)
+                            geometryList.push(geojson)
+                            callback(resList, geometryList)
+                            // console.log('kk')
+                            // throw new Error("ggg")
+                        }
+                    })
+                    // })
+                }
+            }
+
+        })
+    }
+    httpFuncB(requestUrl,callback){
+        this.httpReq('get', requestUrl).then((res: any) => {
+
+        })
+    }
+    httpFunc(query, callback) {
+        this.httpReq('get', query).then().catch((err: any) => {
+            callback(err)
+        })
+    }
+
+    pickModel(earth, callback) {
+
+        let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
+        handler.setInputAction((click) => {
+            if (!window["allowClick"]) {
+                return
+            }
+
+            console.log(click)
+            let position = earth.czm.viewer.scene.pickPosition(click.position)
+            let pickObj = earth.czm.viewer.scene.pick(click.position)
+            if (!Cesium.defined(pickObj)) {
+                earth.sceneTree.$refs.pin1.czmObject.customProp = false;
+                return
+            }
+            console.log("dsadad", pickObj)
+            let cartographic = Cesium.Cartographic.fromCartesian(position)
+            // earth.sceneTree.$refs.pin1.czmObject.customProp = false;
+            earth.sceneTree.$refs.pin1.czmObject.position = [cartographic.longitude, cartographic.latitude, cartographic.height]
             let PropertyNames = pickObj.getPropertyNames()
             let propertyList = []
             PropertyNames.forEach(property => {
@@ -378,10 +663,16 @@ export class Identify {
                     value: pickObj.getProperty(property)
                 })
             })
-            callback(propertyList,handler)
-            // handler.destroy()
-            // console.log(propertyList)
-        }
+            callback(propertyList, handler)
+            // console.log(this.Cartesian2ToCartographic(earth.czm.viewer, position))
+        }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
+        // console.log(pickObj)
+
+
+        // handler.destroy()
+        // console.log(propertyList)
+
+
     }
 
     /**
@@ -460,6 +751,7 @@ export class Identify {
      * 清除高亮
      */
     ClearHighLight() {
+        debugger
         highLight.entities.removeAll();
     }
     /**

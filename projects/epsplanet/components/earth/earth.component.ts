@@ -63,8 +63,8 @@ export class PlanetEarthComponent extends BaseMapComponent {
             timeline: false,
             sceneModePicker: true
           });
-          earth.interaction.picking.enabled = true
-          earth.interaction.picking.hoverEnable = true
+          earth.interaction.picking.enabled = false
+          earth.interaction.picking.hoverEnable = false
 
           const layerNode = SceneTreeUtils.loadLayers(this.config).children
           console.log(layerNode)
