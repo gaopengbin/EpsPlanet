@@ -7,7 +7,7 @@ let czmObjectList = []
 let resList = []
 let highLight = null
 
-// window["allowClick"] = false;
+// earth.epsplanet.allowClick = false;
 @Injectable({
     providedIn: 'root'
 })
@@ -15,10 +15,12 @@ export class Identify {
     earth;
     constructor(private http: HttpReqService) {
         // debugger
-        window["allowClick"] = false
+        // earth.epsplanet.allowClick = false
         this.earth = window['earth']
         this.earth.interaction.picking.enabled = false
         this.earth.interaction.picking.hoverEnable = false
+        this.earth.epsplanet={}
+        this.earth.epsplanet.allowClick=false;
     }
     httpReq(method, url) {
         if (method == 'post') {
@@ -47,7 +49,7 @@ export class Identify {
         let filter = ""
 
         handler.setInputAction((click) => {
-            if (!window["allowClick"]) return;
+            if (!earth.epsplanet.allowClick) return;
             if (!czmObject.show) return;
             let pickObj = earth.czm.viewer.scene.pick(click.position)
             if (Cesium.defined(pickObj)) {
@@ -152,7 +154,7 @@ export class Identify {
             // console.log(res)
             handler.setInputAction((click) => {
                 if (res.layers == undefined) return;
-                if (!window["allowClick"]) return;
+                if (!earth.epsplanet.allowClick) return;
                 if (!czmObject.show) return;
                 let pickObj = earth.czm.viewer.scene.pick(click.position)
                 if (Cesium.defined(pickObj)) {
@@ -375,91 +377,80 @@ export class Identify {
         }
         let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
         handler.setInputAction((click) => {
+            list.forEach((czmObject, i) => {
+                if (!earth.epsplanet.allowClick) return;
+                if (!czmObject.show) return;
+                let pickObj = earth.czm.viewer.scene.pick(click.position)
+                if (Cesium.defined(pickObj)) {
+                    return
+                }
+                console.log("看看循环了几次")
+                if (highLight)
+                    highLight.entities.removeAll();
+                earth.sceneTree.$refs.pin1.czmObject.customProp = false;
+                earth.sceneTree.$refs.pin1.czmObject.position = this.Cartesian2ToCartographic(earth.czm.viewer, click.position)
+                let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.url;
+                let requestUrl = ""
+                if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                    requestUrl = url.split('MapServer')[0] + "MapServer/layers?f=pjson"
+                } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                    requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
+                }
+                // let layers=[];
+                let position = this.Cartesian2ToWGS84(earth.czm.viewer, click.position);
+                let bufferCoordinates = this.Buffer([position.lon, position.lat], 1);
+                let addr = this.GetWFSUrl(czmObject.xbsjImageryProvider);
+                let typeName = url.split('/MapServer')[0].split('services/')[1];
 
-            try {
-                let flag = false
-                let geometryList = []
-                list.forEach((czmObject, i) => {
-                    if (!window["allowClick"]) return;
-                    if (!czmObject.show) return;
-                    let pickObj = earth.czm.viewer.scene.pick(click.position)
-                    if (Cesium.defined(pickObj)) {
+                this.httpFuncA(czmObject, typeName, bufferCoordinates, addr, requestUrl, (resList, geometryList) => {
+                    if (highLight.entities.values && highLight.entities.values.length > 0)
                         return
-                    }
-                    console.log("看看循环了几次")
-                    // if(i==2) throw new Error("hahha");
-
-                    if (highLight)
-                        highLight.entities.removeAll();
-                    earth.sceneTree.$refs.pin1.czmObject.customProp = false;
-                    earth.sceneTree.$refs.pin1.czmObject.position = this.Cartesian2ToCartographic(earth.czm.viewer, click.position)
-                    let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.url;
-                    let requestUrl = ""
-                    if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
-                        requestUrl = url.split('MapServer')[0] + "MapServer/layers?f=pjson"
-                    } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
-                        requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
-                    }
-                    // let layers=[];
-
-                    let position = this.Cartesian2ToWGS84(earth.czm.viewer, click.position);
-                    let bufferCoordinates = this.Buffer([position.lon, position.lat], 1);
-                    let addr = this.GetWFSUrl(czmObject.xbsjImageryProvider);
-                    let typeName = url.split('/MapServer')[0].split('services/')[1];
-
-                    this.httpFuncA(czmObject, typeName, bufferCoordinates, addr, requestUrl, (resList, geometryList) => {
-                        if(highLight.entities.values&&highLight.entities.values.length>0)
-                         return
-                        if (resList.length > 0 && geometryList.length > 0) {
-                            if (geometryList[0].geometry.type == "Point") {
-                                Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
-                                    dataSource.entities.values.forEach(entity => {
-                                        entity.billboard = null;
-                                        entity.point = new Cesium.PointGraphics({
-                                            show: true,
-                                            color: Cesium.Color.AQUA,
-                                            pixelSize: 10,
-                                            clampToGround: true
-                                        })
-                                        highLight.entities.add(entity)
+                    if (resList.length > 0 && geometryList.length > 0) {
+                        if (geometryList[0].geometry.type == "Point") {
+                            Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                dataSource.entities.values.forEach(entity => {
+                                    entity.billboard = null;
+                                    entity.point = new Cesium.PointGraphics({
+                                        show: true,
+                                        color: Cesium.Color.AQUA,
+                                        pixelSize: 10,
+                                        clampToGround: true
                                     })
+                                    highLight.entities.add(entity)
                                 })
-                            } else if (geometryList[0].geometry.type == "LineString") {
-                                Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
-                                    dataSource.entities.values.forEach(entity => {
-                                        entity.polyline.width = 10
-                                        entity.polyline.clampToGround = true
-                                        entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
-                                            glowPower: 0.2,
-                                            color: Cesium.Color.BLUE
-                                        });
-                                        highLight.entities.add(entity)
-                                    })
+                            })
+                        } else if (geometryList[0].geometry.type == "LineString") {
+                            Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                dataSource.entities.values.forEach(entity => {
+                                    entity.polyline.width = 10
+                                    entity.polyline.clampToGround = true
+                                    entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
+                                        glowPower: 0.2,
+                                        color: Cesium.Color.BLUE
+                                    });
+                                    highLight.entities.add(entity)
                                 })
-                            }
-                            else {
-                                Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
-                                    dataSource.entities.values.forEach(entity => {
-                                        highLight.entities.add(entity)
-                                    })
+                            })
+                        } else {
+                            Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                dataSource.entities.values.forEach(entity => {
+                                    highLight.entities.add(entity)
                                 })
-                            }
-                            callback(resList[0])
+                            })
                         }
-                    })
-                    
-
+                        callback(resList[0])
+                    }
                 })
-            } catch (err) {
-                console.log(err)
-            }
-
+            })
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
     }
     httpFuncA(czmObject, typeName, bufferCoordinates, addr, requestUrl, callback) {
-        let resList = []
-        let geometryList = []
-        this.httpReq('get', requestUrl).then((res: any) => {
+        let resLists = []
+        let geometryLists = []
+        this.httpFuncB(requestUrl, res => {
+
+            // })
+            // this.httpReq('get', requestUrl).then((res: any) => {
             if (res.layers == undefined) return;
             // resList = []
             // geometryList = []
@@ -472,73 +463,136 @@ export class Identify {
                         + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
                         + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
                         + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`
-                    this.httpReq('get', query).then().catch((err: any) => {
+                    this.httpFunc(query, err => {
                         let res = err.error.text
                         // debugger
-                        if (this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember']) {
-                            let properties = this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember'][item.name]
-                            let propertyList = []
-                            let geojson = {}
-                            // debugger
-                            if (properties == undefined || properties == null) return;
-                            Object.keys(properties).map(key => {
-                                if (key !== "Shape") {
-                                    propertyList.push({
-                                        name: key,
-                                        value: properties[key].value
-                                    })
-                                } else {
-                                    if (properties[key].MultiSurface) {
-                                        let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
-                                        posList.shift();
-                                        let list = []
-                                        for (let i = 0; i < posList.length; i += 2) {
-                                            list.push([posList[i], posList[i + 1]])
-                                        }
-                                        geojson = {
-                                            type: "Feature",
-                                            geometry: {
-                                                type: "LineString",
-                                                coordinates: list
+                        let FeatureCollection = this.xml2Json(this.stringToXml(res))['FeatureCollection'];
+                        if (FeatureCollection == undefined) return
+                        if (FeatureCollection['featureMember']) {
+                            if (FeatureCollection['featureMember'].length) {
+                                let properties = FeatureCollection['featureMember'][0][item.name]
+                                let propertyList = []
+                                let geojson = {}
+                                // debugger
+                                if (properties == undefined || properties == null) return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        })
+                                    } else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
                                             }
-                                        }
-                                    } else if (properties[key].Point) {
-                                        let posList = properties[key].Point.pos.value.split(" ");
-                                        geojson =
-                                        {
-                                            type: "Feature",
-                                            geometry: {
-                                                type: "Point",
-                                                coordinates: posList
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
                                             }
-                                        }
-                                    } else if (properties[key].MultiCurve) {
-                                        let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                        } else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "Point",
+                                                    coordinates: posList
+                                                }
+                                            }
+                                        } else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
 
-                                        let list = []
-                                        for (let i = 0; i < posList.length; i += 2) {
-                                            list.push([posList[i], posList[i + 1]])
-                                        }
-                                        geojson =
-                                        {
-                                            type: "Feature",
-                                            geometry: {
-                                                type: "LineString",
-                                                coordinates: list
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
+                                            }
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            });
-                            resList.push(propertyList)
-                            geometryList.push(geojson)
+                                });
+                                resLists.push(propertyList)
+                                geometryLists.push(geojson)
+                                callback(resLists, geometryLists)
+                            } else {
+                                let properties = FeatureCollection['featureMember'][item.name]
+                                let propertyList = []
+                                let geojson = {}
+                                // debugger
+                                if (properties == undefined || properties == null) return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        })
+                                    } else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
+                                            }
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            }
+                                        } else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "Point",
+                                                    coordinates: posList
+                                                }
+                                            }
+                                        } else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
+                                            }
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                                resLists.push(propertyList)
+                                geometryLists.push(geojson)
+                                callback(resLists, geometryLists)
+                            }
+
                         }
                     })
                 }
             } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
                 let llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",")
-                for (let i = 0; i < llist.length; i++) {
-                    
+                for (let i = llist.length - 1; i >= 0; i--) {
                     console.log('zhelijicine')
                     const item = res.layers[res.layers.length - 1 - llist[i]];
                     console.log(item.name)
@@ -551,72 +605,130 @@ export class Identify {
                     // console.log(item.name, query)
                     // this.httpReq('get', query).then().catch((err: any) => {
                     this.httpFunc(query, err => {
-                        console.log(resList)
-                        if (resList.length > 0) return
+                        if (resLists.length > 0) return
                         let res = err.error.text
-                        if (this.xml2Json(this.stringToXml(res))['FeatureCollection'] == undefined) return
-
-                        if (this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember']) {
-                            // console.log(this.xml2Json(this.stringToXml(res)))
-                            let properties = this.xml2Json(this.stringToXml(res))['FeatureCollection']['featureMember'][item.name]
-                            let propertyList = []
-                            let geojson = {}
-
-                            if (properties == undefined || properties == null) return;
-                            Object.keys(properties).map(key => {
-                                if (key !== "Shape") {
-                                    propertyList.push({
-                                        name: key,
-                                        value: properties[key].value
-                                    })
-                                } else {
-                                    if (properties[key].MultiSurface) {
-                                        let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
-                                        posList.shift();
-                                        let list = []
-                                        for (let i = 0; i < posList.length; i += 2) {
-                                            list.push([posList[i], posList[i + 1]])
-                                        }
-                                        geojson = {
-                                            type: "Feature",
-                                            geometry: {
-                                                type: "LineString",
-                                                coordinates: list
+                        let FeatureCollection = this.xml2Json(this.stringToXml(res))['FeatureCollection'];
+                        if (FeatureCollection == undefined) return
+                        if (FeatureCollection['featureMember']) {
+                            if (FeatureCollection['featureMember'].length) {
+                                let properties = FeatureCollection['featureMember'][0][item.name]
+                                let propertyList = []
+                                let geojson = {}
+                                if (properties == undefined || properties == null) return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        })
+                                    } else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
                                             }
-                                        }
-                                    } else if (properties[key].Point) {
-                                        let posList = properties[key].Point.pos.value.split(" ");
-                                        geojson =
-                                        {
-                                            type: "Feature",
-                                            geometry: {
-                                                type: "Point",
-                                                coordinates: posList
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
                                             }
-                                        }
-                                    } else if (properties[key].MultiCurve) {
-                                        let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                        } else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "Point",
+                                                    coordinates: posList
+                                                }
+                                            }
+                                        } else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
 
-                                        let list = []
-                                        for (let i = 0; i < posList.length; i += 2) {
-                                            list.push([posList[i], posList[i + 1]])
-                                        }
-                                        geojson =
-                                        {
-                                            type: "Feature",
-                                            geometry: {
-                                                type: "LineString",
-                                                coordinates: list
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
+                                            }
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
                                             }
                                         }
                                     }
-                                }
-                            });
-                            resList.push(propertyList)
-                            geometryList.push(geojson)
-                            callback(resList, geometryList)
-                            // console.log('kk')
-                            // throw new Error("ggg")
+                                });
+                                resLists.push(propertyList)
+                                geometryLists.push(geojson)
+                                callback(resLists, geometryLists)
+                            } else {
+                                let properties = FeatureCollection['featureMember'][item.name]
+                                let propertyList = []
+                                let geojson = {}
+
+                                if (properties == undefined || properties == null) return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        })
+                                    } else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
+                                            }
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            }
+                                        } else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "Point",
+                                                    coordinates: posList
+                                                }
+                                            }
+                                        } else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+
+                                            let list = []
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]])
+                                            }
+                                            geojson =
+                                            {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                                resLists.push(propertyList)
+                                geometryLists.push(geojson)
+                                callback(resLists, geometryLists)
+                            }
+                            // console.log(this.xml2Json(this.stringToXml(res)))
+
+
                         }
                     })
                     // })
@@ -625,10 +737,13 @@ export class Identify {
 
         })
     }
-    httpFuncB(requestUrl,callback){
+    httpFuncB(requestUrl, callback) {
         this.httpReq('get', requestUrl).then((res: any) => {
-
+            callback(res)
         })
+    }
+    httpFuncC() {
+
     }
     httpFunc(query, callback) {
         this.httpReq('get', query).then().catch((err: any) => {
@@ -640,14 +755,14 @@ export class Identify {
 
         let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
         handler.setInputAction((click) => {
-            if (!window["allowClick"]) {
+            if (!earth.epsplanet.allowClick) {
                 return
             }
 
             console.log(click)
             let position = earth.czm.viewer.scene.pickPosition(click.position)
             let pickObj = earth.czm.viewer.scene.pick(click.position)
-            if (!Cesium.defined(pickObj)) {
+            if (!Cesium.defined(pickObj)||!pickObj.getPropertyNames) {
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                 return
             }

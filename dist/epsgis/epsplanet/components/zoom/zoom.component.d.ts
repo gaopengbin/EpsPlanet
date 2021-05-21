@@ -7,6 +7,7 @@ export declare class PlanetZoomComponent extends BasePlanetWidgetComponent {
         path: string;
     };
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     zoomIn(): void;
     zoomOut(): void;
     static ɵfac: i0.ɵɵFactoryDef<PlanetZoomComponent, never>;

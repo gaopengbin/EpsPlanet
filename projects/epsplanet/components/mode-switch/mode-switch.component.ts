@@ -10,12 +10,7 @@ import { BasePlanetWidgetComponent } from '../base-widget/base-widget.component'
 @Component({
   selector: 'epsgis-planet-mode-switch',
   templateUrl: './mode-switch.component.html',
-  styleUrls: ['./mode-switch.component.scss'],
-  host: {
-    "[class.jimu-widget-onscreen-icon]": "true",
-    // "[class.icon]": "true",
-    "title": "模式切换"
-  }
+  styleUrls: ['./mode-switch.component.scss']
 })
 export class PlanetModeSwitchComponent extends BasePlanetWidgetComponent {
   viewType: string = '3d';

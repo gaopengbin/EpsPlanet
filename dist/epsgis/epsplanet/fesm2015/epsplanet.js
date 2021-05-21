@@ -333,8 +333,8 @@ let PlanetEarthComponent = class PlanetEarthComponent extends BaseMapComponent {
                         timeline: false,
                         sceneModePicker: true
                     });
-                    earth.interaction.picking.enabled = true;
-                    earth.interaction.picking.hoverEnable = true;
+                    earth.interaction.picking.enabled = false;
+                    earth.interaction.picking.hoverEnable = false;
                     const layerNode = SceneTreeUtils.loadLayers(this.config).children;
                     console.log(layerNode);
                     earth.sceneTree.root.children.push(...layerNode);
@@ -342,7 +342,7 @@ let PlanetEarthComponent = class PlanetEarthComponent extends BaseMapComponent {
                     earth.camera.navigator.showDistanceLegend = true;
                     window["earth"] = earth;
                     if (this.config.mapOptions && this.config.mapOptions.center) {
-                        let x = 116.26984645340727, y = 40.10171604578351, h = 230;
+                        let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 0, pitch = -90;
                         if (this.config.mapOptions.center.length >= 1) {
                             x = this.config.mapOptions.center[0];
                         }
@@ -352,11 +352,17 @@ let PlanetEarthComponent = class PlanetEarthComponent extends BaseMapComponent {
                         if (this.config.mapOptions.center.length >= 3) {
                             h = this.config.mapOptions.center[2];
                         }
+                        if (this.config.mapOptions.heading) {
+                            heading = this.config.mapOptions.heading;
+                        }
+                        if (this.config.mapOptions.pitch) {
+                            pitch = this.config.mapOptions.pitch;
+                        }
                         earth.czm.viewer.camera.flyTo({
                             destination: Cesium.Cartesian3.fromDegrees(x, y, h),
                             orientation: {
-                                heading: Cesium.Math.toRadians(5),
-                                pitch: Cesium.Math.toRadians(-36.0),
+                                heading: Cesium.Math.toRadians(heading),
+                                pitch: Cesium.Math.toRadians(pitch),
                             }
                         });
                     }
@@ -1174,18 +1180,10 @@ PlanetLocationComponent = __decorate([
             }]
     }], function () { return []; }, null); })();
 
-function PlanetModeSwitchComponent_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵnamespaceSVG();
-    ɵɵelementStart(1, "svg", 3);
-    ɵɵelement(2, "path", 4);
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} }
 function PlanetModeSwitchComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
     ɵɵelementContainerStart(0);
     ɵɵnamespaceSVG();
-    ɵɵelementStart(1, "svg", 3);
+    ɵɵelementStart(1, "svg", 4);
     ɵɵelement(2, "path", 5);
     ɵɵelementEnd();
     ɵɵelementContainerEnd();
@@ -1193,35 +1191,43 @@ function PlanetModeSwitchComponent_ng_container_2_Template(rf, ctx) { if (rf & 1
 function PlanetModeSwitchComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
     ɵɵelementContainerStart(0);
     ɵɵnamespaceSVG();
-    ɵɵelementStart(1, "svg", 3);
+    ɵɵelementStart(1, "svg", 4);
     ɵɵelement(2, "path", 6);
     ɵɵelementEnd();
     ɵɵelementContainerEnd();
 } }
-function PlanetModeSwitchComponent_ng_template_4_Template(rf, ctx) { if (rf & 1) {
+function PlanetModeSwitchComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementContainerStart(0);
+    ɵɵnamespaceSVG();
+    ɵɵelementStart(1, "svg", 4);
+    ɵɵelement(2, "path", 7);
+    ɵɵelementEnd();
+    ɵɵelementContainerEnd();
+} }
+function PlanetModeSwitchComponent_ng_template_5_Template(rf, ctx) { if (rf & 1) {
     const _r6 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "div", 7);
-    ɵɵelementStart(1, "div", 8);
-    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_4_Template_div_click_1_listener() { ɵɵrestoreView(_r6); const ctx_r5 = ɵɵnextContext(); return ctx_r5.changeViewMode("3d"); });
+    ɵɵelementStart(0, "div", 8);
+    ɵɵelementStart(1, "div", 9);
+    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_1_listener() { ɵɵrestoreView(_r6); const ctx_r5 = ɵɵnextContext(); return ctx_r5.changeViewMode("3d"); });
     ɵɵnamespaceSVG();
-    ɵɵelementStart(2, "svg", 9);
-    ɵɵelement(3, "path", 4);
+    ɵɵelementStart(2, "svg", 10);
+    ɵɵelement(3, "path", 5);
     ɵɵelementEnd();
     ɵɵelementEnd();
     ɵɵnamespaceHTML();
-    ɵɵelementStart(4, "div", 8);
-    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_4_Template_div_click_4_listener() { ɵɵrestoreView(_r6); const ctx_r7 = ɵɵnextContext(); return ctx_r7.changeViewMode("2d"); });
+    ɵɵelementStart(4, "div", 9);
+    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_4_listener() { ɵɵrestoreView(_r6); const ctx_r7 = ɵɵnextContext(); return ctx_r7.changeViewMode("2d"); });
     ɵɵnamespaceSVG();
-    ɵɵelementStart(5, "svg", 9);
-    ɵɵelement(6, "path", 5);
+    ɵɵelementStart(5, "svg", 10);
+    ɵɵelement(6, "path", 6);
     ɵɵelementEnd();
     ɵɵelementEnd();
     ɵɵnamespaceHTML();
-    ɵɵelementStart(7, "div", 8);
-    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_4_Template_div_click_7_listener() { ɵɵrestoreView(_r6); const ctx_r8 = ɵɵnextContext(); return ctx_r8.changeViewMode("columbus"); });
+    ɵɵelementStart(7, "div", 9);
+    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_7_listener() { ɵɵrestoreView(_r6); const ctx_r8 = ɵɵnextContext(); return ctx_r8.changeViewMode("columbus"); });
     ɵɵnamespaceSVG();
-    ɵɵelementStart(8, "svg", 9);
-    ɵɵelement(9, "path", 6);
+    ɵɵelementStart(8, "svg", 10);
+    ɵɵelement(9, "path", 7);
     ɵɵelementEnd();
     ɵɵelementEnd();
     ɵɵelementEnd();
@@ -1254,18 +1260,19 @@ let PlanetModeSwitchComponent = class PlanetModeSwitchComponent extends BasePlan
     }
 };
 PlanetModeSwitchComponent.ɵfac = function PlanetModeSwitchComponent_Factory(t) { return new (t || PlanetModeSwitchComponent)(); };
-PlanetModeSwitchComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetModeSwitchComponent, selectors: [["epsgis-planet-mode-switch"]], hostAttrs: ["title", "\u6A21\u5F0F\u5207\u6362"], hostVars: 2, hostBindings: function PlanetModeSwitchComponent_HostBindings(rf, ctx) { if (rf & 2) {
-        ɵɵclassProp("jimu-widget-onscreen-icon", true);
-    } }, features: [ɵɵInheritDefinitionFeature], decls: 6, vars: 6, consts: [["nz-popover", "", "nzPopoverTrigger", "click", 1, "icon", 3, "nzPopoverVisible", "nzPopoverContent", "nzPopoverPlacement", "nzPopoverVisibleChange"], [4, "ngIf"], ["contentTemplate", ""], ["width", "32", "height", "32", "viewBox", "0 0 64 64", 1, ""], ["d", "m 32.401392,4.9330437 c -7.087603,0 -14.096095,2.884602 -19.10793,7.8946843 -5.0118352,5.010083 -7.9296167,11.987468 -7.9296167,19.072999 0,7.085531 2.9177815,14.097848 7.9296167,19.107931 4.837653,4.835961 11.541408,7.631372 18.374354,7.82482 0.05712,0.01231 0.454119,0.139729 0.454119,0.139729 l 0.03493,-0.104797 c 0.08246,7.84e-4 0.162033,0.03493 0.244525,0.03493 0.08304,0 0.161515,-0.03414 0.244526,-0.03493 l 0.03493,0.104797 c 0,0 0.309474,-0.129487 0.349323,-0.139729 6.867765,-0.168094 13.582903,-2.965206 18.444218,-7.82482 2.558195,-2.5573 4.551081,-5.638134 5.903547,-8.977584 1.297191,-3.202966 2.02607,-6.661489 2.02607,-10.130347 0,-6.237309 -2.366261,-12.31219 -6.322734,-17.116794 -0.0034,-0.02316 0.0049,-0.04488 0,-0.06986 -0.01733,-0.08745 -0.104529,-0.278855 -0.104797,-0.279458 -5.31e-4,-0.0012 -0.522988,-0.628147 -0.523984,-0.62878         -3.47e-4,-2.2e-4 -0.133444,-0.03532 -0.244525,-0.06987 C 51.944299,13.447603 51.751076,13.104317 51.474391,12.827728 46.462556,7.8176457 39.488996,4.9330437 32.401392,4.9330437 z m -2.130866,3.5281554 0.104797,9.6762289 c -4.111695,-0.08361 -7.109829,-0.423664 -9.257041,-0.943171 1.198093,-2.269271 2.524531,-4.124404 3.91241,-5.414496 2.167498,-2.0147811 3.950145,-2.8540169 5.239834,-3.3185619 z m 2.794579,0 c 1.280302,0.4754953 3.022186,1.3285948 5.065173,3.2486979 1.424667,1.338973 2.788862,3.303645 3.982275,5.728886 -2.29082,0.403367 -5.381258,0.621049 -8.942651,0.698645 L 33.065105,8.4611991 z m 5.728886,0.2445256 c 4.004072,1.1230822 7.793098,3.1481363 10.724195,6.0782083 0.03468,0.03466 0.07033,0.06991 0.104797,0.104797 -0.45375,0.313891 -0.923054,0.663002 -1.956205,1.082899 -0.647388,0.263114 -1.906242,0.477396 -2.829511,0.733577 -1.382296,-2.988132         -3.027146,-5.368585 -4.785716,-7.0213781 -0.422866,-0.397432 -0.835818,-0.6453247 -1.25756,-0.9781032 z m -15.33525,0.7685092 c -0.106753,0.09503 -0.207753,0.145402 -0.31439,0.244526 -1.684973,1.5662541 -3.298068,3.8232211 -4.680919,6.5672591 -0.343797,-0.14942 -1.035052,-0.273198 -1.292493,-0.419186 -0.956528,-0.542427 -1.362964,-1.022024 -1.537018,-1.292493 -0.0241,-0.03745 -0.01868,-0.0401 -0.03493,-0.06986 2.250095,-2.163342 4.948824,-3.869984 7.859752,-5.0302421 z m -9.641296,7.0912431 c 0.464973,0.571618 0.937729,1.169056 1.956205,1.746612 0.349907,0.198425 1.107143,0.335404 1.537018,0.523983 -1.20166,3.172984 -1.998037,7.051901 -2.165798,11.772162 C 14.256557,30.361384 12.934823,30.161483 12.280427,29.90959 10.644437,29.279855 9.6888882,28.674891 9.1714586,28.267775 8.6540289,27.860658 8.6474751,27.778724 8.6474751,27.778724 l -0.069864,0.03493 C 9.3100294,23.691285         11.163248,19.798527 13.817445,16.565477 z m 37.552149,0.523984 c 2.548924,3.289983 4.265057,7.202594 4.890513,11.318043 -0.650428,0.410896 -1.756876,1.001936 -3.563088,1.606882 -1.171552,0.392383 -3.163859,0.759153 -4.960377,1.117832 -0.04367,-4.752703 -0.784809,-8.591423 -1.88634,-11.807094 0.917574,-0.263678 2.170552,-0.486495 2.864443,-0.76851 1.274693,-0.518066 2.003942,-1.001558 2.654849,-1.467153 z m -31.439008,2.619917 c 2.487341,0.672766 5.775813,1.137775 10.479669,1.222628 l 0.104797,10.689263 0,0.03493 0,0.733577 c -5.435005,-0.09059 -9.512219,-0.519044 -12.610536,-1.117831 0.106127,-4.776683 0.879334,-8.55791 2.02607,-11.562569 z m 23.264866,0.31439 c 1.073459,3.067541 1.833795,6.821314 1.816476,11.702298 -3.054474,0.423245 -7.062018,0.648559 -11.702298,0.698644 l 0,-0.838373 -0.104796,-10.654331 c 4.082416,-0.0864 7.404468,-0.403886 9.990618,-0.908238 z         M 8.2632205,30.922625 c 0.7558676,0.510548 1.5529563,1.013339 3.0041715,1.57195 0.937518,0.360875 2.612202,0.647642 3.91241,0.978102 0.112814,3.85566 0.703989,7.107756 1.606883,9.920754 -1.147172,-0.324262 -2.644553,-0.640648 -3.423359,-0.978102 -1.516688,-0.657177 -2.386627,-1.287332 -2.864443,-1.71168 -0.477816,-0.424347 -0.489051,-0.489051 -0.489051,-0.489051 L 9.8002387,40.319395 C 8.791691,37.621767 8.1584238,34.769583 8.1584238,31.900727 c 0,-0.330153 0.090589,-0.648169 0.1047967,-0.978102 z m 48.2763445,0.419186 c 0.0047,0.188973 0.06986,0.36991 0.06986,0.558916 0,2.938869 -0.620228,5.873558 -1.676747,8.628261 -0.07435,0.07583 -0.06552,0.07411 -0.454119,0.349323 -0.606965,0.429857 -1.631665,1.042044 -3.318562,1.676747 -1.208528,0.454713 -3.204964,0.850894 -5.135038,1.25756 0.84593,-2.765726 1.41808,-6.005357 1.606883,-9.815957 2.232369,-0.413371 4.483758,-0.840201         5.938479,-1.327425 1.410632,-0.472457 2.153108,-0.89469 2.96924,-1.327425 z m -38.530252,2.864443 c 3.208141,0.56697 7.372279,0.898588 12.575603,0.978103 l 0.174662,9.885821 c -4.392517,-0.06139 -8.106722,-0.320566 -10.863925,-0.803441 -1.051954,-2.664695 -1.692909,-6.043794 -1.88634,-10.060483 z m 26.793022,0.31439 c -0.246298,3.923551 -0.877762,7.263679 -1.816476,9.885822 -2.561957,0.361954 -5.766249,0.560708 -9.431703,0.62878 l -0.174661,-9.815957 c 4.491734,-0.04969 8.334769,-0.293032 11.42284,-0.698645 z M 12.035901,44.860585 c 0.09977,0.04523 0.105535,0.09465 0.209594,0.139729 1.337656,0.579602 3.441099,1.058072 5.589157,1.537018 1.545042,3.399208 3.548524,5.969402 5.589157,7.789888 -3.034411,-1.215537 -5.871615,-3.007978 -8.174142,-5.309699 -1.245911,-1.245475 -2.271794,-2.662961 -3.213766,-4.156936 z m 40.69605,0 c -0.941972,1.493975 -1.967855,2.911461         -3.213765,4.156936 -2.74253,2.741571 -6.244106,4.696717 -9.955686,5.868615 0.261347,-0.241079 0.507495,-0.394491 0.768509,-0.663713 1.674841,-1.727516 3.320792,-4.181056 4.645987,-7.265904 2.962447,-0.503021 5.408965,-1.122293 7.161107,-1.781544 0.284034,-0.106865 0.337297,-0.207323 0.593848,-0.31439 z m -31.404076,2.305527 c 2.645807,0.376448 5.701178,0.649995 9.466635,0.698645 l 0.139729,7.789888 c -1.38739,-0.480844 -3.316218,-1.29837 -5.659022,-3.388427 -1.388822,-1.238993 -2.743668,-3.0113 -3.947342,-5.100106 z m 20.365491,0.104797 c -1.04872,2.041937 -2.174337,3.779068 -3.353494,4.995309 -1.853177,1.911459 -3.425515,2.82679 -4.611055,3.353494 l -0.139729,-7.789887 c 3.13091,-0.05714 5.728238,-0.278725 8.104278,-0.558916 z"], ["d", "m 2.9825053,17.550598 0,1.368113 0,26.267766 0,1.368113 1.36811,0 54.9981397,0 1.36811,0 0,-1.368113 0,-26.267766 0,-1.368113 -1.36811,0 -54.9981397,0 -1.36811,0 z m 2.73623,2.736226 10.3292497,0 0,10.466063 -10.3292497,0 0,-10.466063 z m 13.0654697,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 10.32926,0 0,10.466063 -10.32926,0 0,-10.466063 z m -41.9326497,13.202288 10.3292497,0 0,10.329252 -10.3292497,0 0,-10.329252 z m 13.0654697,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 10.32926,0 0,10.329252 -10.32926,0 0,-10.329252 z"], ["d", "m 14.723969,17.675598 -0.340489,0.817175 -11.1680536,26.183638 -0.817175,1.872692 2.076986,0 54.7506996,0 2.07698,0 -0.81717,-1.872692 -11.16805,-26.183638 -0.34049,-0.817175 -0.91933,0 -32.414586,0 -0.919322,0 z m 1.838643,2.723916 6.196908,0 -2.928209,10.418977 -7.729111,0 4.460412,-10.418977 z m 9.02297,0 4.903049,0 0,10.418977 -7.831258,0 2.928209,-10.418977 z m 7.626964,0 5.584031,0 2.62176,10.418977 -8.205791,0 0,-10.418977 z m 8.410081,0 5.51593,0 4.46042,10.418977 -7.38863,0 -2.58772,-10.418977 z m -30.678091,13.142892 8.103649,0 -2.89416,10.282782 -9.6018026,0 4.3923136,-10.282782 z m 10.929711,0 8.614384,0 0,10.282782 -11.508544,0 2.89416,-10.282782 z m 11.338299,0 8.852721,0 2.58772,10.282782 -11.440441,0 0,-10.282782 z m 11.678781,0 7.86531,0 4.39231,10.282782 -9.6699,0 -2.58772,-10.282782 z"], [1, "container"], [1, "mode", 3, "click"], ["width", "40", "height", "40", "viewBox", "0 0 64 64", 1, ""]], template: function PlanetModeSwitchComponent_Template(rf, ctx) { if (rf & 1) {
+PlanetModeSwitchComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetModeSwitchComponent, selectors: [["epsgis-planet-mode-switch"]], features: [ɵɵInheritDefinitionFeature], decls: 7, vars: 6, consts: [["title", "\u6A21\u5F0F\u5207\u6362", 1, "jimu-widget-onscreen-icon"], ["nz-popover", "", "nzPopoverTrigger", "click", 1, "icon", 3, "nzPopoverVisible", "nzPopoverContent", "nzPopoverPlacement", "nzPopoverVisibleChange"], [4, "ngIf"], ["contentTemplate", ""], ["width", "32", "height", "32", "viewBox", "0 0 64 64", 1, ""], ["d", "m 32.401392,4.9330437 c -7.087603,0 -14.096095,2.884602 -19.10793,7.8946843 -5.0118352,5.010083 -7.9296167,11.987468 -7.9296167,19.072999 0,7.085531 2.9177815,14.097848 7.9296167,19.107931 4.837653,4.835961 11.541408,7.631372 18.374354,7.82482 0.05712,0.01231 0.454119,0.139729 0.454119,0.139729 l 0.03493,-0.104797 c 0.08246,7.84e-4 0.162033,0.03493 0.244525,0.03493 0.08304,0 0.161515,-0.03414 0.244526,-0.03493 l 0.03493,0.104797 c 0,0 0.309474,-0.129487 0.349323,-0.139729 6.867765,-0.168094 13.582903,-2.965206 18.444218,-7.82482 2.558195,-2.5573 4.551081,-5.638134 5.903547,-8.977584 1.297191,-3.202966 2.02607,-6.661489 2.02607,-10.130347 0,-6.237309 -2.366261,-12.31219 -6.322734,-17.116794 -0.0034,-0.02316 0.0049,-0.04488 0,-0.06986 -0.01733,-0.08745 -0.104529,-0.278855 -0.104797,-0.279458 -5.31e-4,-0.0012 -0.522988,-0.628147 -0.523984,-0.62878         -3.47e-4,-2.2e-4 -0.133444,-0.03532 -0.244525,-0.06987 C 51.944299,13.447603 51.751076,13.104317 51.474391,12.827728 46.462556,7.8176457 39.488996,4.9330437 32.401392,4.9330437 z m -2.130866,3.5281554 0.104797,9.6762289 c -4.111695,-0.08361 -7.109829,-0.423664 -9.257041,-0.943171 1.198093,-2.269271 2.524531,-4.124404 3.91241,-5.414496 2.167498,-2.0147811 3.950145,-2.8540169 5.239834,-3.3185619 z m 2.794579,0 c 1.280302,0.4754953 3.022186,1.3285948 5.065173,3.2486979 1.424667,1.338973 2.788862,3.303645 3.982275,5.728886 -2.29082,0.403367 -5.381258,0.621049 -8.942651,0.698645 L 33.065105,8.4611991 z m 5.728886,0.2445256 c 4.004072,1.1230822 7.793098,3.1481363 10.724195,6.0782083 0.03468,0.03466 0.07033,0.06991 0.104797,0.104797 -0.45375,0.313891 -0.923054,0.663002 -1.956205,1.082899 -0.647388,0.263114 -1.906242,0.477396 -2.829511,0.733577 -1.382296,-2.988132         -3.027146,-5.368585 -4.785716,-7.0213781 -0.422866,-0.397432 -0.835818,-0.6453247 -1.25756,-0.9781032 z m -15.33525,0.7685092 c -0.106753,0.09503 -0.207753,0.145402 -0.31439,0.244526 -1.684973,1.5662541 -3.298068,3.8232211 -4.680919,6.5672591 -0.343797,-0.14942 -1.035052,-0.273198 -1.292493,-0.419186 -0.956528,-0.542427 -1.362964,-1.022024 -1.537018,-1.292493 -0.0241,-0.03745 -0.01868,-0.0401 -0.03493,-0.06986 2.250095,-2.163342 4.948824,-3.869984 7.859752,-5.0302421 z m -9.641296,7.0912431 c 0.464973,0.571618 0.937729,1.169056 1.956205,1.746612 0.349907,0.198425 1.107143,0.335404 1.537018,0.523983 -1.20166,3.172984 -1.998037,7.051901 -2.165798,11.772162 C 14.256557,30.361384 12.934823,30.161483 12.280427,29.90959 10.644437,29.279855 9.6888882,28.674891 9.1714586,28.267775 8.6540289,27.860658 8.6474751,27.778724 8.6474751,27.778724 l -0.069864,0.03493 C 9.3100294,23.691285         11.163248,19.798527 13.817445,16.565477 z m 37.552149,0.523984 c 2.548924,3.289983 4.265057,7.202594 4.890513,11.318043 -0.650428,0.410896 -1.756876,1.001936 -3.563088,1.606882 -1.171552,0.392383 -3.163859,0.759153 -4.960377,1.117832 -0.04367,-4.752703 -0.784809,-8.591423 -1.88634,-11.807094 0.917574,-0.263678 2.170552,-0.486495 2.864443,-0.76851 1.274693,-0.518066 2.003942,-1.001558 2.654849,-1.467153 z m -31.439008,2.619917 c 2.487341,0.672766 5.775813,1.137775 10.479669,1.222628 l 0.104797,10.689263 0,0.03493 0,0.733577 c -5.435005,-0.09059 -9.512219,-0.519044 -12.610536,-1.117831 0.106127,-4.776683 0.879334,-8.55791 2.02607,-11.562569 z m 23.264866,0.31439 c 1.073459,3.067541 1.833795,6.821314 1.816476,11.702298 -3.054474,0.423245 -7.062018,0.648559 -11.702298,0.698644 l 0,-0.838373 -0.104796,-10.654331 c 4.082416,-0.0864 7.404468,-0.403886 9.990618,-0.908238 z         M 8.2632205,30.922625 c 0.7558676,0.510548 1.5529563,1.013339 3.0041715,1.57195 0.937518,0.360875 2.612202,0.647642 3.91241,0.978102 0.112814,3.85566 0.703989,7.107756 1.606883,9.920754 -1.147172,-0.324262 -2.644553,-0.640648 -3.423359,-0.978102 -1.516688,-0.657177 -2.386627,-1.287332 -2.864443,-1.71168 -0.477816,-0.424347 -0.489051,-0.489051 -0.489051,-0.489051 L 9.8002387,40.319395 C 8.791691,37.621767 8.1584238,34.769583 8.1584238,31.900727 c 0,-0.330153 0.090589,-0.648169 0.1047967,-0.978102 z m 48.2763445,0.419186 c 0.0047,0.188973 0.06986,0.36991 0.06986,0.558916 0,2.938869 -0.620228,5.873558 -1.676747,8.628261 -0.07435,0.07583 -0.06552,0.07411 -0.454119,0.349323 -0.606965,0.429857 -1.631665,1.042044 -3.318562,1.676747 -1.208528,0.454713 -3.204964,0.850894 -5.135038,1.25756 0.84593,-2.765726 1.41808,-6.005357 1.606883,-9.815957 2.232369,-0.413371 4.483758,-0.840201         5.938479,-1.327425 1.410632,-0.472457 2.153108,-0.89469 2.96924,-1.327425 z m -38.530252,2.864443 c 3.208141,0.56697 7.372279,0.898588 12.575603,0.978103 l 0.174662,9.885821 c -4.392517,-0.06139 -8.106722,-0.320566 -10.863925,-0.803441 -1.051954,-2.664695 -1.692909,-6.043794 -1.88634,-10.060483 z m 26.793022,0.31439 c -0.246298,3.923551 -0.877762,7.263679 -1.816476,9.885822 -2.561957,0.361954 -5.766249,0.560708 -9.431703,0.62878 l -0.174661,-9.815957 c 4.491734,-0.04969 8.334769,-0.293032 11.42284,-0.698645 z M 12.035901,44.860585 c 0.09977,0.04523 0.105535,0.09465 0.209594,0.139729 1.337656,0.579602 3.441099,1.058072 5.589157,1.537018 1.545042,3.399208 3.548524,5.969402 5.589157,7.789888 -3.034411,-1.215537 -5.871615,-3.007978 -8.174142,-5.309699 -1.245911,-1.245475 -2.271794,-2.662961 -3.213766,-4.156936 z m 40.69605,0 c -0.941972,1.493975 -1.967855,2.911461         -3.213765,4.156936 -2.74253,2.741571 -6.244106,4.696717 -9.955686,5.868615 0.261347,-0.241079 0.507495,-0.394491 0.768509,-0.663713 1.674841,-1.727516 3.320792,-4.181056 4.645987,-7.265904 2.962447,-0.503021 5.408965,-1.122293 7.161107,-1.781544 0.284034,-0.106865 0.337297,-0.207323 0.593848,-0.31439 z m -31.404076,2.305527 c 2.645807,0.376448 5.701178,0.649995 9.466635,0.698645 l 0.139729,7.789888 c -1.38739,-0.480844 -3.316218,-1.29837 -5.659022,-3.388427 -1.388822,-1.238993 -2.743668,-3.0113 -3.947342,-5.100106 z m 20.365491,0.104797 c -1.04872,2.041937 -2.174337,3.779068 -3.353494,4.995309 -1.853177,1.911459 -3.425515,2.82679 -4.611055,3.353494 l -0.139729,-7.789887 c 3.13091,-0.05714 5.728238,-0.278725 8.104278,-0.558916 z"], ["d", "m 2.9825053,17.550598 0,1.368113 0,26.267766 0,1.368113 1.36811,0 54.9981397,0 1.36811,0 0,-1.368113 0,-26.267766 0,-1.368113 -1.36811,0 -54.9981397,0 -1.36811,0 z m 2.73623,2.736226 10.3292497,0 0,10.466063 -10.3292497,0 0,-10.466063 z m 13.0654697,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 10.32926,0 0,10.466063 -10.32926,0 0,-10.466063 z m -41.9326497,13.202288 10.3292497,0 0,10.329252 -10.3292497,0 0,-10.329252 z m 13.0654697,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 10.32926,0 0,10.329252 -10.32926,0 0,-10.329252 z"], ["d", "m 14.723969,17.675598 -0.340489,0.817175 -11.1680536,26.183638 -0.817175,1.872692 2.076986,0 54.7506996,0 2.07698,0 -0.81717,-1.872692 -11.16805,-26.183638 -0.34049,-0.817175 -0.91933,0 -32.414586,0 -0.919322,0 z m 1.838643,2.723916 6.196908,0 -2.928209,10.418977 -7.729111,0 4.460412,-10.418977 z m 9.02297,0 4.903049,0 0,10.418977 -7.831258,0 2.928209,-10.418977 z m 7.626964,0 5.584031,0 2.62176,10.418977 -8.205791,0 0,-10.418977 z m 8.410081,0 5.51593,0 4.46042,10.418977 -7.38863,0 -2.58772,-10.418977 z m -30.678091,13.142892 8.103649,0 -2.89416,10.282782 -9.6018026,0 4.3923136,-10.282782 z m 10.929711,0 8.614384,0 0,10.282782 -11.508544,0 2.89416,-10.282782 z m 11.338299,0 8.852721,0 2.58772,10.282782 -11.440441,0 0,-10.282782 z m 11.678781,0 7.86531,0 4.39231,10.282782 -9.6699,0 -2.58772,-10.282782 z"], [1, "container"], [1, "mode", 3, "click"], ["width", "40", "height", "40", "viewBox", "0 0 64 64", 1, ""]], template: function PlanetModeSwitchComponent_Template(rf, ctx) { if (rf & 1) {
         ɵɵelementStart(0, "div", 0);
-        ɵɵlistener("nzPopoverVisibleChange", function PlanetModeSwitchComponent_Template_div_nzPopoverVisibleChange_0_listener($event) { return ctx.visible = $event; });
-        ɵɵtemplate(1, PlanetModeSwitchComponent_ng_container_1_Template, 3, 0, "ng-container", 1);
-        ɵɵtemplate(2, PlanetModeSwitchComponent_ng_container_2_Template, 3, 0, "ng-container", 1);
-        ɵɵtemplate(3, PlanetModeSwitchComponent_ng_container_3_Template, 3, 0, "ng-container", 1);
+        ɵɵelementStart(1, "div", 1);
+        ɵɵlistener("nzPopoverVisibleChange", function PlanetModeSwitchComponent_Template_div_nzPopoverVisibleChange_1_listener($event) { return ctx.visible = $event; });
+        ɵɵtemplate(2, PlanetModeSwitchComponent_ng_container_2_Template, 3, 0, "ng-container", 2);
+        ɵɵtemplate(3, PlanetModeSwitchComponent_ng_container_3_Template, 3, 0, "ng-container", 2);
+        ɵɵtemplate(4, PlanetModeSwitchComponent_ng_container_4_Template, 3, 0, "ng-container", 2);
         ɵɵelementEnd();
-        ɵɵtemplate(4, PlanetModeSwitchComponent_ng_template_4_Template, 10, 0, "ng-template", null, 2, ɵɵtemplateRefExtractor);
+        ɵɵelementEnd();
+        ɵɵtemplate(5, PlanetModeSwitchComponent_ng_template_5_Template, 10, 0, "ng-template", null, 3, ɵɵtemplateRefExtractor);
     } if (rf & 2) {
-        const _r3 = ɵɵreference(5);
+        const _r3 = ɵɵreference(6);
+        ɵɵadvance(1);
         ɵɵproperty("nzPopoverVisible", ctx.visible)("nzPopoverContent", _r3)("nzPopoverPlacement", "right");
         ɵɵadvance(1);
         ɵɵproperty("ngIf", ctx.viewType == "3d");
@@ -1286,11 +1293,7 @@ PlanetModeSwitchComponent = __decorate([
         args: [{
                 selector: 'epsgis-planet-mode-switch',
                 templateUrl: './mode-switch.component.html',
-                styleUrls: ['./mode-switch.component.scss'],
-                host: {
-                    "[class.jimu-widget-onscreen-icon]": "true",
-                    "title": "模式切换"
-                }
+                styleUrls: ['./mode-switch.component.scss']
             }]
     }], function () { return []; }, null); })();
 
@@ -1520,7 +1523,11 @@ let PlanetZoomComponent = class PlanetZoomComponent extends BasePlanetWidgetComp
     static getCompInfo() {
         return { name: "PlanetZoomComponent", path: "epsplanet/components/zoom" };
     }
-    ngOnInit() { }
+    ngOnInit() {
+    }
+    ngAfterViewInit() {
+        document.getElementsByClassName("jimu-widget-onscreen-icon zoomOut")[0]['style'].top = document.getElementsByClassName("jimu-widget-onscreen-icon zoomIn")[0]['offsetHeight'] + "px";
+    }
     zoomIn() {
         const viewer = this.view.czm.viewer;
         this.getCesiumView().camera.zoomIn(viewer.camera.positionCartographic.height / Math.abs(Math.sin(viewer.camera.pitch)) * 0.2);
@@ -1531,7 +1538,7 @@ let PlanetZoomComponent = class PlanetZoomComponent extends BasePlanetWidgetComp
     }
 };
 PlanetZoomComponent.ɵfac = function PlanetZoomComponent_Factory(t) { return new (t || PlanetZoomComponent)(); };
-PlanetZoomComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetZoomComponent, selectors: [["epsgis-planet-zoom"]], features: [ɵɵInheritDefinitionFeature], decls: 4, vars: 0, consts: [["title", "\u653E\u5927", 1, "jimu-widget-onscreen-icon", 3, "click"], ["nz-icon", "", "nzType", "plus", "nzTheme", "outline"], ["title", "\u7F29\u5C0F", 1, "jimu-widget-onscreen-icon", 2, "top", "33px", 3, "click"], ["nz-icon", "", "nzType", "minus", "nzTheme", "outline"]], template: function PlanetZoomComponent_Template(rf, ctx) { if (rf & 1) {
+PlanetZoomComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetZoomComponent, selectors: [["epsgis-planet-zoom"]], features: [ɵɵInheritDefinitionFeature], decls: 4, vars: 0, consts: [["title", "\u653E\u5927", 1, "jimu-widget-onscreen-icon", "zoomIn", 3, "click"], ["nz-icon", "", "nzType", "plus", "nzTheme", "outline"], ["title", "\u7F29\u5C0F", 1, "jimu-widget-onscreen-icon", "zoomOut", 3, "click"], ["nz-icon", "", "nzType", "minus", "nzTheme", "outline"]], template: function PlanetZoomComponent_Template(rf, ctx) { if (rf & 1) {
         ɵɵelementStart(0, "div", 0);
         ɵɵlistener("click", function PlanetZoomComponent_Template_div_click_0_listener() { return ctx.zoomIn(); });
         ɵɵelement(1, "i", 1);
@@ -1540,7 +1547,7 @@ PlanetZoomComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetZoomComponent, sel
         ɵɵlistener("click", function PlanetZoomComponent_Template_div_click_2_listener() { return ctx.zoomOut(); });
         ɵɵelement(3, "i", 3);
         ɵɵelementEnd();
-    } }, directives: [NzIconDirective, ɵNzTransitionPatchDirective], styles: [""] });
+    } }, directives: [NzIconDirective, ɵNzTransitionPatchDirective], styles: [".jimu-widget-onscreen-icon[_ngcontent-%COMP%]{margin-top:20px}"] });
 PlanetZoomComponent = __decorate([
     ComponentRegister({
         uri: "epsgis-planet-zoom",
@@ -1757,10 +1764,14 @@ let propertyLists = [];
 let czmObjectList = [];
 let resList = [];
 let highLight = null;
-window["allowClick"] = false;
 class Identify {
     constructor(http) {
         this.http = http;
+        this.earth = window['earth'];
+        this.earth.interaction.picking.enabled = false;
+        this.earth.interaction.picking.hoverEnable = false;
+        this.earth.epsplanet = {};
+        this.earth.epsplanet.allowClick = false;
     }
     httpReq(method, url) {
         if (method == 'post') {
@@ -1781,10 +1792,14 @@ class Identify {
         let handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
         let filter = "";
         handler.setInputAction((click) => {
-            if (!window["allowClick"])
+            if (!earth.epsplanet.allowClick)
                 return;
             if (!czmObject.show)
                 return;
+            let pickObj = earth.czm.viewer.scene.pick(click.position);
+            if (Cesium.defined(pickObj)) {
+                return;
+            }
             earth.sceneTree.$refs.pin1.czmObject.customProp = false;
             highLight.entities.removeAll();
             resList = [];
@@ -1863,24 +1878,33 @@ class Identify {
     InitHandler() {
     }
     getLayers(czmObject, earth, callback) {
+        if (highLight == null) {
+            highLight = new Cesium.CustomDataSource('highLight');
+            earth.czm.viewer.dataSources.add(highLight);
+        }
         let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
-        let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.SSWebMapServiceImageryProvider.url;
+        let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.url;
         let requestUrl = "";
         if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
             requestUrl = url.split('MapServer')[0] + "MapServer/layers?f=pjson";
         }
-        else if (czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+        else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
             requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
         }
         this.httpReq('get', requestUrl).then((res) => {
             handler.setInputAction((click) => {
                 if (res.layers == undefined)
                     return;
-                if (!window["allowClick"])
+                if (!earth.epsplanet.allowClick)
                     return;
                 if (!czmObject.show)
                     return;
-                highLight.entities.removeAll();
+                let pickObj = earth.czm.viewer.scene.pick(click.position);
+                if (Cesium.defined(pickObj)) {
+                    return;
+                }
+                if (highLight)
+                    highLight.entities.removeAll();
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                 earth.sceneTree.$refs.pin1.czmObject.position = this.Cartesian2ToCartographic(earth.czm.viewer, click.position);
                 let position = this.Cartesian2ToWGS84(earth.czm.viewer, click.position);
@@ -1963,8 +1987,8 @@ class Identify {
                         });
                     }
                 }
-                else if (czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
-                    let llist = czmObject.xbsjImageryProvider.SSWebMapServiceImageryProvider.layer.split(",");
+                else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                    let llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",");
                     for (let i = 0; i < llist.length; i++) {
                         const item = res.layers[res.layers.length - 1 - llist[i]];
                         let query = `${addr}`
@@ -1973,7 +1997,7 @@ class Identify {
                             + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
                             + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
                             + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`;
-                        console.log(item.name);
+                        console.log(item.name, query);
                         this.httpReq('get', query).then().catch((err) => {
                             let res = err.error.text;
                             if (this.xml2Json(this.stringToXml(res))['FeatureCollection'] == undefined)
@@ -2043,6 +2067,7 @@ class Identify {
                 }
                 setTimeout(() => {
                     if (resList.length > 0 && geometryList.length > 0) {
+                        console.log(geometryList, highLight);
                         if (geometryList[0].geometry.type == "Point") {
                             Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
                                 dataSource.entities.values.forEach(entity => {
@@ -2050,7 +2075,8 @@ class Identify {
                                     entity.point = new Cesium.PointGraphics({
                                         show: true,
                                         color: Cesium.Color.AQUA,
-                                        pixelSize: 10
+                                        pixelSize: 10,
+                                        clampToGround: true
                                     });
                                     highLight.entities.add(entity);
                                 });
@@ -2060,6 +2086,7 @@ class Identify {
                             Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
                                 dataSource.entities.values.forEach(entity => {
                                     entity.polyline.width = 10;
+                                    entity.polyline.clampToGround = true;
                                     entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
                                         glowPower: 0.2,
                                         color: Cesium.Color.BLUE
@@ -2080,6 +2107,420 @@ class Identify {
                 }, 500);
             }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
         });
+    }
+    test(list, earth, callback) {
+        list.sort(function sortNumber(a, b) {
+            return b._ci - a._ci;
+        });
+        if (highLight == null) {
+            highLight = new Cesium.CustomDataSource('highLight');
+            earth.czm.viewer.dataSources.add(highLight);
+        }
+        let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
+        handler.setInputAction((click) => {
+            list.forEach((czmObject, i) => {
+                if (!earth.epsplanet.allowClick)
+                    return;
+                if (!czmObject.show)
+                    return;
+                let pickObj = earth.czm.viewer.scene.pick(click.position);
+                if (Cesium.defined(pickObj)) {
+                    return;
+                }
+                console.log("看看循环了几次");
+                if (highLight)
+                    highLight.entities.removeAll();
+                earth.sceneTree.$refs.pin1.czmObject.customProp = false;
+                earth.sceneTree.$refs.pin1.czmObject.position = this.Cartesian2ToCartographic(earth.czm.viewer, click.position);
+                let url = czmObject.xbsjImageryProvider.WebMapTileServiceImageryProvider.url || czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.url;
+                let requestUrl = "";
+                if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                    requestUrl = url.split('MapServer')[0] + "MapServer/layers?f=pjson";
+                }
+                else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                    requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
+                }
+                let position = this.Cartesian2ToWGS84(earth.czm.viewer, click.position);
+                let bufferCoordinates = this.Buffer([position.lon, position.lat], 1);
+                let addr = this.GetWFSUrl(czmObject.xbsjImageryProvider);
+                let typeName = url.split('/MapServer')[0].split('services/')[1];
+                this.httpFuncA(czmObject, typeName, bufferCoordinates, addr, requestUrl, (resList, geometryList) => {
+                    if (highLight.entities.values && highLight.entities.values.length > 0)
+                        return;
+                    if (resList.length > 0 && geometryList.length > 0) {
+                        if (geometryList[0].geometry.type == "Point") {
+                            Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                dataSource.entities.values.forEach(entity => {
+                                    entity.billboard = null;
+                                    entity.point = new Cesium.PointGraphics({
+                                        show: true,
+                                        color: Cesium.Color.AQUA,
+                                        pixelSize: 10,
+                                        clampToGround: true
+                                    });
+                                    highLight.entities.add(entity);
+                                });
+                            });
+                        }
+                        else if (geometryList[0].geometry.type == "LineString") {
+                            Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                dataSource.entities.values.forEach(entity => {
+                                    entity.polyline.width = 10;
+                                    entity.polyline.clampToGround = true;
+                                    entity.polyline.material = new Cesium.PolylineGlowMaterialProperty({
+                                        glowPower: 0.2,
+                                        color: Cesium.Color.BLUE
+                                    });
+                                    highLight.entities.add(entity);
+                                });
+                            });
+                        }
+                        else {
+                            Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
+                                dataSource.entities.values.forEach(entity => {
+                                    highLight.entities.add(entity);
+                                });
+                            });
+                        }
+                        callback(resList[0]);
+                    }
+                });
+            });
+        }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    }
+    httpFuncA(czmObject, typeName, bufferCoordinates, addr, requestUrl, callback) {
+        let resLists = [];
+        let geometryLists = [];
+        this.httpFuncB(requestUrl, res => {
+            if (res.layers == undefined)
+                return;
+            if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                for (let i = 0; i < res.layers.length; i++) {
+                    const item = res.layers[i];
+                    let query = `${addr}`
+                        + `typename=${typeName}:${item.name}&Filter=`
+                        + `<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>`
+                        + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
+                        + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
+                        + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`;
+                    this.httpFunc(query, err => {
+                        let res = err.error.text;
+                        let FeatureCollection = this.xml2Json(this.stringToXml(res))['FeatureCollection'];
+                        if (FeatureCollection == undefined)
+                            return;
+                        if (FeatureCollection['featureMember']) {
+                            if (FeatureCollection['featureMember'].length) {
+                                let properties = FeatureCollection['featureMember'][0][item.name];
+                                let propertyList = [];
+                                let geojson = {};
+                                if (properties == undefined || properties == null)
+                                    return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        });
+                                    }
+                                    else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            };
+                                        }
+                                        else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "Point",
+                                                        coordinates: posList
+                                                    }
+                                                };
+                                        }
+                                        else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "LineString",
+                                                        coordinates: list
+                                                    }
+                                                };
+                                        }
+                                    }
+                                });
+                                resLists.push(propertyList);
+                                geometryLists.push(geojson);
+                                callback(resLists, geometryLists);
+                            }
+                            else {
+                                let properties = FeatureCollection['featureMember'][item.name];
+                                let propertyList = [];
+                                let geojson = {};
+                                if (properties == undefined || properties == null)
+                                    return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        });
+                                    }
+                                    else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            };
+                                        }
+                                        else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "Point",
+                                                        coordinates: posList
+                                                    }
+                                                };
+                                        }
+                                        else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "LineString",
+                                                        coordinates: list
+                                                    }
+                                                };
+                                        }
+                                    }
+                                });
+                                resLists.push(propertyList);
+                                geometryLists.push(geojson);
+                                callback(resLists, geometryLists);
+                            }
+                        }
+                    });
+                }
+            }
+            else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                let llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",");
+                for (let i = llist.length - 1; i >= 0; i--) {
+                    console.log('zhelijicine');
+                    const item = res.layers[res.layers.length - 1 - llist[i]];
+                    console.log(item.name);
+                    let query = `${addr}`
+                        + `typename=${typeName}:${item.name}&Filter=`
+                        + `<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>`
+                        + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
+                        + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
+                        + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`;
+                    this.httpFunc(query, err => {
+                        if (resLists.length > 0)
+                            return;
+                        let res = err.error.text;
+                        let FeatureCollection = this.xml2Json(this.stringToXml(res))['FeatureCollection'];
+                        if (FeatureCollection == undefined)
+                            return;
+                        if (FeatureCollection['featureMember']) {
+                            if (FeatureCollection['featureMember'].length) {
+                                let properties = FeatureCollection['featureMember'][0][item.name];
+                                let propertyList = [];
+                                let geojson = {};
+                                if (properties == undefined || properties == null)
+                                    return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        });
+                                    }
+                                    else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            };
+                                        }
+                                        else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "Point",
+                                                        coordinates: posList
+                                                    }
+                                                };
+                                        }
+                                        else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "LineString",
+                                                        coordinates: list
+                                                    }
+                                                };
+                                        }
+                                    }
+                                });
+                                resLists.push(propertyList);
+                                geometryLists.push(geojson);
+                                callback(resLists, geometryLists);
+                            }
+                            else {
+                                let properties = FeatureCollection['featureMember'][item.name];
+                                let propertyList = [];
+                                let geojson = {};
+                                if (properties == undefined || properties == null)
+                                    return;
+                                Object.keys(properties).map(key => {
+                                    if (key !== "Shape") {
+                                        propertyList.push({
+                                            name: key,
+                                            value: properties[key].value
+                                        });
+                                    }
+                                    else {
+                                        if (properties[key].MultiSurface) {
+                                            let posList = properties[key].MultiSurface.surfaceMember.Polygon.exterior.LinearRing.posList.value.split(" ");
+                                            posList.shift();
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson = {
+                                                type: "Feature",
+                                                geometry: {
+                                                    type: "LineString",
+                                                    coordinates: list
+                                                }
+                                            };
+                                        }
+                                        else if (properties[key].Point) {
+                                            let posList = properties[key].Point.pos.value.split(" ");
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "Point",
+                                                        coordinates: posList
+                                                    }
+                                                };
+                                        }
+                                        else if (properties[key].MultiCurve) {
+                                            let posList = properties[key].MultiCurve.curveMember.LineString.posList.value.split(" ");
+                                            let list = [];
+                                            for (let i = 0; i < posList.length; i += 2) {
+                                                list.push([posList[i], posList[i + 1]]);
+                                            }
+                                            geojson =
+                                                {
+                                                    type: "Feature",
+                                                    geometry: {
+                                                        type: "LineString",
+                                                        coordinates: list
+                                                    }
+                                                };
+                                        }
+                                    }
+                                });
+                                resLists.push(propertyList);
+                                geometryLists.push(geojson);
+                                callback(resLists, geometryLists);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+    httpFuncB(requestUrl, callback) {
+        this.httpReq('get', requestUrl).then((res) => {
+            callback(res);
+        });
+    }
+    httpFuncC() {
+    }
+    httpFunc(query, callback) {
+        this.httpReq('get', query).then().catch((err) => {
+            callback(err);
+        });
+    }
+    pickModel(earth, callback) {
+        let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
+        handler.setInputAction((click) => {
+            if (!earth.epsplanet.allowClick) {
+                return;
+            }
+            console.log(click);
+            let position = earth.czm.viewer.scene.pickPosition(click.position);
+            let pickObj = earth.czm.viewer.scene.pick(click.position);
+            if (!Cesium.defined(pickObj) || !pickObj.getPropertyNames) {
+                earth.sceneTree.$refs.pin1.czmObject.customProp = false;
+                return;
+            }
+            console.log("dsadad", pickObj);
+            let cartographic = Cesium.Cartographic.fromCartesian(position);
+            earth.sceneTree.$refs.pin1.czmObject.position = [cartographic.longitude, cartographic.latitude, cartographic.height];
+            let PropertyNames = pickObj.getPropertyNames();
+            let propertyList = [];
+            PropertyNames.forEach(property => {
+                propertyList.push({
+                    name: property,
+                    value: pickObj.getProperty(property)
+                });
+            });
+            callback(propertyList, handler);
+        }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     }
     Cartesian2ToWGS84(viewer, position) {
         var ray = viewer.camera.getPickRay(position);
@@ -2106,13 +2547,13 @@ class Identify {
                 WFSUrl = WMTSImageryProvider.url.split("gwc")[0] + WMTSImageryProvider.layer.split(":")[0] + "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + WMTSImageryProvider.layer + "&maxFeatures=1&outputFormat=json&filter=";
             }
         }
-        if (ImageryProvider.type == "SSWebMapServiceImageryProvider") {
-            let SSWebMapServiceImageryProvider = ImageryProvider.SSWebMapServiceImageryProvider;
-            if (SSWebMapServiceImageryProvider.url.indexOf('arcgis') !== -1) {
-                WFSUrl = SSWebMapServiceImageryProvider.url.split("MapServer")[0] + "MapServer/WFSServer?request=GetFeature&service=WFS&version=1.1.0&";
+        if (ImageryProvider.type == "WebMapServiceImageryProvider") {
+            let WebMapServiceImageryProvider = ImageryProvider.WebMapServiceImageryProvider;
+            if (WebMapServiceImageryProvider.url.indexOf('arcgis') !== -1) {
+                WFSUrl = WebMapServiceImageryProvider.url.split("MapServer")[0] + "MapServer/WFSServer?request=GetFeature&service=WFS&version=1.1.0&";
             }
-            else if (SSWebMapServiceImageryProvider.url.indexOf('geoserver') !== -1) {
-                WFSUrl = SSWebMapServiceImageryProvider.url.split("wms")[0] + "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + SSWebMapServiceImageryProvider.layer + "&maxFeatures=1&outputFormat=json&filter=";
+            else if (WebMapServiceImageryProvider.url.indexOf('geoserver') !== -1) {
+                WFSUrl = WebMapServiceImageryProvider.url.split("wms")[0] + "/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=" + WebMapServiceImageryProvider.layers + "&maxFeatures=1&outputFormat=json&filter=";
             }
         }
         return WFSUrl;
@@ -2133,6 +2574,7 @@ class Identify {
         return degreesArray;
     }
     ClearHighLight() {
+        debugger;
         highLight.entities.removeAll();
     }
     xml2Json(xml) {
@@ -2233,6 +2675,7 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
         ];
         this.showInfo = false;
         this.switchValue = false;
+        this.czmObjList = [];
     }
     createInfoWin() {
         let win = document.createElement('div');
@@ -2284,33 +2727,52 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
         });
         if (this.view == null)
             return;
-        this.view.sceneTree.$refs.layerlist.children.forEach(group => {
-            if (group.children) {
-                group.children.forEach(item => {
-                    if (item.czmObject.xbsjType !== "Imagery")
-                        return;
-                    if (item.czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider" || item.czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
-                        if (item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].url.indexOf("arcgis") !== -1) {
-                            this.identify.getLayers(item.czmObject, this.view, res => {
-                                console.log("res:", res);
-                                this.pin1.customProp = true;
-                                this.showInfo = true;
-                                this.propertyList = res;
-                            });
-                        }
-                        else {
-                            this.identify.GetFeatureInfo(item.czmObject, this.view, 'point', res => {
-                                console.log(item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type]);
-                                this.title = item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].layer;
-                                this.pin1.customProp = true;
-                                this.showInfo = true;
-                                this.propertyList = res;
-                            });
-                        }
-                    }
-                });
-            }
+        this.bindIndentify(this.view.sceneTree.$refs.layerlist);
+        this.identify.test(this.czmObjList, this.view, res => {
+            console.log("res:", res);
+            this.pin1.customProp = true;
+            this.showInfo = true;
+            this.propertyList = res;
         });
+        this.identify.pickModel(this.view, (res, handler) => {
+            this.pin1.customProp = true;
+            this.showInfo = true;
+            this.propertyList = res;
+        });
+    }
+    bindIndentify(list) {
+        if (list.children && list.children.length > 0) {
+            list.children.forEach(item => {
+                if (item.children && item.children.length > 0) {
+                    this.bindIndentify(item);
+                }
+                else {
+                    this.bindClick(item);
+                }
+            });
+        }
+        else {
+            this.bindClick(list);
+        }
+    }
+    bindClick(item) {
+        if (item.czmObject.xbsjType == "Imagery") {
+            if (item.czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider" || item.czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
+                if (item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].url.indexOf("arcgis") !== -1) {
+                    this.czmObjList.push(item.czmObject);
+                }
+                else {
+                    this.identify.GetFeatureInfo(item.czmObject, this.view, 'point', res => {
+                        this.title = item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].layer;
+                        this.pin1.customProp = true;
+                        this.showInfo = true;
+                        this.propertyList = res;
+                    });
+                }
+            }
+        }
+        else if (item.czmObject.xbsjType == "Tileset") {
+        }
     }
     close() {
         this.showInfo = false;
@@ -2320,16 +2782,23 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
         this.view.czm.viewer.flyTo(entityCollection);
     }
     switch(e) {
-        console.log(e);
+        let earth = this.view;
+        console.log(this.czmObjList);
         if (e.srcElement.style.color == 'aqua') {
             e.srcElement.style.color = "";
         }
         else {
             e.srcElement.style.color = 'aqua';
         }
-        window["allowClick"] = !window["allowClick"];
-        if (!window["allowClick"]) {
+        earth.epsplanet.allowClick = !earth.epsplanet.allowClick;
+        if (!earth.epsplanet.allowClick) {
+            this.view.interaction.picking.enabled = false;
+            this.view.interaction.picking.hoverEnable = false;
             this.identify.ClearHighLight();
+        }
+        else {
+            this.view.interaction.picking.enabled = true;
+            this.view.interaction.picking.hoverEnable = true;
         }
     }
     test() {

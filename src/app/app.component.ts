@@ -13,6 +13,9 @@ export class AppComponent {
     this.iconService.fetchFromIconfont({
       scriptUrl: 'theme/core/fonts/epsgis.js'
     });
+    this.iconService.fetchFromIconfont({
+      scriptUrl: 'theme/core/fonts/epsPlanet.js'
+    });
     this.initializeApp();
   }
 

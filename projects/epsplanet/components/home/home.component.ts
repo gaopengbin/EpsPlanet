@@ -9,7 +9,7 @@ import { BasePlanetWidgetComponent } from '../base-widget/base-widget.component'
 })
 @Component({
   selector: 'epsgis-planet-home',
-  template: `<i  nz-icon [nzIconfont]="'icon-epsgis-home'"> </i>`,
+  template: `<i  nz-icon [nzIconfont]="'epsplanet-earth'"> </i>`,
   host: {
     "[class.jimu-widget-onscreen-icon]": "true",
     "title": "home"

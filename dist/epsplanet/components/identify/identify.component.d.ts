@@ -12,9 +12,12 @@ export declare class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     }[];
     showInfo: boolean;
     switchValue: boolean;
+    czmObjList: any[];
     constructor(identify: Identify);
     createInfoWin(): HTMLDivElement;
     Init(): void;
+    bindIndentify(list: any): void;
+    bindClick(item: any): void;
     close(): void;
     zoomTo(): void;
     switch(e: any): void;

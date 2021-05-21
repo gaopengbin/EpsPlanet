@@ -29,7 +29,7 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
   ];
   showInfo = false;
   switchValue = false;
-  czmObjList=[]
+  czmObjList = []
   constructor(private identify: Identify) {
     super();
   }
@@ -88,7 +88,12 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
 
     if (this.view == null) return;
     this.bindIndentify(this.view.sceneTree.$refs.layerlist)
-    this.identify.test(this.czmObjList,this.view,res=>{console.log(res)})
+    this.identify.test(this.czmObjList, this.view, res => {
+      console.log("res:", res)
+      this.pin1.customProp = true
+      this.showInfo = true
+      this.propertyList = res
+    })
     this.identify.pickModel(this.view, (res, handler) => {
       this.pin1.customProp = true
       this.showInfo = true
@@ -110,13 +115,13 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     }
   }
   bindClick(item) {
-    
+
     // if (item.czmObject.xbsjType !== "Imagery") return;
     if (item.czmObject.xbsjType == "Imagery") {
       if (item.czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider" || item.czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
         if (item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].url.indexOf("arcgis") !== -1) {
           this.czmObjList.push(item.czmObject)
-          
+
           // this.identify.getLayers(item.czmObject, this.view, res => {
           //   console.log("res:", res)
           //   this.pin1.customProp = true
@@ -125,13 +130,13 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
           // })
         } else {
           // this.czmObjList.push(item)
-          // this.identify.GetFeatureInfo(item.czmObject, this.view, 'point', res => {
-          //   console.log(item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type])
-          //   this.title = item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].layer
-          //   this.pin1.customProp = true
-          //   this.showInfo = true
-          //   this.propertyList = res
-          // });
+          this.identify.GetFeatureInfo(item.czmObject, this.view, 'point', res => {
+            // console.log(item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type])
+            this.title = item.czmObject.xbsjImageryProvider[item.czmObject.xbsjImageryProvider.type].layer
+            this.pin1.customProp = true
+            this.showInfo = true
+            this.propertyList = res
+          });
         }
       }
     } else if (item.czmObject.xbsjType == "Tileset") {
@@ -148,6 +153,7 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     this.view.czm.viewer.flyTo(entityCollection)
   }
   switch(e) {
+    let earth=this.view
     console.log(this.czmObjList)
     if (e.srcElement.style.color == 'aqua') {
       e.srcElement.style.color = ""
@@ -156,8 +162,8 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     }
 
 
-    window["allowClick"] = !window["allowClick"];
-    if (!window["allowClick"]) {
+    earth.epsplanet.allowClick = !earth.epsplanet.allowClick;
+    if (!earth.epsplanet.allowClick) {
       this.view.interaction.picking.enabled = false
       this.view.interaction.picking.hoverEnable = false
       this.identify.ClearHighLight();

@@ -279,7 +279,7 @@
                 },
                 {
                     "title": "二维数据",
-                    "expand": false,
+                    "expand": true,
                     "children": [
                         {
                             "type": "Imagery",
@@ -350,6 +350,43 @@
                                     "ArcGisMapServerImageryProvider": {},
                                     "createTileMapServiceImageryProvider": {},
                                     "type": "WebMapServiceImageryProvider"
+                                }
+                            }
+                        },
+                        {
+                            "type": "Imagery",
+                            "title": "test",
+                            "url": " ",
+                            "show": true,
+                            "guid": "676f89eec73d-48e39d65d6fd5bf27b8b",
+                            "extendOptions": {
+                                "rectangle": [
+                                    2.0539181728757177,
+                                    0.7118872216353543,
+                                    2.0539805668082267,
+                                    0.7119758052281282
+                                ],
+                                "xbsjImageryProvider": {
+                                    "XbsjImageryProvider": {},
+                                    "UrlTemplateImageryProvider": {},
+                                    "WebMapTileServiceImageryProvider": {
+                                        "url": "http://39.152.17.16:11202/arcgis/rest/services/guoyuan/MapServer/WMTS/tile/1.0.0/{layer}/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}",
+                                        "format": "image/png",
+                                        "layer": "guoyuan",
+                                        "style": "default",
+                                        "tileMatrixSetID": "default028mm",
+                                        "tileMatrixLabels": [
+                                            "0",
+                                            "1",
+                                            "2",
+                                            "3",
+                                            "4",
+                                            "5"
+                                        ],
+                                        "maximumLevel": 5
+                                    },
+                                    "createTileMapServiceImageryProvider": {},
+                                    "type": "WebMapTileServiceImageryProvider"
                                 }
                             }
                         },
