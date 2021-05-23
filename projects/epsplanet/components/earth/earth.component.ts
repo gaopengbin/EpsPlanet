@@ -73,8 +73,18 @@ export class PlanetEarthComponent extends BaseMapComponent {
           earth.camera.navigator.showDistanceLegend = true; // 显示比例尺                
           //test
           window["earth"] = earth;
+          earth.getCurrentView = function () {
+            const td = Cesium.Math.toDegrees;
+            let lon = td(earth.czm.camera.positionCartographic.longitude)
+            let lat = td(earth.czm.camera.positionCartographic.latitude)
+            let height = earth.czm.camera.positionCartographic.height
+            let heading = (earth.czm.camera.heading)
+            let pitch = (earth.czm.camera.pitch)
+            let roll = (earth.czm.camera.roll)
+            console.log(`"center":[${lon},\n${lat},\n${height}],\n"heading":${heading},\n"pitch":${pitch},\n"roll":${roll}`)
+          }
           if (this.config.mapOptions && this.config.mapOptions.center) {
-            let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 0, pitch = -90;
+            let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 355.06, pitch = -52.92, roll = 359.97;
             if (this.config.mapOptions.center.length >= 1) {
               x = this.config.mapOptions.center[0];
             }
@@ -90,11 +100,17 @@ export class PlanetEarthComponent extends BaseMapComponent {
             if (this.config.mapOptions.pitch) {
               pitch = this.config.mapOptions.pitch;
             }
-            earth.czm.viewer.camera.flyTo({
-              destination: Cesium.Cartesian3.fromDegrees(x, y, h),
+            if (this.config.mapOptions.roll) {
+              roll = this.config.mapOptions.roll;
+            }
+            earth.czm.viewer.scene.camera.setView({
+              positionCartographic: new Cesium.Cartographic(x, y, h),
               orientation: {
-                heading: Cesium.Math.toRadians(heading),
-                pitch: Cesium.Math.toRadians(pitch),
+                heading: heading,
+                // pitch: Cesium.Math.toRadians(pitch),
+                // roll: Cesium.Math.toRadians(roll)
+                pitch: pitch,
+                roll: roll
               }
             });
           }

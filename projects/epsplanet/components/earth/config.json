@@ -283,22 +283,58 @@
                     "children": [
                         {
                             "type": "Imagery",
+                            "title": "test",
+                            "url": " ",
+                            "show": true,
+                            "guid": "676f89eec73d-48e39d60d6fd5bf27b5b",
+                            "extendOptions": {
+                                "rectangle": [
+                                    2.0538559413968884,
+                                    0.7118558850820319,
+                                    2.0540345159825253,
+                                    0.7120144953022427
+                                ],
+                                "xbsjImageryProvider": {
+                                    "XbsjImageryProvider": {},
+                                    "UrlTemplateImageryProvider": {},
+                                    "WebMapServiceImageryProvider": {
+                                        "url": "http://39.152.17.16:11202/arcgis/services/guoyuanimg/MapServer/WMSServer",
+                                        "format": "image/png",
+                                        "layers": "0",
+                                        "style": "default",
+                                        "tileWidth": null,
+                                        "tileHeight": null,
+                                        "tilingScheme": "",
+                                        "minimumLevel": 1,
+                                        "maximumLevel": "18",
+                                        "srs": "EPSG:4326",
+                                        "transparent": "true"
+                                    },
+                                    "WebMapTileServiceImageryProvider": {},
+                                    "ArcGisMapServerImageryProvider": {},
+                                    "createTileMapServiceImageryProvider": {},
+                                    "type": "WebMapServiceImageryProvider"
+                                }
+                            }
+                        },
+                        {
+                            "type": "Imagery",
                             "title": "wms(arcgis server)",
                             "url": " ",
                             "show": false,
                             "guid": "676f89eec73d-48e39d60d6fd5bf27b5b",
                             "extendOptions": {
                                 "rectangle": [
-                                    1.2818912775805744,
-                                    0.05948914612849877,
-                                    2.3576925237426245,
-                                    0.9347621492394765
+                                    2.0539181728757177,
+                                    0.7118872216353543,
+                                    2.0539805668082267,
+                                    0.7119758052281282
                                 ],
                                 "xbsjImageryProvider": {
                                     "XbsjImageryProvider": {},
                                     "UrlTemplateImageryProvider": {},
                                     "WebMapServiceImageryProvider": {
-                                        "url": "http://82.156.16.159:6080/arcgis/services/xzqh/MapServer/WMSServer",
+                                        "url": "http://39.152.17.16:11202/arcgis/services/guoyuan/MapServer/WMSServer",
                                         "format": "image/png",
                                         "layers": "0,1,2",
                                         "style": "default",
@@ -370,9 +406,9 @@
                                     "XbsjImageryProvider": {},
                                     "UrlTemplateImageryProvider": {},
                                     "WebMapTileServiceImageryProvider": {
-                                        "url": "http://39.152.17.16:11202/arcgis/rest/services/guoyuan/MapServer/WMTS/tile/1.0.0/{layer}/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}",
+                                        "url": "http://39.152.17.16:11202/arcgis/rest/services/chde/gy3/MapServer/WMTS/tile/1.0.0/{layer}/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}",
                                         "format": "image/png",
-                                        "layer": "guoyuan",
+                                        "layer": "chde_gy3",
                                         "style": "default",
                                         "tileMatrixSetID": "default028mm",
                                         "tileMatrixLabels": [
@@ -381,9 +417,26 @@
                                             "2",
                                             "3",
                                             "4",
-                                            "5"
+                                            "5",
+                                            "6",
+                                            "7",
+                                            "8",
+                                            "9",
+                                            "10",
+                                            "11",
+                                            "12",
+                                            "13",
+                                            "14",
+                                            "15",
+                                            "16",
+                                            "17",
+                                            "18",
+                                            "19",
+                                            "20",
+                                            "21",
+                                            "22"
                                         ],
-                                        "maximumLevel": 5
+                                        "maximumLevel": 22
                                     },
                                     "createTileMapServiceImageryProvider": {},
                                     "type": "WebMapTileServiceImageryProvider"
@@ -645,13 +698,12 @@
         }
     ],
     "mapOptions": {
-        "center": [
-            114,
-            36,
-            17154577
-        ],
-        "heading": 0,
-        "pitch": -90,
+        "center":[123.0530833261188,
+            29.560265563031223,
+            1793336.4296701073],
+            "heading":6.283185307179574,
+            "pitch":-1.5707963267948966,
+            "roll":0,
         "extent": {
             "xmin": -100,
             "ymin": -90,
