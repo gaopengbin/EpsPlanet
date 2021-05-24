@@ -75,16 +75,16 @@ export class PlanetEarthComponent extends BaseMapComponent {
           window["earth"] = earth;
           earth.getCurrentView = function () {
             const td = Cesium.Math.toDegrees;
-            let lon = td(earth.czm.camera.positionCartographic.longitude)
-            let lat = td(earth.czm.camera.positionCartographic.latitude)
-            let height = earth.czm.camera.positionCartographic.height
-            let heading = (earth.czm.camera.heading)
-            let pitch = (earth.czm.camera.pitch)
-            let roll = (earth.czm.camera.roll)
+            let lon = td(earth.czm.camera.positionCartographic.longitude).toFixed(5)
+            let lat = td(earth.czm.camera.positionCartographic.latitude).toFixed(5)
+            let height = earth.czm.camera.positionCartographic.height.toFixed(5)
+            let heading = td(earth.czm.camera.heading).toFixed(5)
+            let pitch = td(earth.czm.camera.pitch).toFixed(5)
+            let roll = td(earth.czm.camera.roll).toFixed(5)
             console.log(`"center":[${lon},\n${lat},\n${height}],\n"heading":${heading},\n"pitch":${pitch},\n"roll":${roll}`)
           }
           if (this.config.mapOptions && this.config.mapOptions.center) {
-            let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 355.06, pitch = -52.92, roll = 359.97;
+            let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 0, pitch = 0;
             if (this.config.mapOptions.center.length >= 1) {
               x = this.config.mapOptions.center[0];
             }
@@ -100,17 +100,12 @@ export class PlanetEarthComponent extends BaseMapComponent {
             if (this.config.mapOptions.pitch) {
               pitch = this.config.mapOptions.pitch;
             }
-            if (this.config.mapOptions.roll) {
-              roll = this.config.mapOptions.roll;
-            }
             earth.czm.viewer.scene.camera.setView({
-              positionCartographic: new Cesium.Cartographic(x, y, h),
+              destination: Cesium.Cartesian3.fromDegrees(x, y, h),
               orientation: {
-                heading: heading,
-                // pitch: Cesium.Math.toRadians(pitch),
-                // roll: Cesium.Math.toRadians(roll)
-                pitch: pitch,
-                roll: roll
+                heading: Cesium.Math.toRadians(heading),
+                pitch: Cesium.Math.toRadians(pitch),
+                roll: 0
               }
             });
           }

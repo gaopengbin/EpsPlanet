@@ -14,7 +14,7 @@
                 "uri": "epsgis-planet-basemap-gallery",
                 "label": "底图选择",
                 "position": {
-                    "top": 300,
+                    "top": 320,
                     "left": 20,
                     "relativeTo": "map"
                 }
