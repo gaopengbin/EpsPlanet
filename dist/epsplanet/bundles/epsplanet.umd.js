@@ -447,6 +447,7 @@
                     });
                     node.parentNode = parentNode;
                     node.level = parentNode.level + 1;
+                    node.isExpanded = item.expand ? true : false;
                     if (item.children.length >= 1) {
                         (_a = node.children).push.apply(_a, __spread(SceneTreeUtils.convertChildren(item.children, node)));
                     }
@@ -555,6 +556,7 @@
                         node_1.children.push(SceneTreeUtils.loadLayerNode(child));
                     });
                 }
+                node_1.expand = item.expand;
                 return node_1;
             }
             else if (item.url || item.layer) {
@@ -1322,13 +1324,10 @@
             var _this = this;
             setTimeout(function () {
                 var _layerNodes = SceneTreeUtils.SceneTree2NgZorroTree(_this.view.sceneTree.$refs.layerlist);
-                console.log("sceneTree:", _layerNodes);
                 _this.layerNodes = _layerNodes[0]["children"];
-                console.log(_this.layerNodes);
             }, 100);
         };
         PlanetLayerListComponent.prototype.setting = function (node) {
-            console.log(this.config);
             this.selectedNode = node.origin;
             this.type = this.selectedNode["origin"].hasOwnProperty('luminanceAtZenith') ? "瓦片" : "影像";
             this.isShow = true;
@@ -1346,7 +1345,6 @@
         };
         PlanetLayerListComponent.prototype.flyTo = function (node) {
             node.origin.origin.flyTo();
-            console.log(node);
         };
         PlanetLayerListComponent.prototype.onLeftClickNode = function (evt) {
             console.log(evt.node);
@@ -1357,25 +1355,22 @@
             if (evt.eventName !== "check" || !evt.node) {
                 return;
             }
-            if (evt.node.children.length == 0) {
-                if (evt.node.isChecked) {
-                    SceneTreeUtils.GetXbsjCzmObject(evt.node).show = true;
+            this.showOrHideLayer(evt.node);
+        };
+        PlanetLayerListComponent.prototype.showOrHideLayer = function (parentNode) {
+            var _this = this;
+            if (!parentNode.children || parentNode.children.length == 0) {
+                if (parentNode.isChecked) {
+                    SceneTreeUtils.GetXbsjCzmObject(parentNode).show = true;
                 }
                 else {
-                    SceneTreeUtils.GetXbsjCzmObject(evt.node).show = false;
+                    SceneTreeUtils.GetXbsjCzmObject(parentNode).show = false;
                 }
             }
             else {
-                if (evt.node.isChecked) {
-                    evt.node.children.forEach(function (item) {
-                        SceneTreeUtils.GetXbsjCzmObject(item).show = true;
-                    });
-                }
-                else {
-                    evt.node.children.forEach(function (item) {
-                        SceneTreeUtils.GetXbsjCzmObject(item).show = false;
-                    });
-                }
+                parentNode.children.forEach(function (item) {
+                    _this.showOrHideLayer(item);
+                });
             }
         };
         PlanetLayerListComponent.prototype.onDblClickNode = function (evt) {
@@ -2466,7 +2461,6 @@
                                 + "<gml:Polygon srsName=\"urn:x-ogc:def:crs:EPSG:4326\"><gml:outerBoundaryIs><gml:LinearRing>"
                                 + ("<gml:coordinates>" + bufferCoordinates + "</gml:coordinates>")
                                 + "</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>";
-                            console.log(item.name, query);
                             _this.httpReq('get', query).then().catch(function (err) {
                                 var res = err.error.text;
                                 if (_this.xml2Json(_this.stringToXml(res))['FeatureCollection'] == undefined)
@@ -2539,7 +2533,6 @@
                     }
                     setTimeout(function () {
                         if (resList.length > 0 && geometryList.length > 0) {
-                            console.log(geometryList, highLight);
                             if (geometryList[0].geometry.type == "Point") {
                                 Cesium.GeoJsonDataSource.load(geometryList[0]).then(function (dataSource) {
                                     dataSource.entities.values.forEach(function (entity) {
@@ -2600,7 +2593,6 @@
                     if (Cesium.defined(pickObj)) {
                         return;
                     }
-                    console.log("看看循环了几次");
                     if (highLight)
                         highLight.entities.removeAll();
                     earth.sceneTree.$refs.pin1.czmObject.customProp = false;
@@ -2815,9 +2807,7 @@
                 else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
                     var llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",");
                     var _loop_4 = function (i) {
-                        console.log('zhelijicine');
                         var item = res.layers[res.layers.length - 1 - llist[i]];
-                        console.log(item.name);
                         var query = "" + addr
                             + ("typename=" + typeName + ":" + item.name + "&Filter=")
                             + "<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>"
@@ -2981,14 +2971,12 @@
                 if (!earth.epsplanet.allowClick) {
                     return;
                 }
-                console.log(click);
                 var position = earth.czm.viewer.scene.pickPosition(click.position);
                 var pickObj = earth.czm.viewer.scene.pick(click.position);
                 if (!Cesium.defined(pickObj) || !pickObj.getPropertyNames) {
                     earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                     return;
                 }
-                console.log("dsadad", pickObj);
                 var cartographic = Cesium.Cartographic.fromCartesian(position);
                 earth.sceneTree.$refs.pin1.czmObject.position = [cartographic.longitude, cartographic.latitude, cartographic.height];
                 var PropertyNames = pickObj.getPropertyNames();

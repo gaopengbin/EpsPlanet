@@ -156,6 +156,7 @@ class SceneTreeUtils {
                 });
                 node.parentNode = parentNode;
                 node.level = parentNode.level + 1;
+                node.isExpanded = item.expand ? true : false;
                 if (item.children.length >= 1) {
                     node.children.push(...SceneTreeUtils.convertChildren(item.children, node));
                 }
@@ -264,6 +265,7 @@ class SceneTreeUtils {
                     node.children.push(SceneTreeUtils.loadLayerNode(child));
                 });
             }
+            node.expand = item.expand;
             return node;
         }
         else if (item.url || item.layer) {
@@ -943,13 +945,10 @@ let PlanetLayerListComponent = class PlanetLayerListComponent extends BasePlanet
     loadSceneTree() {
         setTimeout(() => {
             const _layerNodes = SceneTreeUtils.SceneTree2NgZorroTree(this.view.sceneTree.$refs.layerlist);
-            console.log("sceneTree:", _layerNodes);
             this.layerNodes = _layerNodes[0]["children"];
-            console.log(this.layerNodes);
         }, 100);
     }
     setting(node) {
-        console.log(this.config);
         this.selectedNode = node.origin;
         this.type = this.selectedNode["origin"].hasOwnProperty('luminanceAtZenith') ? "瓦片" : "影像";
         this.isShow = true;
@@ -967,7 +966,6 @@ let PlanetLayerListComponent = class PlanetLayerListComponent extends BasePlanet
     }
     flyTo(node) {
         node.origin.origin.flyTo();
-        console.log(node);
     }
     onLeftClickNode(evt) {
         console.log(evt.node);
@@ -978,25 +976,21 @@ let PlanetLayerListComponent = class PlanetLayerListComponent extends BasePlanet
         if (evt.eventName !== "check" || !evt.node) {
             return;
         }
-        if (evt.node.children.length == 0) {
-            if (evt.node.isChecked) {
-                SceneTreeUtils.GetXbsjCzmObject(evt.node).show = true;
+        this.showOrHideLayer(evt.node);
+    }
+    showOrHideLayer(parentNode) {
+        if (!parentNode.children || parentNode.children.length == 0) {
+            if (parentNode.isChecked) {
+                SceneTreeUtils.GetXbsjCzmObject(parentNode).show = true;
             }
             else {
-                SceneTreeUtils.GetXbsjCzmObject(evt.node).show = false;
+                SceneTreeUtils.GetXbsjCzmObject(parentNode).show = false;
             }
         }
         else {
-            if (evt.node.isChecked) {
-                evt.node.children.forEach(item => {
-                    SceneTreeUtils.GetXbsjCzmObject(item).show = true;
-                });
-            }
-            else {
-                evt.node.children.forEach(item => {
-                    SceneTreeUtils.GetXbsjCzmObject(item).show = false;
-                });
-            }
+            parentNode.children.forEach(item => {
+                this.showOrHideLayer(item);
+            });
         }
     }
     onDblClickNode(evt) {
@@ -2008,7 +2002,6 @@ class Identify {
                             + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
                             + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
                             + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`;
-                        console.log(item.name, query);
                         this.httpReq('get', query).then().catch((err) => {
                             let res = err.error.text;
                             if (this.xml2Json(this.stringToXml(res))['FeatureCollection'] == undefined)
@@ -2078,7 +2071,6 @@ class Identify {
                 }
                 setTimeout(() => {
                     if (resList.length > 0 && geometryList.length > 0) {
-                        console.log(geometryList, highLight);
                         if (geometryList[0].geometry.type == "Point") {
                             Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
                                 dataSource.entities.values.forEach(entity => {
@@ -2138,7 +2130,6 @@ class Identify {
                 if (Cesium.defined(pickObj)) {
                     return;
                 }
-                console.log("看看循环了几次");
                 if (highLight)
                     highLight.entities.removeAll();
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
@@ -2349,9 +2340,7 @@ class Identify {
             else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
                 let llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",");
                 for (let i = llist.length - 1; i >= 0; i--) {
-                    console.log('zhelijicine');
                     const item = res.layers[res.layers.length - 1 - llist[i]];
-                    console.log(item.name);
                     let query = `${addr}`
                         + `typename=${typeName}:${item.name}&Filter=`
                         + `<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>`
@@ -2512,14 +2501,12 @@ class Identify {
             if (!earth.epsplanet.allowClick) {
                 return;
             }
-            console.log(click);
             let position = earth.czm.viewer.scene.pickPosition(click.position);
             let pickObj = earth.czm.viewer.scene.pick(click.position);
             if (!Cesium.defined(pickObj) || !pickObj.getPropertyNames) {
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                 return;
             }
-            console.log("dsadad", pickObj);
             let cartographic = Cesium.Cartographic.fromCartesian(position);
             earth.sceneTree.$refs.pin1.czmObject.position = [cartographic.longitude, cartographic.latitude, cartographic.height];
             let PropertyNames = pickObj.getPropertyNames();

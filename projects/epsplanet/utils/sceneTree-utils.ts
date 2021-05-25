@@ -28,6 +28,7 @@ export class SceneTreeUtils {
                 parentNode: null
             });
             rootNode.level = -1
+            // console.log("root",root,rootNode)
             // rootNode.isExpanded = root.expand === true;
         }
         const _layerNodes: Array<NzTreeNode> = [];
@@ -51,6 +52,7 @@ export class SceneTreeUtils {
         }
         const _layerNodes: Array<NzTreeNode> = [];
         children.forEach(item => {
+            
             let node: NzTreeNode = null;
             if (item.children) { // item.title
                 node = new NzTreeNode({
@@ -66,10 +68,11 @@ export class SceneTreeUtils {
                 });
                 node.parentNode = parentNode;
                 node.level = parentNode.level + 1;
+                
+                node.isExpanded=item.expand?true:false;
                 if (item.children.length >= 1) {
                     node.children.push(...SceneTreeUtils.convertChildren(item.children, node));
                 }
-
                 // node.isExpanded = item.expand === true;
                 let checkList = []
                 node.children.forEach((child: any) => {
@@ -82,8 +85,6 @@ export class SceneTreeUtils {
                             checkList.push(false)
                         }
                     }
-
-
                 })
                 if (SceneTreeUtils.isAllEqual(checkList) && checkList[0] == true) {
                     node.isChecked = true
@@ -93,6 +94,7 @@ export class SceneTreeUtils {
                     node.isHalfChecked = true
                 }
                 // node.isChecked = true;//初始默认勾选父节点
+                // console.log(item.title,item)
                 _layerNodes.push(node);
             } else {
                 //之前叶节点拿不到parentNode,强行从它的origin中取到parentNode,用于实现节点的单选
@@ -200,6 +202,7 @@ export class SceneTreeUtils {
                     node.children.push(SceneTreeUtils.loadLayerNode(child))
                 })
             }
+            node.expand=item.expand;
             return node;
         } else if (item.url || item.layer) {
             //图层

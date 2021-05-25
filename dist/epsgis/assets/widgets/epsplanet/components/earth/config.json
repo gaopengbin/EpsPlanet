@@ -21,6 +21,7 @@
     "layers": [
         {
             "title": "数据资源列表",
+            "expand": true,
             "children": [
                 {
                     "type": "Imagery",
@@ -64,6 +65,7 @@
                 },
                 {
                     "title": "小区",
+                    "expand": true,
                     "children": [
                         {
                             "type": "Tileset",
@@ -130,6 +132,7 @@
                 },
                 {
                     "title": "wms",
+                    "expand": false,
                     "children": [
                         {
                             "type": "Imagery",
@@ -279,7 +282,7 @@
                 },
                 {
                     "title": "二维数据",
-                    "expand": true,
+                    "expand": false,
                     "children": [
                         {
                             "type": "Imagery",
@@ -698,12 +701,14 @@
         }
     ],
     "mapOptions": {
-        "center":[117.68238,
-            40.78986,
-            765.82539],
-            "heading":11.54214,
-            "pitch":-48.67970,
-            "roll":0.05787,
+        "center": [
+            117.68107,
+            40.78765,
+            1011.66547
+        ],
+        "heading": 26.43010,
+        "pitch": -41.32461,
+        "roll": 0.11306,
         "extent": {
             "xmin": -100,
             "ymin": -90,

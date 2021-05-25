@@ -255,7 +255,7 @@ export class Identify {
                             + `<gml:Polygon srsName="urn:x-ogc:def:crs:EPSG:4326"><gml:outerBoundaryIs><gml:LinearRing>`
                             + `<gml:coordinates>${bufferCoordinates}</gml:coordinates>`
                             + `</gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></ogc:Intersects></ogc:Filter>`
-                        console.log(item.name, query)
+                        // console.log(item.name, query)
                         this.httpReq('get', query).then().catch((err: any) => {
                             let res = err.error.text
                             if (this.xml2Json(this.stringToXml(res))['FeatureCollection'] == undefined) return
@@ -326,7 +326,7 @@ export class Identify {
                 setTimeout(() => {
 
                     if (resList.length > 0 && geometryList.length > 0) {
-                        console.log(geometryList, highLight)
+                        // console.log(geometryList, highLight)
                         if (geometryList[0].geometry.type == "Point") {
                             Cesium.GeoJsonDataSource.load(geometryList[0]).then(dataSource => {
                                 dataSource.entities.values.forEach(entity => {
@@ -384,7 +384,7 @@ export class Identify {
                 if (Cesium.defined(pickObj)) {
                     return
                 }
-                console.log("看看循环了几次")
+                // console.log("看看循环了几次")
                 if (highLight)
                     highLight.entities.removeAll();
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
@@ -593,9 +593,9 @@ export class Identify {
             } else if (czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
                 let llist = czmObject.xbsjImageryProvider.WebMapServiceImageryProvider.layers.split(",")
                 for (let i = llist.length - 1; i >= 0; i--) {
-                    console.log('zhelijicine')
+                    // console.log('zhelijicine')
                     const item = res.layers[res.layers.length - 1 - llist[i]];
-                    console.log(item.name)
+                    // console.log(item.name)
                     let query = `${addr}`
                         + `typename=${typeName}:${item.name}&Filter=`
                         + `<ogc:Filter><ogc:Intersects><ogc:PropertyName>Shape</ogc:PropertyName>`
@@ -759,14 +759,14 @@ export class Identify {
                 return
             }
 
-            console.log(click)
+            // console.log(click)
             let position = earth.czm.viewer.scene.pickPosition(click.position)
             let pickObj = earth.czm.viewer.scene.pick(click.position)
             if (!Cesium.defined(pickObj)||!pickObj.getPropertyNames) {
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                 return
             }
-            console.log("dsadad", pickObj)
+            // console.log("dsadad", pickObj)
             let cartographic = Cesium.Cartographic.fromCartesian(position)
             // earth.sceneTree.$refs.pin1.czmObject.customProp = false;
             earth.sceneTree.$refs.pin1.czmObject.position = [cartographic.longitude, cartographic.latitude, cartographic.height]

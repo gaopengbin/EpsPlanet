@@ -16,12 +16,12 @@ import { PlanetLayerManagerComponent } from '../layer-manager/layer-manager.comp
 })
 export class PlanetLayerListComponent extends BasePlanetWidgetComponent {
   // @ViewChild('nzTreeComponent', { static: false }) nzTreeComponent!: NzTreeComponent;
-  testnode=[
+  testnode = [
     {
       title: 'parent 0',
       key: '100',
       author: 'NG ZORRO',
-      
+
       children: [
         { title: 'leaf 0-0', key: '1000', author: 'NG ZORRO' },
         { title: 'leaf 0-1', key: '1001', author: 'NG ZORRO', isLeaf: true }
@@ -84,15 +84,15 @@ export class PlanetLayerListComponent extends BasePlanetWidgetComponent {
   loadSceneTree() {
     setTimeout(() => {
       const _layerNodes = SceneTreeUtils.SceneTree2NgZorroTree(this.view.sceneTree.$refs.layerlist);
-      console.log("sceneTree:", _layerNodes)
+      // console.log("sceneTree:", _layerNodes)
       this.layerNodes = _layerNodes[0]["children"];
-      console.log(this.layerNodes)
+      // console.log(this.layerNodes)
     }, 100);
 
   }
 
   setting(node) {
-    console.log(this.config)
+    // console.log(this.config)
     this.selectedNode = node.origin;
     this.type = this.selectedNode["origin"].hasOwnProperty('luminanceAtZenith') ? "瓦片" : "影像";
     this.isShow = true;
@@ -110,7 +110,7 @@ export class PlanetLayerListComponent extends BasePlanetWidgetComponent {
   }
   flyTo(node) {
     node.origin.origin.flyTo()
-    console.log(node)
+    // console.log(node)
   }
 
   /**
@@ -128,26 +128,51 @@ export class PlanetLayerListComponent extends BasePlanetWidgetComponent {
     if (evt.eventName !== "check" || !evt.node) {
       return;
     }
-    if (evt.node.children.length == 0) {
-      if (evt.node.isChecked) {
+    this.showOrHideLayer(evt.node)
+    // if (evt.node.children.length == 0) {
+    //   if (evt.node.isChecked) {
+    //     //加载图层
+    //     SceneTreeUtils.GetXbsjCzmObject(evt.node).show = true;
+    //   } else {
+    //     //移除图层
+    //     SceneTreeUtils.GetXbsjCzmObject(evt.node).show = false;
+    //   }
+    // } else {//勾选为父节点时
+    //   if (evt.node.isChecked) {
+    //     //加载图层
+    //     evt.node.children.forEach(item => {
+    //       SceneTreeUtils.GetXbsjCzmObject(item).show = true;
+    //     })
+    //   } else {
+    //     //移除图层
+    //     evt.node.children.forEach(item => {
+    //       SceneTreeUtils.GetXbsjCzmObject(item).show = false;
+    //     })
+    //   }
+    // }
+  }
+  showOrHideLayer(parentNode) {
+    if (!parentNode.children || parentNode.children.length == 0) {
+      if (parentNode.isChecked) {
         //加载图层
-        SceneTreeUtils.GetXbsjCzmObject(evt.node).show = true;
+        // console.log("prearemakrm",parentNode)
+        // parentNode.origin.origin.show=true
+        SceneTreeUtils.GetXbsjCzmObject(parentNode).show = true;
       } else {
         //移除图层
-        SceneTreeUtils.GetXbsjCzmObject(evt.node).show = false;
+        SceneTreeUtils.GetXbsjCzmObject(parentNode).show = false;
+        // parentNode.origin.origin.show=false
+
       }
-    } else {//勾选为父节点时
-      if (evt.node.isChecked) {
-        //加载图层
-        evt.node.children.forEach(item => {
-          SceneTreeUtils.GetXbsjCzmObject(item).show = true;
-        })
-      } else {
-        //移除图层
-        evt.node.children.forEach(item => {
-          SceneTreeUtils.GetXbsjCzmObject(item).show = false;
-        })
-      }
+    } else {
+      parentNode.children.forEach(item => {
+        this.showOrHideLayer(item)
+        // if (item.children.length > 0) {
+        //   this.showOrHideLayer(item.children)
+        // } else {
+        //   this.showOrHideLayer(item)
+        // }
+      })
     }
   }
   /**

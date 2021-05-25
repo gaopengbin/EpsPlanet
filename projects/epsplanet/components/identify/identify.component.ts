@@ -150,10 +150,26 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
   }
   zoomTo() {
     let entityCollection = this.view.czm.viewer.dataSources.getByName("highLight")[0].entities
-    this.view.czm.viewer.flyTo(entityCollection)
+    
+  //   let entity = entityCollection.values[0]
+  //   let polyCenter = Cesium.BoundingSphere.fromPoints(entity.polyline.positions._value).center
+    let viewer = this.view.czm.viewer;
+  //   let cartographic = Cesium.Cartographic.fromCartesian(polyCenter, viewer.scene.globe.ellipsoid, new Cesium.Cartographic());
+  //   let lat = Cesium.Math.toDegrees(cartographic.latitude);
+  //   let lng = Cesium.Math.toDegrees(cartographic.longitude);
+  //   let height = cartographic.height;
+  //   viewer.camera.flyTo({
+  //     destination : Cesium.Cartesian3.fromDegrees(lng, lat,1000),
+  //     orientation : {
+  //         //heading : Cesium.Math.toRadians(0.0),
+  //        // pitch : Cesium.Math.toRadians(-25.0),
+  //         //roll : 0.0
+  //     }
+  // });
+  viewer.flyTo(entityCollection)
   }
   switch(e) {
-    let earth=this.view
+    let earth = this.view
     console.log(this.czmObjList)
     if (e.srcElement.style.color == 'aqua') {
       e.srcElement.style.color = ""

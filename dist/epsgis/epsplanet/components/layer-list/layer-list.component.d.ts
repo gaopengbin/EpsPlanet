@@ -40,6 +40,7 @@ export declare class PlanetLayerListComponent extends BasePlanetWidgetComponent 
     flyTo(node: any): void;
     onLeftClickNode(evt: NzFormatEmitEvent): void;
     onCheckedChange(evt: NzFormatEmitEvent): void;
+    showOrHideLayer(parentNode: any): void;
     onDblClickNode(evt: NzFormatEmitEvent): void;
     onRightClick(evt: NzFormatEmitEvent): void;
     static ɵfac: i0.ɵɵFactoryDef<PlanetLayerListComponent, never>;
