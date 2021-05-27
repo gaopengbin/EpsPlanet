@@ -578,6 +578,13 @@
                 }
                 if (item.extendOptions) {
                     node.czmObject = Object.assign(node.czmObject, item.extendOptions);
+                    if (item.extendOptions.rectangle) {
+                        var rect_1 = [];
+                        node.czmObject.rectangle.forEach(function (item) {
+                            rect_1.push(item / 180 * Math.PI);
+                        });
+                        node.czmObject.rectangle = rect_1;
+                    }
                 }
                 return node;
             }
@@ -648,6 +655,13 @@
                             var pitch = td(earth.czm.camera.pitch).toFixed(5);
                             var roll = td(earth.czm.camera.roll).toFixed(5);
                             console.log("\"center\":[" + lon + ",\n" + lat + ",\n" + height + "],\n\"heading\":" + heading + ",\n\"pitch\":" + pitch + ",\n\"roll\":" + roll);
+                        };
+                        earth.RadiansTodegree = function (radians) {
+                            var pos = [];
+                            radians.forEach(function (item) {
+                                pos.push(item / Math.PI * 180);
+                            });
+                            console.log(pos);
                         };
                         if (_this.config.mapOptions && _this.config.mapOptions.center) {
                             var x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 0, pitch = 0;
@@ -1274,26 +1288,6 @@
         function PlanetLayerListComponent(modalService) {
             var _this = _super.call(this) || this;
             _this.modalService = modalService;
-            _this.testnode = [
-                {
-                    title: 'parent 0',
-                    key: '100',
-                    author: 'NG ZORRO',
-                    children: [
-                        { title: 'leaf 0-0', key: '1000', author: 'NG ZORRO' },
-                        { title: 'leaf 0-1', key: '1001', author: 'NG ZORRO', isLeaf: true }
-                    ]
-                },
-                {
-                    title: 'parent 1',
-                    key: '101',
-                    author: 'NG ZORRO',
-                    children: [
-                        { title: 'leaf 1-0', key: '1010', author: 'NG ZORRO', isLeaf: true },
-                        { title: 'leaf 1-1', key: '1011', author: 'NG ZORRO', isLeaf: true }
-                    ]
-                }
-            ];
             _this.layerNodes = [];
             _this.listOfData = [];
             _this.isShow = false;
@@ -2958,8 +2952,6 @@
                 callback(res);
             });
         };
-        Identify.prototype.httpFuncC = function () {
-        };
         Identify.prototype.httpFunc = function (query, callback) {
             this.httpReq('get', query).then().catch(function (err) {
                 callback(err);
@@ -3042,7 +3034,6 @@
             return degreesArray;
         };
         Identify.prototype.ClearHighLight = function () {
-            debugger;
             highLight.entities.removeAll();
         };
         Identify.prototype.xml2Json = function (xml) {
@@ -3245,7 +3236,8 @@
         };
         PlanetIdentifyComponent.prototype.zoomTo = function () {
             var entityCollection = this.view.czm.viewer.dataSources.getByName("highLight")[0].entities;
-            this.view.czm.viewer.flyTo(entityCollection);
+            var viewer = this.view.czm.viewer;
+            viewer.flyTo(entityCollection);
         };
         PlanetIdentifyComponent.prototype.switch = function (e) {
             var earth = this.view;
@@ -3289,11 +3281,7 @@
         return PlanetIdentifyComponent;
     }(BasePlanetWidgetComponent));
     exports.PlanetIdentifyComponent.ɵfac = function PlanetIdentifyComponent_Factory(t) { return new (t || exports.PlanetIdentifyComponent)(i0.ɵɵdirectiveInject(Identify)); };
-    exports.PlanetIdentifyComponent.ɵcmp = i0.ɵɵdefineComponent({ type: exports.PlanetIdentifyComponent, selectors: [["epsgis-planet-identify"]], hostAttrs: ["title", "\u8BC6\u522B"], hostVars: 2, hostBindings: function PlanetIdentifyComponent_HostBindings(rf, ctx) {
-            if (rf & 2) {
-                i0.ɵɵclassProp("jimu-widget-onscreen-icon", true);
-            }
-        }, features: [i0.ɵɵInheritDefinitionFeature], decls: 15, vars: 12, consts: [["title", "\u8BC6\u522B", 1, "jimu-widget-onscreen-icon"], ["nz-icon", "", 3, "nzIconfont", "click"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline", 3, "click"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) {
+    exports.PlanetIdentifyComponent.ɵcmp = i0.ɵɵdefineComponent({ type: exports.PlanetIdentifyComponent, selectors: [["epsgis-planet-identify"]], features: [i0.ɵɵInheritDefinitionFeature], decls: 15, vars: 12, consts: [["title", "\u8BC6\u522B", 1, "jimu-widget-onscreen-icon"], ["nz-icon", "", 3, "nzIconfont", "click"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline", 3, "click"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) {
             if (rf & 1) {
                 i0.ɵɵelementStart(0, "div", 0);
                 i0.ɵɵelementStart(1, "i", 1);
@@ -3350,11 +3338,7 @@
                 args: [{
                         selector: "epsgis-planet-identify",
                         templateUrl: "./identify.component.html",
-                        styleUrls: ["./identify.component.scss"],
-                        host: {
-                            "[class.jimu-widget-onscreen-icon]": "true",
-                            "title": "识别"
-                        }
+                        styleUrls: ["./identify.component.scss"]
                     }]
             }], function () { return [{ type: Identify }]; }, null);
     })();
@@ -3484,10 +3468,120 @@
             }], null, null);
     })();
 
+    function getPositionsHeightFromTileset(earth, positions, resultCallback) {
+        var e_1, _a;
+        if (!earth.czm.scene.globe.depthTestAgainstTerrain) {
+            console.warn("scene.globe.depthTestAgainstTerrain is false, may not get the height!");
+        }
+        var cps = [];
+        try {
+            for (var positions_1 = __values(positions), positions_1_1 = positions_1.next(); !positions_1_1.done; positions_1_1 = positions_1.next()) {
+                var p = positions_1_1.value;
+                cps.push(new Cesium.Cartographic(p[0], p[1], p[2]));
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (positions_1_1 && !positions_1_1.done && (_a = positions_1.return)) _a.call(positions_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        earth.czm.scene
+            .sampleHeightMostDetailed(cps)
+            .then(function (r) {
+            var e_2, _a;
+            try {
+                var i = 0;
+                try {
+                    for (var positions_2 = __values(positions), positions_2_1 = positions_2.next(); !positions_2_1.done; positions_2_1 = positions_2.next()) {
+                        var p = positions_2_1.value;
+                        if (r[i].height === undefined) {
+                            throw new Error("r[i].height === undefined");
+                        }
+                        p[2] = r[i].height;
+                        i++;
+                    }
+                }
+                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                finally {
+                    try {
+                        if (positions_2_1 && !positions_2_1.done && (_a = positions_2.return)) _a.call(positions_2);
+                    }
+                    finally { if (e_2) throw e_2.error; }
+                }
+                resultCallback(true);
+            }
+            catch (error) {
+                console.error("sampleHeightMostDetailed error 1!");
+                resultCallback(false);
+            }
+        })
+            .otherwise(function (error) {
+            resultCallback(false);
+            console.error("sampleHeightMostDetailed error 2!");
+        });
+    }
+    function getPositionsHeightFromTerrain(earth, positions, resultCallback) {
+        var e_3, _a;
+        var terrainProvider = earth.czm.scene.terrainProvider;
+        if (terrainProvider instanceof Cesium.EllipsoidTerrainProvider) {
+            console.warn("没加载地形，可能获取不到高程信息");
+        }
+        var cps = [];
+        try {
+            for (var positions_3 = __values(positions), positions_3_1 = positions_3.next(); !positions_3_1.done; positions_3_1 = positions_3.next()) {
+                var p = positions_3_1.value;
+                cps.push(new Cesium.Cartographic.fromCartesian(p));
+            }
+        }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (positions_3_1 && !positions_3_1.done && (_a = positions_3.return)) _a.call(positions_3);
+            }
+            finally { if (e_3) throw e_3.error; }
+        }
+        var promise = Cesium.sampleTerrainMostDetailed(terrainProvider, cps);
+        Cesium.when(promise, function (r) {
+            var e_4, _a;
+            try {
+                var i = 0;
+                try {
+                    for (var positions_4 = __values(positions), positions_4_1 = positions_4.next(); !positions_4_1.done; positions_4_1 = positions_4.next()) {
+                        var p = positions_4_1.value;
+                        if (r[i].height === undefined) {
+                            throw new Error("r[i].height === undefined");
+                        }
+                        p = new Cesium.Cartesian3.fromRadians(r[i].longitude, r[i].latitude, r[i].height);
+                        i++;
+                    }
+                }
+                catch (e_4_1) { e_4 = { error: e_4_1 }; }
+                finally {
+                    try {
+                        if (positions_4_1 && !positions_4_1.done && (_a = positions_4.return)) _a.call(positions_4);
+                    }
+                    finally { if (e_4) throw e_4.error; }
+                }
+                resultCallback(positions);
+            }
+            catch (error) {
+                console.error("sampleTerrainMostDetailed error 1!");
+                resultCallback(false);
+            }
+        }, function (error) {
+            resultCallback(false);
+            console.error("sampleTerrainMostDetailed error 2!" + error);
+        });
+    }
+
     exports.BasePlanetWidgetComponent = BasePlanetWidgetComponent;
     exports.EpsGisForPlanetModule = EpsGisForPlanetModule;
     exports.Identify = Identify;
     exports.SceneTreeUtils = SceneTreeUtils;
+    exports.getPositionsHeightFromTerrain = getPositionsHeightFromTerrain;
+    exports.getPositionsHeightFromTileset = getPositionsHeightFromTileset;
     exports.newXbsjFolderNode = newXbsjFolderNode;
     exports.newXbsjLayerNode = newXbsjLayerNode;
 

@@ -83,6 +83,13 @@ export class PlanetEarthComponent extends BaseMapComponent {
             let roll = td(earth.czm.camera.roll).toFixed(5)
             console.log(`"center":[${lon},\n${lat},\n${height}],\n"heading":${heading},\n"pitch":${pitch},\n"roll":${roll}`)
           }
+          earth.RadiansTodegree=function(radians){
+            let pos=[]
+            radians.forEach(item=>{
+              pos.push(item/Math.PI*180)
+            })
+            console.log(pos)
+          }
           if (this.config.mapOptions && this.config.mapOptions.center) {
             let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 0, pitch = 0;
             if (this.config.mapOptions.center.length >= 1) {

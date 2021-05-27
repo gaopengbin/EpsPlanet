@@ -11,7 +11,6 @@ export declare class Identify {
     test(list: any, earth: any, callback: any): void;
     httpFuncA(czmObject: any, typeName: any, bufferCoordinates: any, addr: any, requestUrl: any, callback: any): void;
     httpFuncB(requestUrl: any, callback: any): void;
-    httpFuncC(): void;
     httpFunc(query: any, callback: any): void;
     pickModel(earth: any, callback: any): void;
     Cartesian2ToWGS84(viewer: any, position: any): {

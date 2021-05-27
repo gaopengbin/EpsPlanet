@@ -52,7 +52,7 @@ export class SceneTreeUtils {
         }
         const _layerNodes: Array<NzTreeNode> = [];
         children.forEach(item => {
-            
+
             let node: NzTreeNode = null;
             if (item.children) { // item.title
                 node = new NzTreeNode({
@@ -68,8 +68,8 @@ export class SceneTreeUtils {
                 });
                 node.parentNode = parentNode;
                 node.level = parentNode.level + 1;
-                
-                node.isExpanded=item.expand?true:false;
+
+                node.isExpanded = item.expand ? true : false;
                 if (item.children.length >= 1) {
                     node.children.push(...SceneTreeUtils.convertChildren(item.children, node));
                 }
@@ -202,7 +202,7 @@ export class SceneTreeUtils {
                     node.children.push(SceneTreeUtils.loadLayerNode(child))
                 })
             }
-            node.expand=item.expand;
+            node.expand = item.expand;
             return node;
         } else if (item.url || item.layer) {
             //图层
@@ -210,7 +210,7 @@ export class SceneTreeUtils {
 
             const node: IXbsjCzmObject = newXbsjLayerNode(item.type, item.title, item.url);
             node.czmObject.xbsjGuid = item.guid;
-            node.czmObject.show = item.show?true:false;
+            node.czmObject.show = item.show ? true : false;
             node.ref = item.ref;
             if (node.czmObject.hasOwnProperty("xbsjImageryProvider")) {
                 //影像图层处理
@@ -230,7 +230,16 @@ export class SceneTreeUtils {
 
             }
             if (item.extendOptions) {
+
                 node.czmObject = Object.assign(node.czmObject, item.extendOptions);
+                if (item.extendOptions.rectangle) {
+                    // console.log(node.czmObject.rectangle)
+                    let rect = []
+                    node.czmObject.rectangle.forEach(item => {
+                        rect.push(item / 180 * Math.PI)
+                    })
+                    node.czmObject.rectangle = rect
+                }
             }
             return node;
         }

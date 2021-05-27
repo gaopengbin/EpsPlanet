@@ -19,8 +19,8 @@ export class Identify {
         this.earth = window['earth']
         this.earth.interaction.picking.enabled = false
         this.earth.interaction.picking.hoverEnable = false
-        this.earth.epsplanet={}
-        this.earth.epsplanet.allowClick=false;
+        this.earth.epsplanet = {}
+        this.earth.epsplanet.allowClick = false;
     }
     httpReq(method, url) {
         if (method == 'post') {
@@ -448,12 +448,7 @@ export class Identify {
         let resLists = []
         let geometryLists = []
         this.httpFuncB(requestUrl, res => {
-
-            // })
-            // this.httpReq('get', requestUrl).then((res: any) => {
             if (res.layers == undefined) return;
-            // resList = []
-            // geometryList = []
             if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
                 for (let i = 0; i < res.layers.length; i++) {
                     const item = res.layers[i];
@@ -586,7 +581,6 @@ export class Identify {
                                 geometryLists.push(geojson)
                                 callback(resLists, geometryLists)
                             }
-
                         }
                     })
                 }
@@ -734,7 +728,6 @@ export class Identify {
                     // })
                 }
             }
-
         })
     }
     httpFuncB(requestUrl, callback) {
@@ -742,27 +735,21 @@ export class Identify {
             callback(res)
         })
     }
-    httpFuncC() {
-
-    }
     httpFunc(query, callback) {
         this.httpReq('get', query).then().catch((err: any) => {
             callback(err)
         })
     }
-
     pickModel(earth, callback) {
-
         let handler = new Cesium.ScreenSpaceEventHandler(earth.czm.scene.canvas);
         handler.setInputAction((click) => {
             if (!earth.epsplanet.allowClick) {
                 return
             }
-
             // console.log(click)
             let position = earth.czm.viewer.scene.pickPosition(click.position)
             let pickObj = earth.czm.viewer.scene.pick(click.position)
-            if (!Cesium.defined(pickObj)||!pickObj.getPropertyNames) {
+            if (!Cesium.defined(pickObj) || !pickObj.getPropertyNames) {
                 earth.sceneTree.$refs.pin1.czmObject.customProp = false;
                 return
             }
@@ -781,13 +768,6 @@ export class Identify {
             callback(propertyList, handler)
             // console.log(this.Cartesian2ToCartographic(earth.czm.viewer, position))
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
-        // console.log(pickObj)
-
-
-        // handler.destroy()
-        // console.log(propertyList)
-
-
     }
 
     /**
@@ -866,7 +846,7 @@ export class Identify {
      * 清除高亮
      */
     ClearHighLight() {
-        debugger
+        // debugger
         highLight.entities.removeAll();
     }
     /**

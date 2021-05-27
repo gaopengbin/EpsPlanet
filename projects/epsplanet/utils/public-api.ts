@@ -3,3 +3,4 @@
  */
 export * from './sceneTree-utils';
 export * from './identify';
+export * from './getHeight';

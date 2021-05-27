@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { ComponentRegister } from "epsgis";
 import { BasePlanetWidgetComponent } from '../base-widget/base-widget.component';
 import { Identify } from '../../utils/identify';
+import { getPositionsHeightFromTerrain } from '../../utils/getHeight'
+
 @ComponentRegister({
   uri: "epsgis-planet-identify",
   path: "epsplanet/components/identify",
@@ -10,12 +12,7 @@ import { Identify } from '../../utils/identify';
 @Component({
   selector: "epsgis-planet-identify",
   templateUrl: "./identify.component.html",
-  styleUrls: ["./identify.component.scss"],
-  host: {
-    "[class.jimu-widget-onscreen-icon]": "true",
-    // "[class.icon]": "true",
-    "title": "识别"
-  }
+  styleUrls: ["./identify.component.scss"]
 })
 export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
   winPos: Array<any> = [0, 0, 0, 0];
@@ -115,7 +112,6 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     }
   }
   bindClick(item) {
-
     // if (item.czmObject.xbsjType !== "Imagery") return;
     if (item.czmObject.xbsjType == "Imagery") {
       if (item.czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider" || item.czmObject.xbsjImageryProvider.type == "WebMapServiceImageryProvider") {
@@ -151,7 +147,12 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
   zoomTo() {
     let entityCollection = this.view.czm.viewer.dataSources.getByName("highLight")[0].entities
     
-  //   let entity = entityCollection.values[0]
+    // let entity = entityCollection.values[0]
+    // let positions = entity.polyline.positions._value;
+    // console.log(entity.polyline.positions._value)
+    // getPositionsHeightFromTerrain(this.view,positions,res=>{
+    //   console.log("getPosheight:",positions)
+    // })
   //   let polyCenter = Cesium.BoundingSphere.fromPoints(entity.polyline.positions._value).center
     let viewer = this.view.czm.viewer;
   //   let cartographic = Cesium.Cartographic.fromCartesian(polyCenter, viewer.scene.globe.ellipsoid, new Cesium.Cartographic());

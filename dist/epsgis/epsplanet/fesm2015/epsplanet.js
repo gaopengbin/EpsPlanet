@@ -287,6 +287,13 @@ class SceneTreeUtils {
             }
             if (item.extendOptions) {
                 node.czmObject = Object.assign(node.czmObject, item.extendOptions);
+                if (item.extendOptions.rectangle) {
+                    let rect = [];
+                    node.czmObject.rectangle.forEach(item => {
+                        rect.push(item / 180 * Math.PI);
+                    });
+                    node.czmObject.rectangle = rect;
+                }
             }
             return node;
         }
@@ -352,6 +359,13 @@ let PlanetEarthComponent = class PlanetEarthComponent extends BaseMapComponent {
                         let pitch = td(earth.czm.camera.pitch).toFixed(5);
                         let roll = td(earth.czm.camera.roll).toFixed(5);
                         console.log(`"center":[${lon},\n${lat},\n${height}],\n"heading":${heading},\n"pitch":${pitch},\n"roll":${roll}`);
+                    };
+                    earth.RadiansTodegree = function (radians) {
+                        let pos = [];
+                        radians.forEach(item => {
+                            pos.push(item / Math.PI * 180);
+                        });
+                        console.log(pos);
                     };
                     if (this.config.mapOptions && this.config.mapOptions.center) {
                         let x = 116.26984645340727, y = 40.10171604578351, h = 230, heading = 0, pitch = 0;
@@ -898,26 +912,6 @@ let PlanetLayerListComponent = class PlanetLayerListComponent extends BasePlanet
     constructor(modalService) {
         super();
         this.modalService = modalService;
-        this.testnode = [
-            {
-                title: 'parent 0',
-                key: '100',
-                author: 'NG ZORRO',
-                children: [
-                    { title: 'leaf 0-0', key: '1000', author: 'NG ZORRO' },
-                    { title: 'leaf 0-1', key: '1001', author: 'NG ZORRO', isLeaf: true }
-                ]
-            },
-            {
-                title: 'parent 1',
-                key: '101',
-                author: 'NG ZORRO',
-                children: [
-                    { title: 'leaf 1-0', key: '1010', author: 'NG ZORRO', isLeaf: true },
-                    { title: 'leaf 1-1', key: '1011', author: 'NG ZORRO', isLeaf: true }
-                ]
-            }
-        ];
         this.layerNodes = [];
         this.listOfData = [];
         this.isShow = false;
@@ -2488,8 +2482,6 @@ class Identify {
             callback(res);
         });
     }
-    httpFuncC() {
-    }
     httpFunc(query, callback) {
         this.httpReq('get', query).then().catch((err) => {
             callback(err);
@@ -2572,7 +2564,6 @@ class Identify {
         return degreesArray;
     }
     ClearHighLight() {
-        debugger;
         highLight.entities.removeAll();
     }
     xml2Json(xml) {
@@ -2777,7 +2768,8 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
     }
     zoomTo() {
         let entityCollection = this.view.czm.viewer.dataSources.getByName("highLight")[0].entities;
-        this.view.czm.viewer.flyTo(entityCollection);
+        let viewer = this.view.czm.viewer;
+        viewer.flyTo(entityCollection);
     }
     switch(e) {
         let earth = this.view;
@@ -2819,9 +2811,7 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
     }
 };
 PlanetIdentifyComponent.ɵfac = function PlanetIdentifyComponent_Factory(t) { return new (t || PlanetIdentifyComponent)(ɵɵdirectiveInject(Identify)); };
-PlanetIdentifyComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetIdentifyComponent, selectors: [["epsgis-planet-identify"]], hostAttrs: ["title", "\u8BC6\u522B"], hostVars: 2, hostBindings: function PlanetIdentifyComponent_HostBindings(rf, ctx) { if (rf & 2) {
-        ɵɵclassProp("jimu-widget-onscreen-icon", true);
-    } }, features: [ɵɵInheritDefinitionFeature], decls: 15, vars: 12, consts: [["title", "\u8BC6\u522B", 1, "jimu-widget-onscreen-icon"], ["nz-icon", "", 3, "nzIconfont", "click"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline", 3, "click"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) { if (rf & 1) {
+PlanetIdentifyComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetIdentifyComponent, selectors: [["epsgis-planet-identify"]], features: [ɵɵInheritDefinitionFeature], decls: 15, vars: 12, consts: [["title", "\u8BC6\u522B", 1, "jimu-widget-onscreen-icon"], ["nz-icon", "", 3, "nzIconfont", "click"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline", 3, "click"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) { if (rf & 1) {
         ɵɵelementStart(0, "div", 0);
         ɵɵelementStart(1, "i", 1);
         ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_1_listener($event) { return ctx.switch($event); });
@@ -2874,11 +2864,7 @@ PlanetIdentifyComponent = __decorate([
         args: [{
                 selector: "epsgis-planet-identify",
                 templateUrl: "./identify.component.html",
-                styleUrls: ["./identify.component.scss"],
-                host: {
-                    "[class.jimu-widget-onscreen-icon]": "true",
-                    "title": "识别"
-                }
+                styleUrls: ["./identify.component.scss"]
             }]
     }], function () { return [{ type: Identify }]; }, null); })();
 
@@ -3000,5 +2986,69 @@ EpsGisForPlanetModule.ɵinj = ɵɵdefineInjector({ factory: function EpsGisForPl
             }]
     }], null, null); })();
 
-export { BasePlanetWidgetComponent, EpsGisForPlanetModule, Identify, LayerServiceSource, LayerType, PlanetBasemapGalleryComponent, PlanetEarthComponent, PlanetHomeComponent, PlanetIdentifyComponent, PlanetLayerListComponent, PlanetLayerManagerComponent, PlanetLocationComponent, PlanetModeSwitchComponent, PlanetStatusBarComponent, PlanetZoomComponent, SceneTreeUtils, newXbsjFolderNode, newXbsjLayerNode };
+function getPositionsHeightFromTileset(earth, positions, resultCallback) {
+    if (!earth.czm.scene.globe.depthTestAgainstTerrain) {
+        console.warn("scene.globe.depthTestAgainstTerrain is false, may not get the height!");
+    }
+    const cps = [];
+    for (let p of positions) {
+        cps.push(new Cesium.Cartographic(p[0], p[1], p[2]));
+    }
+    earth.czm.scene
+        .sampleHeightMostDetailed(cps)
+        .then(r => {
+        try {
+            let i = 0;
+            for (let p of positions) {
+                if (r[i].height === undefined) {
+                    throw new Error("r[i].height === undefined");
+                }
+                p[2] = r[i].height;
+                i++;
+            }
+            resultCallback(true);
+        }
+        catch (error) {
+            console.error("sampleHeightMostDetailed error 1!");
+            resultCallback(false);
+        }
+    })
+        .otherwise(error => {
+        resultCallback(false);
+        console.error("sampleHeightMostDetailed error 2!");
+    });
+}
+function getPositionsHeightFromTerrain(earth, positions, resultCallback) {
+    var terrainProvider = earth.czm.scene.terrainProvider;
+    if (terrainProvider instanceof Cesium.EllipsoidTerrainProvider) {
+        console.warn("没加载地形，可能获取不到高程信息");
+    }
+    const cps = [];
+    for (let p of positions) {
+        cps.push(new Cesium.Cartographic.fromCartesian(p));
+    }
+    var promise = Cesium.sampleTerrainMostDetailed(terrainProvider, cps);
+    Cesium.when(promise, function (r) {
+        try {
+            let i = 0;
+            for (let p of positions) {
+                if (r[i].height === undefined) {
+                    throw new Error("r[i].height === undefined");
+                }
+                p = new Cesium.Cartesian3.fromRadians(r[i].longitude, r[i].latitude, r[i].height);
+                i++;
+            }
+            resultCallback(positions);
+        }
+        catch (error) {
+            console.error("sampleTerrainMostDetailed error 1!");
+            resultCallback(false);
+        }
+    }, function (error) {
+        resultCallback(false);
+        console.error("sampleTerrainMostDetailed error 2!" + error);
+    });
+}
+
+export { BasePlanetWidgetComponent, EpsGisForPlanetModule, Identify, LayerServiceSource, LayerType, PlanetBasemapGalleryComponent, PlanetEarthComponent, PlanetHomeComponent, PlanetIdentifyComponent, PlanetLayerListComponent, PlanetLayerManagerComponent, PlanetLocationComponent, PlanetModeSwitchComponent, PlanetStatusBarComponent, PlanetZoomComponent, SceneTreeUtils, getPositionsHeightFromTerrain, getPositionsHeightFromTileset, newXbsjFolderNode, newXbsjLayerNode };
 //# sourceMappingURL=epsplanet.js.map
