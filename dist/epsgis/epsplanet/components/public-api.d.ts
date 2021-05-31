@@ -9,4 +9,5 @@ export * from './base-widget/base-widget.component';
 export * from './mode-switch/mode-switch.component';
 export * from './basemap-gallery/basemap-gallery.component';
 export * from './identify/identify.component';
+export * from './equery/equery.component';
 //# sourceMappingURL=public-api.d.ts.map

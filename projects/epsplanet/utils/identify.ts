@@ -765,7 +765,7 @@ export class Identify {
                     value: pickObj.getProperty(property)
                 })
             })
-            callback(propertyList, handler)
+            callback(propertyList, pickObj)
             // console.log(this.Cartesian2ToCartographic(earth.czm.viewer, position))
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
     }

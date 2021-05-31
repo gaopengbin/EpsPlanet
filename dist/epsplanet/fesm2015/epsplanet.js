@@ -1,16 +1,16 @@
 import { NgIf, NgForOf, NgStyle, CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ɵɵdirectiveInject, ɵɵdefineComponent, ɵɵviewQuery, ɵɵqueryRefresh, ɵɵloadQuery, ɵɵInheritDefinitionFeature, ɵɵelement, ɵɵtemplate, ɵsetClassMetadata, Component, ViewChild, ɵɵdefineDirective, Directive, ɵɵlistener, ɵɵclassProp, ɵɵproperty, HostListener, ɵɵgetCurrentView, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵrestoreView, ɵɵnextContext, ɵɵadvance, ɵɵtextInterpolate, ɵɵpureFunction0, Input, ɵɵtemplateRefExtractor, ɵɵreference, ɵɵelementContainerStart, ɵɵnamespaceSVG, ɵɵelementContainerEnd, ɵɵnamespaceHTML, ChangeDetectorRef, ɵɵtextInterpolate3, ɵɵsanitizeUrl, ɵɵinject, ɵɵdefineInjectable, Injectable, ɵɵpureFunction2, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
-import { NgControlStatus, NgModel, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { IdGenerater, BaseMapComponent, simpleLoader, ComponentLoaderService, ComponentContainerDirective, ComponentRegister, BaseWidgetComponent, PropWatcher, ModalManagerService, UtilsService, HttpReqService, EpsGisDirectivesModule } from 'epsgis';
+import { ɵɵdirectiveInject, ɵɵdefineComponent, ɵɵviewQuery, ɵɵqueryRefresh, ɵɵloadQuery, ɵɵInheritDefinitionFeature, ɵɵelement, ɵɵtemplate, ɵsetClassMetadata, Component, ViewChild, ɵɵdefineDirective, Directive, ɵɵlistener, ɵɵclassProp, ɵɵproperty, HostListener, ɵɵgetCurrentView, ɵɵelementStart, ɵɵtext, ɵɵelementEnd, ɵɵrestoreView, ɵɵnextContext, ɵɵadvance, ɵɵtextInterpolate, ɵɵpureFunction0, Input, ɵɵtemplateRefExtractor, ɵɵreference, ɵɵinject, ɵɵdefineInjectable, Injectable, ɵɵpureFunction2, ɵɵelementContainerStart, ɵɵnamespaceSVG, ɵɵelementContainerEnd, ɵɵnamespaceHTML, ChangeDetectorRef, ɵɵtextInterpolate3, ɵɵsanitizeUrl, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
+import { NgControlStatus, NgModel, FormBuilder, ɵangular_packages_forms_forms_y, NgControlStatusGroup, FormGroupDirective, FormControlName, DefaultValueAccessor, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { IdGenerater, BaseMapComponent, simpleLoader, ComponentLoaderService, ComponentContainerDirective, ComponentRegister, BaseWidgetComponent, PropWatcher, ModalManagerService, HttpReqService, UtilsService, EpsGisDirectivesModule } from 'epsgis';
 import { NzIconDirective, NzIconModule } from 'ng-zorro-antd/icon';
-import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputDirective, NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberComponent, NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeNode, NzTreeComponent, NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzPopoverDirective, NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzDividerComponent, NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSelectComponent, NzOptionComponent, NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonComponent, NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzContextMenuService, NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -21,12 +21,14 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTableComponent, NzTbodyComponent, NzTrDirective, NzTableCellDirective, NzTableModule } from 'ng-zorro-antd/table';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzFormDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzFormModule } from 'ng-zorro-antd/form';
 import { __decorate } from 'tslib';
 import { isArray } from 'lodash';
 import { ɵNzTransitionPatchDirective } from 'ng-zorro-antd/core/transition-patch';
-import { NzWaveDirective } from 'ng-zorro-antd/core/wave';
 import turf from 'turf';
+import { NzWaveDirective } from 'ng-zorro-antd/core/wave';
+import axios from 'axios';
+import qs from 'qs';
 
 var LayerType;
 (function (LayerType) {
@@ -1022,743 +1024,6 @@ PlanetLayerListComponent = __decorate([
             }]
     }], function () { return [{ type: ModalManagerService }]; }, null); })();
 
-function PlanetLocationComponent_div_8_Template(rf, ctx) { if (rf & 1) {
-    const _r2 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "div");
-    ɵɵelementStart(1, "span");
-    ɵɵtext(2);
-    ɵɵelementEnd();
-    ɵɵelementStart(3, "nz-input-number", 3);
-    ɵɵlistener("ngModelChange", function PlanetLocationComponent_div_8_Template_nz_input_number_ngModelChange_3_listener($event) { ɵɵrestoreView(_r2); const ctx_r1 = ɵɵnextContext(); return ctx_r1.ZValue = $event; });
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const ctx_r0 = ɵɵnextContext();
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(ctx_r0.item.Z.label);
-    ɵɵadvance(1);
-    ɵɵproperty("ngModel", ctx_r0.ZValue)("nzStep", 1)("nzPlaceHolder", ctx_r0.item.Z.placeHolder);
-} }
-let PlanetLocationComponent = class PlanetLocationComponent extends BasePlanetWidgetComponent {
-    constructor() {
-        super();
-        this.XValue = 0;
-        this.YValue = 0;
-        this.ZValue = 0;
-        this.item4326 = {
-            X: {
-                label: "经度：",
-                min: "-180",
-                max: "180",
-                placeHolder: "请输入经度"
-            },
-            Y: {
-                label: "纬度：",
-                min: "-90",
-                max: "90",
-                placeHolder: "请输入纬度"
-            },
-            Z: {
-                label: "高度：",
-                placeHolder: "请输入高度"
-            }
-        };
-        this.itemOther = {
-            X: {
-                label: "X：",
-                min: "-99999999",
-                max: "99999999",
-                placeHolder: "请输入横坐标"
-            },
-            Y: {
-                label: "Y：",
-                min: "-99999999",
-                max: "99999999",
-                placeHolder: "请输入纵坐标"
-            }
-        };
-        this.item = this.item4326;
-    }
-    ngOnInit() {
-        super.ngOnInit();
-        this.initialize();
-    }
-    static getCompInfo() {
-        return { path: "epsplanet/components/location" };
-    }
-    initialize() {
-        this.XValue = this.config.longitude;
-        this.YValue = this.config.latitude;
-        this.ZValue = this.config.height;
-    }
-    location() {
-        var position = null;
-        if (this.markerXY) {
-            this.view.czm.viewer.entities.remove(this.markerXY);
-        }
-        if (true) {
-            position = Cesium.Cartesian3.fromDegrees(this.XValue, this.YValue, this.ZValue);
-        }
-        else {
-        }
-        this.markerXY = new Cesium.Entity({
-            id: '视角定位坐标',
-            position: position,
-            point: {
-                pixelSize: 6,
-                color: Cesium.Color.WHITE.withAlpha(0.9),
-                outlineColor: Cesium.Color.WHITE.withAlpha(0.9),
-                outlineWidth: 1
-            },
-            billboard: {
-                image: this.folderUrl + "images/location4.png",
-                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                scale: .6
-            },
-        });
-        this.view.czm.viewer.entities.add(this.markerXY);
-        this.view.czm.camera.setView({
-            destination: position
-        });
-    }
-    ngOnDestroy() {
-        super.ngOnDestroy();
-    }
-};
-PlanetLocationComponent.ɵfac = function PlanetLocationComponent_Factory(t) { return new (t || PlanetLocationComponent)(); };
-PlanetLocationComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetLocationComponent, selectors: [["epsgis-planet-location"]], features: [ɵɵInheritDefinitionFeature], decls: 12, vars: 13, consts: [[3, "ngModel", "nzMin", "nzMax", "nzStep", "nzPlaceHolder", "ngModelChange"], [4, "ngIf"], ["nz-button", "", "nzType", "primary", 3, "click"], [3, "ngModel", "nzStep", "nzPlaceHolder", "ngModelChange"]], template: function PlanetLocationComponent_Template(rf, ctx) { if (rf & 1) {
-        ɵɵelementStart(0, "div");
-        ɵɵelementStart(1, "span");
-        ɵɵtext(2);
-        ɵɵelementEnd();
-        ɵɵelementStart(3, "nz-input-number", 0);
-        ɵɵlistener("ngModelChange", function PlanetLocationComponent_Template_nz_input_number_ngModelChange_3_listener($event) { return ctx.XValue = $event; });
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-        ɵɵelementStart(4, "div");
-        ɵɵelementStart(5, "span");
-        ɵɵtext(6);
-        ɵɵelementEnd();
-        ɵɵelementStart(7, "nz-input-number", 0);
-        ɵɵlistener("ngModelChange", function PlanetLocationComponent_Template_nz_input_number_ngModelChange_7_listener($event) { return ctx.YValue = $event; });
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-        ɵɵtemplate(8, PlanetLocationComponent_div_8_Template, 4, 4, "div", 1);
-        ɵɵelementStart(9, "div");
-        ɵɵelementStart(10, "button", 2);
-        ɵɵlistener("click", function PlanetLocationComponent_Template_button_click_10_listener() { return ctx.location(); });
-        ɵɵtext(11, "\u5B9A\u4F4D");
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-    } if (rf & 2) {
-        ɵɵadvance(2);
-        ɵɵtextInterpolate(ctx.item.X.label);
-        ɵɵadvance(1);
-        ɵɵproperty("ngModel", ctx.XValue)("nzMin", ctx.item.X.min)("nzMax", ctx.item.X.max)("nzStep", 0.0001)("nzPlaceHolder", ctx.item.X.placeHolder);
-        ɵɵadvance(3);
-        ɵɵtextInterpolate(ctx.item.Y.label);
-        ɵɵadvance(1);
-        ɵɵproperty("ngModel", ctx.YValue)("nzMin", ctx.item.Y.min)("nzMax", ctx.item.Y.max)("nzStep", 0.0001)("nzPlaceHolder", ctx.item.Y.placeHolder);
-        ɵɵadvance(1);
-        ɵɵproperty("ngIf", ctx.item.Z);
-    } }, directives: [NzInputNumberComponent, NgControlStatus, NgModel, NgIf, NzButtonComponent, NzWaveDirective, ɵNzTransitionPatchDirective], styles: ["div[_ngcontent-%COMP%]{margin-bottom:5px;text-align:center}nz-input-number[_ngcontent-%COMP%]{width:80%}"] });
-PlanetLocationComponent = __decorate([
-    ComponentRegister({
-        uri: "epsgis-planet-location",
-        path: "epsplanet/components/location",
-        name: "PlanetLocationComponent"
-    })
-], PlanetLocationComponent);
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetLocationComponent, [{
-        type: Component,
-        args: [{
-                selector: 'epsgis-planet-location',
-                templateUrl: './location.component.html',
-                styleUrls: ['./location.component.scss'],
-            }]
-    }], function () { return []; }, null); })();
-
-function PlanetModeSwitchComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵnamespaceSVG();
-    ɵɵelementStart(1, "svg", 4);
-    ɵɵelement(2, "path", 5);
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} }
-function PlanetModeSwitchComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵnamespaceSVG();
-    ɵɵelementStart(1, "svg", 4);
-    ɵɵelement(2, "path", 6);
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} }
-function PlanetModeSwitchComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵnamespaceSVG();
-    ɵɵelementStart(1, "svg", 4);
-    ɵɵelement(2, "path", 7);
-    ɵɵelementEnd();
-    ɵɵelementContainerEnd();
-} }
-function PlanetModeSwitchComponent_ng_template_5_Template(rf, ctx) { if (rf & 1) {
-    const _r6 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "div", 8);
-    ɵɵelementStart(1, "div", 9);
-    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_1_listener() { ɵɵrestoreView(_r6); const ctx_r5 = ɵɵnextContext(); return ctx_r5.changeViewMode("3d"); });
-    ɵɵnamespaceSVG();
-    ɵɵelementStart(2, "svg", 10);
-    ɵɵelement(3, "path", 5);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵnamespaceHTML();
-    ɵɵelementStart(4, "div", 9);
-    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_4_listener() { ɵɵrestoreView(_r6); const ctx_r7 = ɵɵnextContext(); return ctx_r7.changeViewMode("2d"); });
-    ɵɵnamespaceSVG();
-    ɵɵelementStart(5, "svg", 10);
-    ɵɵelement(6, "path", 6);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵnamespaceHTML();
-    ɵɵelementStart(7, "div", 9);
-    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_7_listener() { ɵɵrestoreView(_r6); const ctx_r8 = ɵɵnextContext(); return ctx_r8.changeViewMode("columbus"); });
-    ɵɵnamespaceSVG();
-    ɵɵelementStart(8, "svg", 10);
-    ɵɵelement(9, "path", 7);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} }
-let PlanetModeSwitchComponent = class PlanetModeSwitchComponent extends BasePlanetWidgetComponent {
-    constructor() {
-        super();
-        this.viewType = '3d';
-    }
-    static getCompInfo() {
-        return { name: "PlanetModeSwitchComponent", path: "epsplanet/components/mode-switch" };
-    }
-    clickMe() {
-        this.visible = false;
-    }
-    change(value) {
-        console.log(value);
-    }
-    changeViewMode(type) {
-        if (type == "2d") {
-            Promise.resolve().then(() => { this.view.czm.viewer.scene.morphTo2D(1); });
-        }
-        else if (type == "columbus") {
-            Promise.resolve().then(() => { this.view.czm.viewer.scene.morphToColumbusView(1); });
-        }
-        else {
-            Promise.resolve().then(() => { this.view.czm.viewer.scene.morphTo3D(1); });
-        }
-        this.viewType = type;
-    }
-};
-PlanetModeSwitchComponent.ɵfac = function PlanetModeSwitchComponent_Factory(t) { return new (t || PlanetModeSwitchComponent)(); };
-PlanetModeSwitchComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetModeSwitchComponent, selectors: [["epsgis-planet-mode-switch"]], features: [ɵɵInheritDefinitionFeature], decls: 7, vars: 6, consts: [["title", "\u6A21\u5F0F\u5207\u6362", 1, "jimu-widget-onscreen-icon"], ["nz-popover", "", "nzPopoverTrigger", "click", 1, "icon", 3, "nzPopoverVisible", "nzPopoverContent", "nzPopoverPlacement", "nzPopoverVisibleChange"], [4, "ngIf"], ["contentTemplate", ""], ["width", "32", "height", "32", "viewBox", "0 0 64 64", 1, ""], ["d", "m 32.401392,4.9330437 c -7.087603,0 -14.096095,2.884602 -19.10793,7.8946843 -5.0118352,5.010083 -7.9296167,11.987468 -7.9296167,19.072999 0,7.085531 2.9177815,14.097848 7.9296167,19.107931 4.837653,4.835961 11.541408,7.631372 18.374354,7.82482 0.05712,0.01231 0.454119,0.139729 0.454119,0.139729 l 0.03493,-0.104797 c 0.08246,7.84e-4 0.162033,0.03493 0.244525,0.03493 0.08304,0 0.161515,-0.03414 0.244526,-0.03493 l 0.03493,0.104797 c 0,0 0.309474,-0.129487 0.349323,-0.139729 6.867765,-0.168094 13.582903,-2.965206 18.444218,-7.82482 2.558195,-2.5573 4.551081,-5.638134 5.903547,-8.977584 1.297191,-3.202966 2.02607,-6.661489 2.02607,-10.130347 0,-6.237309 -2.366261,-12.31219 -6.322734,-17.116794 -0.0034,-0.02316 0.0049,-0.04488 0,-0.06986 -0.01733,-0.08745 -0.104529,-0.278855 -0.104797,-0.279458 -5.31e-4,-0.0012 -0.522988,-0.628147 -0.523984,-0.62878         -3.47e-4,-2.2e-4 -0.133444,-0.03532 -0.244525,-0.06987 C 51.944299,13.447603 51.751076,13.104317 51.474391,12.827728 46.462556,7.8176457 39.488996,4.9330437 32.401392,4.9330437 z m -2.130866,3.5281554 0.104797,9.6762289 c -4.111695,-0.08361 -7.109829,-0.423664 -9.257041,-0.943171 1.198093,-2.269271 2.524531,-4.124404 3.91241,-5.414496 2.167498,-2.0147811 3.950145,-2.8540169 5.239834,-3.3185619 z m 2.794579,0 c 1.280302,0.4754953 3.022186,1.3285948 5.065173,3.2486979 1.424667,1.338973 2.788862,3.303645 3.982275,5.728886 -2.29082,0.403367 -5.381258,0.621049 -8.942651,0.698645 L 33.065105,8.4611991 z m 5.728886,0.2445256 c 4.004072,1.1230822 7.793098,3.1481363 10.724195,6.0782083 0.03468,0.03466 0.07033,0.06991 0.104797,0.104797 -0.45375,0.313891 -0.923054,0.663002 -1.956205,1.082899 -0.647388,0.263114 -1.906242,0.477396 -2.829511,0.733577 -1.382296,-2.988132         -3.027146,-5.368585 -4.785716,-7.0213781 -0.422866,-0.397432 -0.835818,-0.6453247 -1.25756,-0.9781032 z m -15.33525,0.7685092 c -0.106753,0.09503 -0.207753,0.145402 -0.31439,0.244526 -1.684973,1.5662541 -3.298068,3.8232211 -4.680919,6.5672591 -0.343797,-0.14942 -1.035052,-0.273198 -1.292493,-0.419186 -0.956528,-0.542427 -1.362964,-1.022024 -1.537018,-1.292493 -0.0241,-0.03745 -0.01868,-0.0401 -0.03493,-0.06986 2.250095,-2.163342 4.948824,-3.869984 7.859752,-5.0302421 z m -9.641296,7.0912431 c 0.464973,0.571618 0.937729,1.169056 1.956205,1.746612 0.349907,0.198425 1.107143,0.335404 1.537018,0.523983 -1.20166,3.172984 -1.998037,7.051901 -2.165798,11.772162 C 14.256557,30.361384 12.934823,30.161483 12.280427,29.90959 10.644437,29.279855 9.6888882,28.674891 9.1714586,28.267775 8.6540289,27.860658 8.6474751,27.778724 8.6474751,27.778724 l -0.069864,0.03493 C 9.3100294,23.691285         11.163248,19.798527 13.817445,16.565477 z m 37.552149,0.523984 c 2.548924,3.289983 4.265057,7.202594 4.890513,11.318043 -0.650428,0.410896 -1.756876,1.001936 -3.563088,1.606882 -1.171552,0.392383 -3.163859,0.759153 -4.960377,1.117832 -0.04367,-4.752703 -0.784809,-8.591423 -1.88634,-11.807094 0.917574,-0.263678 2.170552,-0.486495 2.864443,-0.76851 1.274693,-0.518066 2.003942,-1.001558 2.654849,-1.467153 z m -31.439008,2.619917 c 2.487341,0.672766 5.775813,1.137775 10.479669,1.222628 l 0.104797,10.689263 0,0.03493 0,0.733577 c -5.435005,-0.09059 -9.512219,-0.519044 -12.610536,-1.117831 0.106127,-4.776683 0.879334,-8.55791 2.02607,-11.562569 z m 23.264866,0.31439 c 1.073459,3.067541 1.833795,6.821314 1.816476,11.702298 -3.054474,0.423245 -7.062018,0.648559 -11.702298,0.698644 l 0,-0.838373 -0.104796,-10.654331 c 4.082416,-0.0864 7.404468,-0.403886 9.990618,-0.908238 z         M 8.2632205,30.922625 c 0.7558676,0.510548 1.5529563,1.013339 3.0041715,1.57195 0.937518,0.360875 2.612202,0.647642 3.91241,0.978102 0.112814,3.85566 0.703989,7.107756 1.606883,9.920754 -1.147172,-0.324262 -2.644553,-0.640648 -3.423359,-0.978102 -1.516688,-0.657177 -2.386627,-1.287332 -2.864443,-1.71168 -0.477816,-0.424347 -0.489051,-0.489051 -0.489051,-0.489051 L 9.8002387,40.319395 C 8.791691,37.621767 8.1584238,34.769583 8.1584238,31.900727 c 0,-0.330153 0.090589,-0.648169 0.1047967,-0.978102 z m 48.2763445,0.419186 c 0.0047,0.188973 0.06986,0.36991 0.06986,0.558916 0,2.938869 -0.620228,5.873558 -1.676747,8.628261 -0.07435,0.07583 -0.06552,0.07411 -0.454119,0.349323 -0.606965,0.429857 -1.631665,1.042044 -3.318562,1.676747 -1.208528,0.454713 -3.204964,0.850894 -5.135038,1.25756 0.84593,-2.765726 1.41808,-6.005357 1.606883,-9.815957 2.232369,-0.413371 4.483758,-0.840201         5.938479,-1.327425 1.410632,-0.472457 2.153108,-0.89469 2.96924,-1.327425 z m -38.530252,2.864443 c 3.208141,0.56697 7.372279,0.898588 12.575603,0.978103 l 0.174662,9.885821 c -4.392517,-0.06139 -8.106722,-0.320566 -10.863925,-0.803441 -1.051954,-2.664695 -1.692909,-6.043794 -1.88634,-10.060483 z m 26.793022,0.31439 c -0.246298,3.923551 -0.877762,7.263679 -1.816476,9.885822 -2.561957,0.361954 -5.766249,0.560708 -9.431703,0.62878 l -0.174661,-9.815957 c 4.491734,-0.04969 8.334769,-0.293032 11.42284,-0.698645 z M 12.035901,44.860585 c 0.09977,0.04523 0.105535,0.09465 0.209594,0.139729 1.337656,0.579602 3.441099,1.058072 5.589157,1.537018 1.545042,3.399208 3.548524,5.969402 5.589157,7.789888 -3.034411,-1.215537 -5.871615,-3.007978 -8.174142,-5.309699 -1.245911,-1.245475 -2.271794,-2.662961 -3.213766,-4.156936 z m 40.69605,0 c -0.941972,1.493975 -1.967855,2.911461         -3.213765,4.156936 -2.74253,2.741571 -6.244106,4.696717 -9.955686,5.868615 0.261347,-0.241079 0.507495,-0.394491 0.768509,-0.663713 1.674841,-1.727516 3.320792,-4.181056 4.645987,-7.265904 2.962447,-0.503021 5.408965,-1.122293 7.161107,-1.781544 0.284034,-0.106865 0.337297,-0.207323 0.593848,-0.31439 z m -31.404076,2.305527 c 2.645807,0.376448 5.701178,0.649995 9.466635,0.698645 l 0.139729,7.789888 c -1.38739,-0.480844 -3.316218,-1.29837 -5.659022,-3.388427 -1.388822,-1.238993 -2.743668,-3.0113 -3.947342,-5.100106 z m 20.365491,0.104797 c -1.04872,2.041937 -2.174337,3.779068 -3.353494,4.995309 -1.853177,1.911459 -3.425515,2.82679 -4.611055,3.353494 l -0.139729,-7.789887 c 3.13091,-0.05714 5.728238,-0.278725 8.104278,-0.558916 z"], ["d", "m 2.9825053,17.550598 0,1.368113 0,26.267766 0,1.368113 1.36811,0 54.9981397,0 1.36811,0 0,-1.368113 0,-26.267766 0,-1.368113 -1.36811,0 -54.9981397,0 -1.36811,0 z m 2.73623,2.736226 10.3292497,0 0,10.466063 -10.3292497,0 0,-10.466063 z m 13.0654697,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 10.32926,0 0,10.466063 -10.32926,0 0,-10.466063 z m -41.9326497,13.202288 10.3292497,0 0,10.329252 -10.3292497,0 0,-10.329252 z m 13.0654697,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 10.32926,0 0,10.329252 -10.32926,0 0,-10.329252 z"], ["d", "m 14.723969,17.675598 -0.340489,0.817175 -11.1680536,26.183638 -0.817175,1.872692 2.076986,0 54.7506996,0 2.07698,0 -0.81717,-1.872692 -11.16805,-26.183638 -0.34049,-0.817175 -0.91933,0 -32.414586,0 -0.919322,0 z m 1.838643,2.723916 6.196908,0 -2.928209,10.418977 -7.729111,0 4.460412,-10.418977 z m 9.02297,0 4.903049,0 0,10.418977 -7.831258,0 2.928209,-10.418977 z m 7.626964,0 5.584031,0 2.62176,10.418977 -8.205791,0 0,-10.418977 z m 8.410081,0 5.51593,0 4.46042,10.418977 -7.38863,0 -2.58772,-10.418977 z m -30.678091,13.142892 8.103649,0 -2.89416,10.282782 -9.6018026,0 4.3923136,-10.282782 z m 10.929711,0 8.614384,0 0,10.282782 -11.508544,0 2.89416,-10.282782 z m 11.338299,0 8.852721,0 2.58772,10.282782 -11.440441,0 0,-10.282782 z m 11.678781,0 7.86531,0 4.39231,10.282782 -9.6699,0 -2.58772,-10.282782 z"], [1, "container"], [1, "mode", 3, "click"], ["width", "40", "height", "40", "viewBox", "0 0 64 64", 1, ""]], template: function PlanetModeSwitchComponent_Template(rf, ctx) { if (rf & 1) {
-        ɵɵelementStart(0, "div", 0);
-        ɵɵelementStart(1, "div", 1);
-        ɵɵlistener("nzPopoverVisibleChange", function PlanetModeSwitchComponent_Template_div_nzPopoverVisibleChange_1_listener($event) { return ctx.visible = $event; });
-        ɵɵtemplate(2, PlanetModeSwitchComponent_ng_container_2_Template, 3, 0, "ng-container", 2);
-        ɵɵtemplate(3, PlanetModeSwitchComponent_ng_container_3_Template, 3, 0, "ng-container", 2);
-        ɵɵtemplate(4, PlanetModeSwitchComponent_ng_container_4_Template, 3, 0, "ng-container", 2);
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-        ɵɵtemplate(5, PlanetModeSwitchComponent_ng_template_5_Template, 10, 0, "ng-template", null, 3, ɵɵtemplateRefExtractor);
-    } if (rf & 2) {
-        const _r3 = ɵɵreference(6);
-        ɵɵadvance(1);
-        ɵɵproperty("nzPopoverVisible", ctx.visible)("nzPopoverContent", _r3)("nzPopoverPlacement", "right");
-        ɵɵadvance(1);
-        ɵɵproperty("ngIf", ctx.viewType == "3d");
-        ɵɵadvance(1);
-        ɵɵproperty("ngIf", ctx.viewType == "2d");
-        ɵɵadvance(1);
-        ɵɵproperty("ngIf", ctx.viewType == "columbus");
-    } }, directives: [NzPopoverDirective, NgIf], styles: [".icon[_ngcontent-%COMP%]{height:32px}.container[_ngcontent-%COMP%]{width:auto;height:50px;margin:-10px}.container[_ngcontent-%COMP%]   .mode[_ngcontent-%COMP%]{float:left;cursor:pointer;height:40px;line-height:40px;margin:5px;fill:#4e555d}.container[_ngcontent-%COMP%]   .mode[_ngcontent-%COMP%]   [_ngcontent-%COMP%]:hover{background-color:#4e555d;fill:#fff}"] });
-PlanetModeSwitchComponent = __decorate([
-    ComponentRegister({
-        uri: "epsgis-planet-mode-switch",
-        path: "epsplanet/components/mode-switch",
-        name: "PlanetModeSwitchComponent"
-    })
-], PlanetModeSwitchComponent);
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetModeSwitchComponent, [{
-        type: Component,
-        args: [{
-                selector: 'epsgis-planet-mode-switch',
-                templateUrl: './mode-switch.component.html',
-                styleUrls: ['./mode-switch.component.scss']
-            }]
-    }], function () { return []; }, null); })();
-
-let PlanetStatusBarComponent = class PlanetStatusBarComponent extends BasePlanetWidgetComponent {
-    constructor(cdr) {
-        super();
-        this.cdr = cdr;
-        this.fpsString = "";
-        this.cameraString = "";
-        this.baseVelocity = 0.0;
-        this.velocity = 0.0;
-        this.velocityRatio = 1.0;
-        this.lang = {
-            longitude: "经度",
-            latitude: "纬度",
-            height: "高度",
-            fps: "帧率",
-            heading: "偏航角",
-            pitch: "俯仰角",
-            roll: "翻滚角",
-            meter: "米",
-            velocity: "键盘运动速度",
-            createPolylineTip: "左键添加点，右键删除点，shift+右键创建完成",
-            editPolylineTip: "鼠标移动到其中一个点会出现一个操作栏，点击移动按钮，可以移动折线位置；点击增加按钮，可以在该位置增加一个点；点击删除按钮，可以删除该点",
-            createRectangleTip: "点击左键确定矩形中心点，移动鼠标确定矩形方向和对角线长度，再次点击左键创建完成",
-            editRectangleTip: "左键点击其中一个点移动矩形位置",
-            createCircleTip: "点击左键确定圆的圆心，移动鼠标确定圆的半径，再次点击左键创建完成",
-            editCircleTip: "左键点击其中一个点移动圆位置",
-            createDoubleArrowTip: "在四个不同位置点击左键创建双箭头",
-            editDoubleArrowTip: "左键点击其中一个点移动双箭头位置",
-            createFlattenedPolygonTip: "左键添加点，右键删除点，shift+右键停止绘制，上下移动鼠标确定高度，再次点击左键创建完成",
-            editFlattenedPolygonTip: "鼠标移动到其中一个点会出现一个操作栏，点击移动按钮，可以移动折线位置；点击增加按钮，可以在该位置增加一个点；点击删除按钮，可以删除该点",
-            movableObjectTip: "鼠标左键点击坐标轴x,y,z任意一个轴，轴变黄色，可沿着相应位置进行移动，再次点击，轴恢复原色，停止移动，点击右键坐标轴消失",
-            rotatableObjectTip: "鼠标左键点击旋转坐标轴任意一个轴，轴变黄色，可沿着相应位置进行旋转，再次点击，轴恢复原色，停止旋转，点击右键旋转坐标轴消失",
-            positionPickingTip: "点击鼠标左键拾取位置"
-        };
-        this._disposers = [];
-    }
-    static getCompInfo() {
-        return { name: "PlanetStatusBarComponent", path: "epsplanet/components/status-bar" };
-    }
-    ngOnInit() {
-        this._scene = this.view.czm.scene;
-        this._camera = this.view.czm.camera;
-        const td = Cesium.Math.toDegrees;
-        const updateCameraString = () => {
-            const camera = this._camera;
-            var l = td(camera.positionCartographic.longitude).toFixed(5);
-            var b = td(camera.positionCartographic.latitude).toFixed(5);
-            var h = camera.positionCartographic.height.toFixed(2);
-            var y = td(camera.heading).toFixed(2);
-            var p = td(camera.pitch).toFixed(2);
-            var r = td(camera.roll).toFixed(2);
-            this.cameraString = `${this.lang.longitude}: ${l}° ${this.lang.latitude}: ${b}° ${this.lang.height}: ${h}${this.lang.meter} ${this.lang.heading}: ${y}° ${this.lang.pitch}: ${p}° ${this.lang.roll}: ${r}°`;
-            UtilsService.detectChanges(this.cdr);
-        };
-        this._disposers = [];
-        this._disposers.push(this._camera.changed.addEventListener(updateCameraString));
-        updateCameraString();
-        this._scene.debugShowFramesPerSecond = true;
-        const tempDisposer = this._scene._postRender.addEventListener(() => {
-            tempDisposer();
-            this._scene._performanceContainer.style.visibility = "hidden";
-        });
-        this._disposers.push(this._scene._postRender.addEventListener(() => {
-            if (this._scene._performanceDisplay) {
-                this.fpsString = `${this.lang.fps}: ${this._scene._performanceDisplay._fpsText.nodeValue} `;
-            }
-            else {
-                this.fpsString = "";
-            }
-        }));
-        this._disposers.push(XE.MVVM.track(this, "baseVelocity", this.view.camera.immersion, "baseVelocity"));
-        this._disposers.push(XE.MVVM.track(this, "velocity", this.view.camera.immersion, "velocity"));
-        this._disposers.push(XE.MVVM.bind(this, "velocityRatio", this.view.camera.immersion, "velocityRatio"));
-        if (this._uw1) {
-            this._uw1 = this._uw1();
-        }
-        else {
-            this._uw1 = XE.MVVM.watch(() => this.view.interaction.creatingPolylineBinding.target, () => {
-                if (this.view.interaction.creatingPolylineBinding.target !==
-                    undefined) {
-                    if (this.view.interaction.creatingPolylineBinding.target
-                        .xbsjType === "GeoRectangle") {
-                    }
-                    else if (this.view.interaction.creatingPolylineBinding.target
-                        .xbsjType === "GeoCircle") {
-                    }
-                    else if (this.view.interaction.creatingPolylineBinding.target
-                        .xbsjType === "GeoDoubleArrow") {
-                    }
-                    else {
-                    }
-                }
-            });
-        }
-        if (this._uw2) {
-            this._uw2 = this._uw2();
-        }
-        else {
-            this._uw2 = XE.MVVM.watch(() => this.view.interaction.editingPolylineBinding.target, () => {
-                if (this.view.interaction.editingPolylineBinding.target !==
-                    undefined) {
-                    if (this.view.interaction.editingPolylineBinding.target
-                        .xbsjType === "GeoRectangle") {
-                    }
-                    else if (this.view.interaction.editingPolylineBinding.target
-                        .xbsjType === "GeoCircle") {
-                    }
-                    else if (this.view.interaction.editingPolylineBinding.target
-                        .xbsjType === "GeoDoubleArrow") {
-                    }
-                    else {
-                    }
-                }
-            });
-        }
-        if (this._uw3) {
-            this._uw3 = this._uw3();
-        }
-        else {
-            this._uw3 = XE.MVVM.watch(() => this.view.interaction.creatingPolygonBinding.target, () => {
-                if (this.view.interaction.creatingPolygonBinding.target !==
-                    undefined) {
-                }
-            });
-        }
-        if (this._uw4) {
-            this._uw4 = this._uw4();
-        }
-        else {
-            this._uw4 = XE.MVVM.watch(() => this.view.interaction.flattenedPolygonCreatingBinding.target, () => {
-                if (this.view.interaction.flattenedPolygonCreatingBinding
-                    .target !== undefined) {
-                }
-            });
-        }
-        if (this._uw5) {
-            this._uw5 = this._uw5();
-        }
-        else {
-            this._uw5 = XE.MVVM.watch(() => this.view.interaction.editingPolygonBinding.target, () => {
-                if (this.view.interaction.editingPolygonBinding.target !==
-                    undefined) {
-                }
-            });
-        }
-        if (this._uw6) {
-            this._uw6 = this._uw4();
-        }
-        else {
-            this._uw6 = XE.MVVM.watch(() => this.view.interaction.movableObjectBinding.target, () => {
-                if (this.view.interaction.movableObjectBinding.target !==
-                    undefined) {
-                }
-            });
-        }
-        if (this._uw7) {
-            this._uw7 = this._uw4();
-        }
-        else {
-            this._uw7 = XE.MVVM.watch(() => this.view.interaction.rotatableObjectBinding.target, () => {
-                if (this.view.interaction.rotatableObjectBinding.target !==
-                    undefined) {
-                }
-            });
-        }
-        if (this._uw8) {
-            this._uw8 = this._uw4();
-        }
-        else {
-            this._uw8 = XE.MVVM.watch(() => this.view.interaction.positionPickingBinding.target, () => {
-                if (this.view.interaction.positionPickingBinding.target !==
-                    undefined) {
-                }
-            });
-        }
-    }
-    ngOnDestroy() {
-        super.ngOnDestroy();
-        this._disposers.forEach(d => d());
-        this._disposers.length = 0;
-        this._uw1 = this._uw1 && this._uw1();
-        this._uw2 = this._uw2 && this._uw2();
-        this._uw3 = this._uw3 && this._uw3();
-        this._uw4 = this._uw4 && this._uw4();
-        this._uw5 = this._uw5 && this._uw5();
-        this._uw6 = this._uw6 && this._uw6();
-        this._uw7 = this._uw7 && this._uw7();
-        this._uw8 = this._uw8 && this._uw8();
-    }
-    velocityString() {
-        return ` ${this.lang.velocity}: ${this.velocity.toFixed(1)} km/h (${this.baseVelocity.toFixed(1)} × ${this.velocityRatio.toFixed(1)})`;
-    }
-};
-PlanetStatusBarComponent.ɵfac = function PlanetStatusBarComponent_Factory(t) { return new (t || PlanetStatusBarComponent)(ɵɵdirectiveInject(ChangeDetectorRef)); };
-PlanetStatusBarComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetStatusBarComponent, selectors: [["epsgis-planet-status-bar"]], features: [ɵɵInheritDefinitionFeature], decls: 2, vars: 3, consts: [[1, "status-info"]], template: function PlanetStatusBarComponent_Template(rf, ctx) { if (rf & 1) {
-        ɵɵelementStart(0, "div", 0);
-        ɵɵtext(1);
-        ɵɵelementEnd();
-    } if (rf & 2) {
-        ɵɵadvance(1);
-        ɵɵtextInterpolate3("", ctx.fpsString, " ", ctx.cameraString, " ", ctx.velocityString(), "");
-    } }, styles: [".status-info[_ngcontent-%COMP%]{background-color: #4c555e; color:#fff; font-size: 14px;}"] });
-PlanetStatusBarComponent = __decorate([
-    ComponentRegister({
-        uri: "epsgis-planet-status-bar",
-        path: "epsplanet/components/status-bar",
-        name: "PlanetStatusBarComponent"
-    })
-], PlanetStatusBarComponent);
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetStatusBarComponent, [{
-        type: Component,
-        args: [{
-                selector: 'epsgis-planet-status-bar',
-                template: `<div class="status-info">{{ fpsString }} {{cameraString}} {{ velocityString() }}</div>`,
-                styles: [
-                    `.status-info{background-color: #4c555e; color:#fff; font-size: 14px;}`
-                ]
-            }]
-    }], function () { return [{ type: ChangeDetectorRef }]; }, null); })();
-
-let PlanetZoomComponent = class PlanetZoomComponent extends BasePlanetWidgetComponent {
-    constructor() {
-        super();
-    }
-    static getCompInfo() {
-        return { name: "PlanetZoomComponent", path: "epsplanet/components/zoom" };
-    }
-    ngOnInit() {
-    }
-    ngAfterViewInit() {
-        document.getElementsByClassName("jimu-widget-onscreen-icon zoomOut")[0]['style'].top = document.getElementsByClassName("jimu-widget-onscreen-icon zoomIn")[0]['offsetHeight'] + "px";
-    }
-    zoomIn() {
-        const viewer = this.view.czm.viewer;
-        this.getCesiumView().camera.zoomIn(viewer.camera.positionCartographic.height / Math.abs(Math.sin(viewer.camera.pitch)) * 0.2);
-    }
-    zoomOut() {
-        const viewer = this.view.czm.viewer;
-        viewer.camera.zoomOut(viewer.camera.positionCartographic.height / Math.abs(Math.sin(viewer.camera.pitch)) * 0.2);
-    }
-};
-PlanetZoomComponent.ɵfac = function PlanetZoomComponent_Factory(t) { return new (t || PlanetZoomComponent)(); };
-PlanetZoomComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetZoomComponent, selectors: [["epsgis-planet-zoom"]], features: [ɵɵInheritDefinitionFeature], decls: 4, vars: 0, consts: [["title", "\u653E\u5927", 1, "jimu-widget-onscreen-icon", "zoomIn", 3, "click"], ["nz-icon", "", "nzType", "plus", "nzTheme", "outline"], ["title", "\u7F29\u5C0F", 1, "jimu-widget-onscreen-icon", "zoomOut", 3, "click"], ["nz-icon", "", "nzType", "minus", "nzTheme", "outline"]], template: function PlanetZoomComponent_Template(rf, ctx) { if (rf & 1) {
-        ɵɵelementStart(0, "div", 0);
-        ɵɵlistener("click", function PlanetZoomComponent_Template_div_click_0_listener() { return ctx.zoomIn(); });
-        ɵɵelement(1, "i", 1);
-        ɵɵelementEnd();
-        ɵɵelementStart(2, "div", 2);
-        ɵɵlistener("click", function PlanetZoomComponent_Template_div_click_2_listener() { return ctx.zoomOut(); });
-        ɵɵelement(3, "i", 3);
-        ɵɵelementEnd();
-    } }, directives: [NzIconDirective, ɵNzTransitionPatchDirective], styles: [".jimu-widget-onscreen-icon[_ngcontent-%COMP%]{margin-top:20px}"] });
-PlanetZoomComponent = __decorate([
-    ComponentRegister({
-        uri: "epsgis-planet-zoom",
-        path: "epsplanet/components/zoom",
-        name: "PlanetZoomComponent"
-    })
-], PlanetZoomComponent);
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetZoomComponent, [{
-        type: Component,
-        args: [{
-                selector: 'epsgis-planet-zoom',
-                templateUrl: './zoom.component.html',
-                styleUrls: ['./zoom.component.scss'],
-            }]
-    }], function () { return []; }, null); })();
-
-function PlanetBasemapGalleryComponent_li_3_Template(rf, ctx) { if (rf & 1) {
-    const _r6 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "li", 5);
-    ɵɵlistener("click", function PlanetBasemapGalleryComponent_li_3_Template_li_click_0_listener() { ɵɵrestoreView(_r6); const item_r4 = ctx.$implicit; const ctx_r5 = ɵɵnextContext(); return ctx_r5.selectImage(item_r4); });
-    ɵɵelementStart(1, "div", 6);
-    ɵɵelement(2, "img", 7);
-    ɵɵelement(3, "br");
-    ɵɵelementStart(4, "span", 8);
-    ɵɵtext(5);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const item_r4 = ctx.$implicit;
-    ɵɵadvance(2);
-    ɵɵproperty("src", item_r4.imgUrl, ɵɵsanitizeUrl);
-    ɵɵadvance(2);
-    ɵɵproperty("title", item_r4.title);
-    ɵɵadvance(1);
-    ɵɵtextInterpolate(item_r4.title);
-} }
-function PlanetBasemapGalleryComponent_li_7_Template(rf, ctx) { if (rf & 1) {
-    const _r9 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "li", 5);
-    ɵɵlistener("click", function PlanetBasemapGalleryComponent_li_7_Template_li_click_0_listener() { ɵɵrestoreView(_r9); const item_r7 = ctx.$implicit; const ctx_r8 = ɵɵnextContext(); return ctx_r8.selectTerrain(item_r7); });
-    ɵɵelementStart(1, "div", 6);
-    ɵɵelement(2, "img", 7);
-    ɵɵelement(3, "br");
-    ɵɵelementStart(4, "span", 8);
-    ɵɵtext(5);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const item_r7 = ctx.$implicit;
-    ɵɵadvance(2);
-    ɵɵproperty("src", item_r7.imgUrl, ɵɵsanitizeUrl);
-    ɵɵadvance(2);
-    ɵɵproperty("title", item_r7.czmObject.name);
-    ɵɵadvance(1);
-    ɵɵtextInterpolate(item_r7.czmObject.name);
-} }
-function PlanetBasemapGalleryComponent_ng_template_10_span_1_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "span");
-    ɵɵelementStart(1, "span", 11);
-    ɵɵtext(2);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const node_r10 = ɵɵnextContext().$implicit;
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(node_r10.title);
-} }
-function PlanetBasemapGalleryComponent_ng_template_10_span_2_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "span");
-    ɵɵelementStart(1, "span", 11);
-    ɵɵtext(2);
-    ɵɵelementEnd();
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const node_r10 = ɵɵnextContext().$implicit;
-    ɵɵadvance(2);
-    ɵɵtextInterpolate(node_r10.title);
-} }
-function PlanetBasemapGalleryComponent_ng_template_10_Template(rf, ctx) { if (rf & 1) {
-    ɵɵelementStart(0, "span", 9);
-    ɵɵtemplate(1, PlanetBasemapGalleryComponent_ng_template_10_span_1_Template, 3, 1, "span", 10);
-    ɵɵtemplate(2, PlanetBasemapGalleryComponent_ng_template_10_span_2_Template, 3, 1, "span", 10);
-    ɵɵelementEnd();
-} if (rf & 2) {
-    const node_r10 = ctx.$implicit;
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", !node_r10.isLeaf);
-    ɵɵadvance(1);
-    ɵɵproperty("ngIf", node_r10.isLeaf);
-} }
-let PlanetBasemapGalleryComponent = class PlanetBasemapGalleryComponent extends BasePlanetWidgetComponent {
-    constructor(nzContextMenuService) {
-        super();
-        this.nzContextMenuService = nzContextMenuService;
-        this.layerNodes = [];
-        this.terrainData = [{
-                "czmObject": {
-                    "img": "https://lab2.cesiumlab.com/upload/3fd1ac60-2683-4ae8-a5da-c0250edc836b/2019_08_02_19_45_38.jpg",
-                    "xbsjType": "Terrain",
-                    "xbsjGuid": "0b34ebd4-5a5b-4f1d-b2e8-a41797193aa8",
-                    "name": "中国14级（测试）",
-                    "xbsjTerrainProvider": {
-                        "type": "XbsjCesiumTerrainProvider",
-                        "XbsjEllipsoidTerrainProvider": {},
-                        "XbsjCesiumTerrainProvider": {
-                            "url": "https://lab.earthsdk.com/terrain/577fd5b0ac1f11e99dbd8fd044883638",
-                            "requestVertexNormals": true,
-                            "requestWaterMask": true
-                        },
-                        "GoogleEarthEnterpriseTerrainProvider": {}
-                    }
-                }
-            }];
-        this.terrainIcon = "https://lab2.cesiumlab.com/upload/3fd1ac60-2683-4ae8-a5da-c0250edc836b/2019_08_02_19_45_38.jpg";
-    }
-    activeNode(data) {
-        this.activatedNode = data.node;
-    }
-    contextMenu($event, menu) {
-        this.nzContextMenuService.create($event, menu);
-    }
-    onCheckedChange(evt) {
-        if (evt.eventName !== "check" || !evt.node) {
-            return;
-        }
-        if (evt.node.isChecked) {
-            SceneTreeUtils.GetXbsjCzmObject(evt.node).show = true;
-        }
-        else {
-            SceneTreeUtils.GetXbsjCzmObject(evt.node).show = false;
-        }
-    }
-    onRightClick($event) {
-    }
-    ngOnInit() {
-        super.ngOnInit();
-        var uw3 = XE.MVVM.watch(() => [...this.view.sceneTree.$refs.basemap.children], () => {
-            this.loadBaseTree();
-        });
-    }
-    loadBaseTree() {
-        setTimeout(() => {
-            const _layerNodes = SceneTreeUtils.SceneTree2NgZorroTree(this.view.sceneTree.$refs.basemap);
-            this.layerNodes = [..._layerNodes[0]["_children"]];
-            this.view.sceneTree.$refs.basemap.children[0].czmObject.xbsjZIndex = -1;
-        }, 100);
-    }
-    selectImage(item) {
-        console.log(SceneTreeUtils.loadLayerNode(item));
-        let node = SceneTreeUtils.loadLayerNode(item);
-        node.czmObject.show = true;
-        const earth = this.view;
-        earth.sceneTree.$refs.basemap.children[0] = node;
-    }
-    selectTerrain(item) {
-        this.view.sceneTree.$refs.basemap.children.push(item);
-    }
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-    }
-    ngOnDestroy() {
-        super.ngOnDestroy();
-    }
-};
-PlanetBasemapGalleryComponent.ɵfac = function PlanetBasemapGalleryComponent_Factory(t) { return new (t || PlanetBasemapGalleryComponent)(ɵɵdirectiveInject(NzContextMenuService)); };
-PlanetBasemapGalleryComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetBasemapGalleryComponent, selectors: [["epsgis-planet-basemap-gallery"]], features: [ɵɵInheritDefinitionFeature], decls: 12, vars: 4, consts: [["nzTitle", "\u5F71\u50CF"], [3, "click", 4, "ngFor", "ngForOf"], ["nzTitle", "\u5730\u5F62"], ["nzBlockNode", "", "nzCheckable", "", 3, "nzData", "nzTreeTemplate", "nzClick", "nzCheckBoxChange"], ["nzTreeTemplate", ""], [3, "click"], [1, "backimg"], [3, "src"], [2, "width", "100%", "white-space", "nowrap", "text-overflow", "ellipsis", "overflow", "hidden", "text-align", "left", 3, "title"], [1, "custom-node"], [4, "ngIf"], [1, "folder-name"]], template: function PlanetBasemapGalleryComponent_Template(rf, ctx) { if (rf & 1) {
-        ɵɵelementStart(0, "nz-tabset");
-        ɵɵelementStart(1, "nz-tab", 0);
-        ɵɵelementStart(2, "ul");
-        ɵɵtemplate(3, PlanetBasemapGalleryComponent_li_3_Template, 6, 3, "li", 1);
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-        ɵɵelementStart(4, "nz-tabset");
-        ɵɵelementStart(5, "nz-tab", 2);
-        ɵɵelementStart(6, "ul");
-        ɵɵtemplate(7, PlanetBasemapGalleryComponent_li_7_Template, 6, 3, "li", 1);
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-        ɵɵelementEnd();
-        ɵɵelement(8, "nz-divider");
-        ɵɵelementStart(9, "nz-tree", 3);
-        ɵɵlistener("nzClick", function PlanetBasemapGalleryComponent_Template_nz_tree_nzClick_9_listener($event) { return ctx.activeNode($event); })("nzCheckBoxChange", function PlanetBasemapGalleryComponent_Template_nz_tree_nzCheckBoxChange_9_listener($event) { return ctx.onCheckedChange($event); });
-        ɵɵelementEnd();
-        ɵɵtemplate(10, PlanetBasemapGalleryComponent_ng_template_10_Template, 3, 2, "ng-template", null, 4, ɵɵtemplateRefExtractor);
-    } if (rf & 2) {
-        const _r2 = ɵɵreference(11);
-        ɵɵadvance(3);
-        ɵɵproperty("ngForOf", ctx.config.basemaps);
-        ɵɵadvance(4);
-        ɵɵproperty("ngForOf", ctx.config.terrain);
-        ɵɵadvance(2);
-        ɵɵproperty("nzData", ctx.layerNodes)("nzTreeTemplate", _r2);
-    } }, directives: [NzTabSetComponent, NzTabComponent, NgForOf, NzDividerComponent, NzTreeComponent, NgIf], styles: ["*[_ngcontent-%COMP%]{margin:0;padding:0}img[_ngcontent-%COMP%]{width:70px;height:70px}li[_ngcontent-%COMP%]{float:left;list-style:none;height:100px;cursor:pointer}.backimg[_ngcontent-%COMP%]{width:70px;height:70px;border:1px solid;border-radius:3px;background:grey;margin:3px}.backimg[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]{display:inline-block;width:70px;text-align:center}.ipt[_ngcontent-%COMP%], .ipt1[_ngcontent-%COMP%], .ipt2[_ngcontent-%COMP%]{margin-bottom:5px}.ant-input[_ngcontent-%COMP%]{width:70%}nz-select[_ngcontent-%COMP%]{width:50%}.footer[_ngcontent-%COMP%]{margin-top:5px;float:right}.footer[_ngcontent-%COMP%]   button[_ngcontent-%COMP%]{width:50px}.schema[_ngcontent-%COMP%]{position:absolute;top:5px;left:5px}  .ant-tabs-tab{padding:0}"] });
-PlanetBasemapGalleryComponent = __decorate([
-    ComponentRegister({
-        uri: "epsgis-planet-basemap-gallery",
-        path: "epsplanet/components/basemap-gallery",
-        name: "PlanetBasemapGalleryComponent"
-    })
-], PlanetBasemapGalleryComponent);
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetBasemapGalleryComponent, [{
-        type: Component,
-        args: [{
-                selector: "epsgis-planet-basemap-gallery",
-                templateUrl: "./basemap-gallery.component.html",
-                styleUrls: ["./basemap-gallery.component.scss"]
-            }]
-    }], function () { return [{ type: NzContextMenuService }]; }, null); })();
-
 let propertyLists = [];
 let czmObjectList = [];
 let resList = [];
@@ -2509,7 +1774,7 @@ class Identify {
                     value: pickObj.getProperty(property)
                 });
             });
-            callback(propertyList, handler);
+            callback(propertyList, pickObj);
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     }
     Cartesian2ToWGS84(viewer, position) {
@@ -2666,27 +1931,28 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
         this.switchValue = false;
         this.czmObjList = [];
     }
-    createInfoWin() {
-        let win = document.createElement('div');
-        win.className = "dialog";
-        win.style.left = this.winPos[0] - 80 + "px";
-        win.style.bottom = this.winPos[3] - 320 + "px";
-        win.innerHTML = `<div class="panel">
-    <span>${this.title}</span><i nz-icon nzType="close" nzTheme="outline" (click)="close()" style="float: right;"></i>
-    <nz-table #basicTable [nzData]="propertyList" [nzFrontPagination]="false" [nzShowPagination]="false"
-        [nzTitle]="null">
-        <tbody>
-            <tr *ngFor="let data of basicTable.data">
-                <td>{{ data.name }}</td>
-                <td>{{ data.value }}</td>
-            </tr>
-        </tbody>
-    </nz-table>
-    <i nz-icon nzType="zoom-in" nzTheme="outline" (click)="zoomTo()"></i><span>缩放至</span>
-</div>
-<div class="arrow"></div>`;
-        document.getElementsByClassName("cesium-viewer")[0].append(win);
-        return win;
+    print(callback) {
+        callback(this.propertyList);
+        console.log(this.propertyList);
+    }
+    addBtn(name, callback) {
+        let btn = document.createElement('button');
+        btn.textContent = name;
+        btn.id = 'idBtn';
+        btn.style.position = 'relative';
+        btn.style.fontWeight = '400';
+        btn.style.fontSize = '14px';
+        btn.style.whiteSpace = 'nowrap';
+        btn.style.textAlign = 'center';
+        btn.style.border = '1px solid #d9d9d9';
+        btn.style.boxShadow = '0 2px 0 rgb(0 0 0 / 2%)';
+        btn.style.transition = 'all .3s cubic-bezier(.645,.045,.355,1)';
+        btn.style.height = '32px';
+        btn.style.padding = '4px 15px';
+        btn.style.borderRadius = '2px';
+        btn.style.backgroundColor = '#fff';
+        callback(btn);
+        document.getElementsByClassName('panel')[0].append(btn);
     }
     Init() {
         let win = document.getElementsByClassName("dialog")[0];
@@ -2722,11 +1988,15 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
             this.pin1.customProp = true;
             this.showInfo = true;
             this.propertyList = res;
+            let btn = document.getElementById('idBtn');
+            btn.onclick = () => {
+            };
         });
-        this.identify.pickModel(this.view, (res, handler) => {
+        this.identify.pickModel(this.view, (res, pickObj) => {
             this.pin1.customProp = true;
             this.showInfo = true;
             this.propertyList = res;
+            window['pickObj'] = pickObj.tileset.xbsjTileset;
         });
     }
     bindIndentify(list) {
@@ -2811,7 +2081,7 @@ let PlanetIdentifyComponent = class PlanetIdentifyComponent extends BasePlanetWi
     }
 };
 PlanetIdentifyComponent.ɵfac = function PlanetIdentifyComponent_Factory(t) { return new (t || PlanetIdentifyComponent)(ɵɵdirectiveInject(Identify)); };
-PlanetIdentifyComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetIdentifyComponent, selectors: [["epsgis-planet-identify"]], features: [ɵɵInheritDefinitionFeature], decls: 15, vars: 12, consts: [["title", "\u8BC6\u522B", 1, "jimu-widget-onscreen-icon"], ["nz-icon", "", 3, "nzIconfont", "click"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline", 3, "click"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) { if (rf & 1) {
+PlanetIdentifyComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetIdentifyComponent, selectors: [["epsgis-planet-identify"]], features: [ɵɵInheritDefinitionFeature], decls: 15, vars: 12, consts: [["title", "\u8BC6\u522B", 1, "jimu-widget-onscreen-icon"], ["nz-icon", "", 3, "nzIconfont", "click"], [1, "dialog", 3, "hidden", "ngStyle"], [1, "panel"], ["nz-icon", "", "nzType", "close", "nzTheme", "outline", 2, "float", "right", 3, "click"], [3, "nzData", "nzFrontPagination", "nzShowPagination", "nzTitle"], ["basicTable", ""], [4, "ngFor", "ngForOf"], ["nz-button", "", 3, "click"], ["nz-icon", "", "nzType", "zoom-in", "nzTheme", "outline"], [1, "arrow"]], template: function PlanetIdentifyComponent_Template(rf, ctx) { if (rf & 1) {
         ɵɵelementStart(0, "div", 0);
         ɵɵelementStart(1, "i", 1);
         ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_1_listener($event) { return ctx.switch($event); });
@@ -2830,14 +2100,13 @@ PlanetIdentifyComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetIdentifyCompon
         ɵɵtemplate(10, PlanetIdentifyComponent_tr_10_Template, 5, 2, "tr", 7);
         ɵɵelementEnd();
         ɵɵelementEnd();
-        ɵɵelementStart(11, "i", 8);
-        ɵɵlistener("click", function PlanetIdentifyComponent_Template_i_click_11_listener() { return ctx.zoomTo(); });
-        ɵɵelementEnd();
-        ɵɵelementStart(12, "span");
+        ɵɵelementStart(11, "button", 8);
+        ɵɵlistener("click", function PlanetIdentifyComponent_Template_button_click_11_listener() { return ctx.zoomTo(); });
+        ɵɵelement(12, "i", 9);
         ɵɵtext(13, "\u7F29\u653E\u81F3");
         ɵɵelementEnd();
         ɵɵelementEnd();
-        ɵɵelement(14, "div", 9);
+        ɵɵelement(14, "div", 10);
         ɵɵelementEnd();
     } if (rf & 2) {
         const _r0 = ɵɵreference(8);
@@ -2851,7 +2120,7 @@ PlanetIdentifyComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetIdentifyCompon
         ɵɵproperty("nzData", ctx.propertyList)("nzFrontPagination", false)("nzShowPagination", false)("nzTitle", null);
         ɵɵadvance(3);
         ɵɵproperty("ngForOf", _r0.data);
-    } }, directives: [NzIconDirective, ɵNzTransitionPatchDirective, NgStyle, NzTableComponent, NzTbodyComponent, NgForOf, NzTrDirective, NzTableCellDirective], styles: [".ant-table-tbody[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table-thead[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%]{padding:10px}  .ssmodal_content{overflow:overlay!important}.dialog[_ngcontent-%COMP%]{position:absolute;width:300px;min-height:60px;color:#000;border-radius:5px;cursor:pointer}.dialog[_ngcontent-%COMP%],   .ant-table-tbody>tr>td,   .ant-table-thead>tr>th{padding:5px}  tr.ant-table-row.ng-star-inserted:nth-child(odd){background-color:hsla(0,0%,66.3%,.6)}.arrow[_ngcontent-%COMP%]{margin-left:50px;width:0;height:0;border-top:10px solid #fff;border-left:10px solid transparent;border-right:10px solid transparent}.panel[_ngcontent-%COMP%]{background-color:#fff;padding:5px}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]{color:#000}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]:hover{color:#0ff}.panel[_ngcontent-%COMP%]   .ant-table-wrapper[_ngcontent-%COMP%]{max-height:350px;overflow:overlay}"] });
+    } }, directives: [NzIconDirective, ɵNzTransitionPatchDirective, NgStyle, NzTableComponent, NzTbodyComponent, NgForOf, NzButtonComponent, NzWaveDirective, NzTrDirective, NzTableCellDirective], styles: [".ant-table-tbody[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table-thead[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > td[_ngcontent-%COMP%], .ant-table[_ngcontent-%COMP%]   tfoot[_ngcontent-%COMP%] > tr[_ngcontent-%COMP%] > th[_ngcontent-%COMP%]{padding:10px}  .ssmodal_content{overflow:overlay!important}.dialog[_ngcontent-%COMP%]{position:absolute;width:350px;min-height:60px;color:#000;border-radius:5px;cursor:pointer}.dialog[_ngcontent-%COMP%],   .ant-table-tbody>tr>td,   .ant-table-thead>tr>th{padding:5px}  tr.ant-table-row.ng-star-inserted:nth-child(odd){background-color:hsla(0,0%,66.3%,.6)}.arrow[_ngcontent-%COMP%]{margin-left:50px;width:0;height:0;border-top:10px solid #fff;border-left:10px solid transparent;border-right:10px solid transparent}.panel[_ngcontent-%COMP%]{background-color:#fff;padding:5px}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]{color:#000}.panel[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]:hover{color:#0ff}.panel[_ngcontent-%COMP%]   .ant-table-wrapper[_ngcontent-%COMP%]{max-height:350px;overflow:overlay}"] });
 PlanetIdentifyComponent = __decorate([
     ComponentRegister({
         uri: "epsgis-planet-identify",
@@ -2868,6 +2137,1081 @@ PlanetIdentifyComponent = __decorate([
             }]
     }], function () { return [{ type: Identify }]; }, null); })();
 
+function PlanetLocationComponent_div_8_Template(rf, ctx) { if (rf & 1) {
+    const _r2 = ɵɵgetCurrentView();
+    ɵɵelementStart(0, "div");
+    ɵɵelementStart(1, "span");
+    ɵɵtext(2);
+    ɵɵelementEnd();
+    ɵɵelementStart(3, "nz-input-number", 3);
+    ɵɵlistener("ngModelChange", function PlanetLocationComponent_div_8_Template_nz_input_number_ngModelChange_3_listener($event) { ɵɵrestoreView(_r2); const ctx_r1 = ɵɵnextContext(); return ctx_r1.ZValue = $event; });
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+} if (rf & 2) {
+    const ctx_r0 = ɵɵnextContext();
+    ɵɵadvance(2);
+    ɵɵtextInterpolate(ctx_r0.item.Z.label);
+    ɵɵadvance(1);
+    ɵɵproperty("ngModel", ctx_r0.ZValue)("nzStep", 1)("nzPlaceHolder", ctx_r0.item.Z.placeHolder);
+} }
+let PlanetLocationComponent = class PlanetLocationComponent extends BasePlanetWidgetComponent {
+    constructor() {
+        super();
+        this.XValue = 0;
+        this.YValue = 0;
+        this.ZValue = 0;
+        this.item4326 = {
+            X: {
+                label: "经度：",
+                min: "-180",
+                max: "180",
+                placeHolder: "请输入经度"
+            },
+            Y: {
+                label: "纬度：",
+                min: "-90",
+                max: "90",
+                placeHolder: "请输入纬度"
+            },
+            Z: {
+                label: "高度：",
+                placeHolder: "请输入高度"
+            }
+        };
+        this.itemOther = {
+            X: {
+                label: "X：",
+                min: "-99999999",
+                max: "99999999",
+                placeHolder: "请输入横坐标"
+            },
+            Y: {
+                label: "Y：",
+                min: "-99999999",
+                max: "99999999",
+                placeHolder: "请输入纵坐标"
+            }
+        };
+        this.item = this.item4326;
+    }
+    ngOnInit() {
+        super.ngOnInit();
+        this.initialize();
+    }
+    static getCompInfo() {
+        return { path: "epsplanet/components/location" };
+    }
+    initialize() {
+        this.XValue = this.config.longitude;
+        this.YValue = this.config.latitude;
+        this.ZValue = this.config.height;
+    }
+    test(res) {
+        console.log(res);
+    }
+    addbtn() {
+        PlanetIdentifyComponent.prototype.addBtn('test', (btn, pickObj) => {
+            btn.onclick = () => {
+                console.log(window['pickObj']);
+            };
+        });
+    }
+    location() {
+        var position = null;
+        if (this.markerXY) {
+            this.view.czm.viewer.entities.remove(this.markerXY);
+        }
+        if (true) {
+            position = Cesium.Cartesian3.fromDegrees(this.XValue, this.YValue, this.ZValue);
+        }
+        else {
+        }
+        this.markerXY = new Cesium.Entity({
+            id: '视角定位坐标',
+            position: position,
+            point: {
+                pixelSize: 6,
+                color: Cesium.Color.WHITE.withAlpha(0.9),
+                outlineColor: Cesium.Color.WHITE.withAlpha(0.9),
+                outlineWidth: 1
+            },
+            billboard: {
+                image: this.folderUrl + "images/location4.png",
+                horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+                verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                scale: .6
+            },
+        });
+        this.view.czm.viewer.entities.add(this.markerXY);
+        this.view.czm.camera.setView({
+            destination: position
+        });
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+    }
+};
+PlanetLocationComponent.ɵfac = function PlanetLocationComponent_Factory(t) { return new (t || PlanetLocationComponent)(); };
+PlanetLocationComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetLocationComponent, selectors: [["epsgis-planet-location"]], features: [ɵɵInheritDefinitionFeature], decls: 12, vars: 13, consts: [[3, "ngModel", "nzMin", "nzMax", "nzStep", "nzPlaceHolder", "ngModelChange"], [4, "ngIf"], ["nz-button", "", "nzType", "primary", 3, "click"], [3, "ngModel", "nzStep", "nzPlaceHolder", "ngModelChange"]], template: function PlanetLocationComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "div");
+        ɵɵelementStart(1, "span");
+        ɵɵtext(2);
+        ɵɵelementEnd();
+        ɵɵelementStart(3, "nz-input-number", 0);
+        ɵɵlistener("ngModelChange", function PlanetLocationComponent_Template_nz_input_number_ngModelChange_3_listener($event) { return ctx.XValue = $event; });
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementStart(4, "div");
+        ɵɵelementStart(5, "span");
+        ɵɵtext(6);
+        ɵɵelementEnd();
+        ɵɵelementStart(7, "nz-input-number", 0);
+        ɵɵlistener("ngModelChange", function PlanetLocationComponent_Template_nz_input_number_ngModelChange_7_listener($event) { return ctx.YValue = $event; });
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵtemplate(8, PlanetLocationComponent_div_8_Template, 4, 4, "div", 1);
+        ɵɵelementStart(9, "div");
+        ɵɵelementStart(10, "button", 2);
+        ɵɵlistener("click", function PlanetLocationComponent_Template_button_click_10_listener() { return ctx.location(); });
+        ɵɵtext(11, "\u5B9A\u4F4D");
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+    } if (rf & 2) {
+        ɵɵadvance(2);
+        ɵɵtextInterpolate(ctx.item.X.label);
+        ɵɵadvance(1);
+        ɵɵproperty("ngModel", ctx.XValue)("nzMin", ctx.item.X.min)("nzMax", ctx.item.X.max)("nzStep", 0.0001)("nzPlaceHolder", ctx.item.X.placeHolder);
+        ɵɵadvance(3);
+        ɵɵtextInterpolate(ctx.item.Y.label);
+        ɵɵadvance(1);
+        ɵɵproperty("ngModel", ctx.YValue)("nzMin", ctx.item.Y.min)("nzMax", ctx.item.Y.max)("nzStep", 0.0001)("nzPlaceHolder", ctx.item.Y.placeHolder);
+        ɵɵadvance(1);
+        ɵɵproperty("ngIf", ctx.item.Z);
+    } }, directives: [NzInputNumberComponent, NgControlStatus, NgModel, NgIf, NzButtonComponent, NzWaveDirective, ɵNzTransitionPatchDirective], styles: ["div[_ngcontent-%COMP%]{margin-bottom:5px;text-align:center}nz-input-number[_ngcontent-%COMP%]{width:80%}"] });
+PlanetLocationComponent = __decorate([
+    ComponentRegister({
+        uri: "epsgis-planet-location",
+        path: "epsplanet/components/location",
+        name: "PlanetLocationComponent"
+    })
+], PlanetLocationComponent);
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetLocationComponent, [{
+        type: Component,
+        args: [{
+                selector: 'epsgis-planet-location',
+                templateUrl: './location.component.html',
+                styleUrls: ['./location.component.scss'],
+            }]
+    }], function () { return []; }, null); })();
+
+function PlanetModeSwitchComponent_ng_container_2_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementContainerStart(0);
+    ɵɵnamespaceSVG();
+    ɵɵelementStart(1, "svg", 4);
+    ɵɵelement(2, "path", 5);
+    ɵɵelementEnd();
+    ɵɵelementContainerEnd();
+} }
+function PlanetModeSwitchComponent_ng_container_3_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementContainerStart(0);
+    ɵɵnamespaceSVG();
+    ɵɵelementStart(1, "svg", 4);
+    ɵɵelement(2, "path", 6);
+    ɵɵelementEnd();
+    ɵɵelementContainerEnd();
+} }
+function PlanetModeSwitchComponent_ng_container_4_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementContainerStart(0);
+    ɵɵnamespaceSVG();
+    ɵɵelementStart(1, "svg", 4);
+    ɵɵelement(2, "path", 7);
+    ɵɵelementEnd();
+    ɵɵelementContainerEnd();
+} }
+function PlanetModeSwitchComponent_ng_template_5_Template(rf, ctx) { if (rf & 1) {
+    const _r6 = ɵɵgetCurrentView();
+    ɵɵelementStart(0, "div", 8);
+    ɵɵelementStart(1, "div", 9);
+    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_1_listener() { ɵɵrestoreView(_r6); const ctx_r5 = ɵɵnextContext(); return ctx_r5.changeViewMode("3d"); });
+    ɵɵnamespaceSVG();
+    ɵɵelementStart(2, "svg", 10);
+    ɵɵelement(3, "path", 5);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+    ɵɵnamespaceHTML();
+    ɵɵelementStart(4, "div", 9);
+    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_4_listener() { ɵɵrestoreView(_r6); const ctx_r7 = ɵɵnextContext(); return ctx_r7.changeViewMode("2d"); });
+    ɵɵnamespaceSVG();
+    ɵɵelementStart(5, "svg", 10);
+    ɵɵelement(6, "path", 6);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+    ɵɵnamespaceHTML();
+    ɵɵelementStart(7, "div", 9);
+    ɵɵlistener("click", function PlanetModeSwitchComponent_ng_template_5_Template_div_click_7_listener() { ɵɵrestoreView(_r6); const ctx_r8 = ɵɵnextContext(); return ctx_r8.changeViewMode("columbus"); });
+    ɵɵnamespaceSVG();
+    ɵɵelementStart(8, "svg", 10);
+    ɵɵelement(9, "path", 7);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+} }
+let PlanetModeSwitchComponent = class PlanetModeSwitchComponent extends BasePlanetWidgetComponent {
+    constructor() {
+        super();
+        this.viewType = '3d';
+    }
+    static getCompInfo() {
+        return { name: "PlanetModeSwitchComponent", path: "epsplanet/components/mode-switch" };
+    }
+    clickMe() {
+        this.visible = false;
+    }
+    change(value) {
+        console.log(value);
+    }
+    changeViewMode(type) {
+        if (type == "2d") {
+            Promise.resolve().then(() => { this.view.czm.viewer.scene.morphTo2D(1); });
+        }
+        else if (type == "columbus") {
+            Promise.resolve().then(() => { this.view.czm.viewer.scene.morphToColumbusView(1); });
+        }
+        else {
+            Promise.resolve().then(() => { this.view.czm.viewer.scene.morphTo3D(1); });
+        }
+        this.viewType = type;
+    }
+};
+PlanetModeSwitchComponent.ɵfac = function PlanetModeSwitchComponent_Factory(t) { return new (t || PlanetModeSwitchComponent)(); };
+PlanetModeSwitchComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetModeSwitchComponent, selectors: [["epsgis-planet-mode-switch"]], features: [ɵɵInheritDefinitionFeature], decls: 7, vars: 6, consts: [["title", "\u6A21\u5F0F\u5207\u6362", 1, "jimu-widget-onscreen-icon"], ["nz-popover", "", "nzPopoverTrigger", "click", 1, "icon", 3, "nzPopoverVisible", "nzPopoverContent", "nzPopoverPlacement", "nzPopoverVisibleChange"], [4, "ngIf"], ["contentTemplate", ""], ["width", "32", "height", "32", "viewBox", "0 0 64 64", 1, ""], ["d", "m 32.401392,4.9330437 c -7.087603,0 -14.096095,2.884602 -19.10793,7.8946843 -5.0118352,5.010083 -7.9296167,11.987468 -7.9296167,19.072999 0,7.085531 2.9177815,14.097848 7.9296167,19.107931 4.837653,4.835961 11.541408,7.631372 18.374354,7.82482 0.05712,0.01231 0.454119,0.139729 0.454119,0.139729 l 0.03493,-0.104797 c 0.08246,7.84e-4 0.162033,0.03493 0.244525,0.03493 0.08304,0 0.161515,-0.03414 0.244526,-0.03493 l 0.03493,0.104797 c 0,0 0.309474,-0.129487 0.349323,-0.139729 6.867765,-0.168094 13.582903,-2.965206 18.444218,-7.82482 2.558195,-2.5573 4.551081,-5.638134 5.903547,-8.977584 1.297191,-3.202966 2.02607,-6.661489 2.02607,-10.130347 0,-6.237309 -2.366261,-12.31219 -6.322734,-17.116794 -0.0034,-0.02316 0.0049,-0.04488 0,-0.06986 -0.01733,-0.08745 -0.104529,-0.278855 -0.104797,-0.279458 -5.31e-4,-0.0012 -0.522988,-0.628147 -0.523984,-0.62878         -3.47e-4,-2.2e-4 -0.133444,-0.03532 -0.244525,-0.06987 C 51.944299,13.447603 51.751076,13.104317 51.474391,12.827728 46.462556,7.8176457 39.488996,4.9330437 32.401392,4.9330437 z m -2.130866,3.5281554 0.104797,9.6762289 c -4.111695,-0.08361 -7.109829,-0.423664 -9.257041,-0.943171 1.198093,-2.269271 2.524531,-4.124404 3.91241,-5.414496 2.167498,-2.0147811 3.950145,-2.8540169 5.239834,-3.3185619 z m 2.794579,0 c 1.280302,0.4754953 3.022186,1.3285948 5.065173,3.2486979 1.424667,1.338973 2.788862,3.303645 3.982275,5.728886 -2.29082,0.403367 -5.381258,0.621049 -8.942651,0.698645 L 33.065105,8.4611991 z m 5.728886,0.2445256 c 4.004072,1.1230822 7.793098,3.1481363 10.724195,6.0782083 0.03468,0.03466 0.07033,0.06991 0.104797,0.104797 -0.45375,0.313891 -0.923054,0.663002 -1.956205,1.082899 -0.647388,0.263114 -1.906242,0.477396 -2.829511,0.733577 -1.382296,-2.988132         -3.027146,-5.368585 -4.785716,-7.0213781 -0.422866,-0.397432 -0.835818,-0.6453247 -1.25756,-0.9781032 z m -15.33525,0.7685092 c -0.106753,0.09503 -0.207753,0.145402 -0.31439,0.244526 -1.684973,1.5662541 -3.298068,3.8232211 -4.680919,6.5672591 -0.343797,-0.14942 -1.035052,-0.273198 -1.292493,-0.419186 -0.956528,-0.542427 -1.362964,-1.022024 -1.537018,-1.292493 -0.0241,-0.03745 -0.01868,-0.0401 -0.03493,-0.06986 2.250095,-2.163342 4.948824,-3.869984 7.859752,-5.0302421 z m -9.641296,7.0912431 c 0.464973,0.571618 0.937729,1.169056 1.956205,1.746612 0.349907,0.198425 1.107143,0.335404 1.537018,0.523983 -1.20166,3.172984 -1.998037,7.051901 -2.165798,11.772162 C 14.256557,30.361384 12.934823,30.161483 12.280427,29.90959 10.644437,29.279855 9.6888882,28.674891 9.1714586,28.267775 8.6540289,27.860658 8.6474751,27.778724 8.6474751,27.778724 l -0.069864,0.03493 C 9.3100294,23.691285         11.163248,19.798527 13.817445,16.565477 z m 37.552149,0.523984 c 2.548924,3.289983 4.265057,7.202594 4.890513,11.318043 -0.650428,0.410896 -1.756876,1.001936 -3.563088,1.606882 -1.171552,0.392383 -3.163859,0.759153 -4.960377,1.117832 -0.04367,-4.752703 -0.784809,-8.591423 -1.88634,-11.807094 0.917574,-0.263678 2.170552,-0.486495 2.864443,-0.76851 1.274693,-0.518066 2.003942,-1.001558 2.654849,-1.467153 z m -31.439008,2.619917 c 2.487341,0.672766 5.775813,1.137775 10.479669,1.222628 l 0.104797,10.689263 0,0.03493 0,0.733577 c -5.435005,-0.09059 -9.512219,-0.519044 -12.610536,-1.117831 0.106127,-4.776683 0.879334,-8.55791 2.02607,-11.562569 z m 23.264866,0.31439 c 1.073459,3.067541 1.833795,6.821314 1.816476,11.702298 -3.054474,0.423245 -7.062018,0.648559 -11.702298,0.698644 l 0,-0.838373 -0.104796,-10.654331 c 4.082416,-0.0864 7.404468,-0.403886 9.990618,-0.908238 z         M 8.2632205,30.922625 c 0.7558676,0.510548 1.5529563,1.013339 3.0041715,1.57195 0.937518,0.360875 2.612202,0.647642 3.91241,0.978102 0.112814,3.85566 0.703989,7.107756 1.606883,9.920754 -1.147172,-0.324262 -2.644553,-0.640648 -3.423359,-0.978102 -1.516688,-0.657177 -2.386627,-1.287332 -2.864443,-1.71168 -0.477816,-0.424347 -0.489051,-0.489051 -0.489051,-0.489051 L 9.8002387,40.319395 C 8.791691,37.621767 8.1584238,34.769583 8.1584238,31.900727 c 0,-0.330153 0.090589,-0.648169 0.1047967,-0.978102 z m 48.2763445,0.419186 c 0.0047,0.188973 0.06986,0.36991 0.06986,0.558916 0,2.938869 -0.620228,5.873558 -1.676747,8.628261 -0.07435,0.07583 -0.06552,0.07411 -0.454119,0.349323 -0.606965,0.429857 -1.631665,1.042044 -3.318562,1.676747 -1.208528,0.454713 -3.204964,0.850894 -5.135038,1.25756 0.84593,-2.765726 1.41808,-6.005357 1.606883,-9.815957 2.232369,-0.413371 4.483758,-0.840201         5.938479,-1.327425 1.410632,-0.472457 2.153108,-0.89469 2.96924,-1.327425 z m -38.530252,2.864443 c 3.208141,0.56697 7.372279,0.898588 12.575603,0.978103 l 0.174662,9.885821 c -4.392517,-0.06139 -8.106722,-0.320566 -10.863925,-0.803441 -1.051954,-2.664695 -1.692909,-6.043794 -1.88634,-10.060483 z m 26.793022,0.31439 c -0.246298,3.923551 -0.877762,7.263679 -1.816476,9.885822 -2.561957,0.361954 -5.766249,0.560708 -9.431703,0.62878 l -0.174661,-9.815957 c 4.491734,-0.04969 8.334769,-0.293032 11.42284,-0.698645 z M 12.035901,44.860585 c 0.09977,0.04523 0.105535,0.09465 0.209594,0.139729 1.337656,0.579602 3.441099,1.058072 5.589157,1.537018 1.545042,3.399208 3.548524,5.969402 5.589157,7.789888 -3.034411,-1.215537 -5.871615,-3.007978 -8.174142,-5.309699 -1.245911,-1.245475 -2.271794,-2.662961 -3.213766,-4.156936 z m 40.69605,0 c -0.941972,1.493975 -1.967855,2.911461         -3.213765,4.156936 -2.74253,2.741571 -6.244106,4.696717 -9.955686,5.868615 0.261347,-0.241079 0.507495,-0.394491 0.768509,-0.663713 1.674841,-1.727516 3.320792,-4.181056 4.645987,-7.265904 2.962447,-0.503021 5.408965,-1.122293 7.161107,-1.781544 0.284034,-0.106865 0.337297,-0.207323 0.593848,-0.31439 z m -31.404076,2.305527 c 2.645807,0.376448 5.701178,0.649995 9.466635,0.698645 l 0.139729,7.789888 c -1.38739,-0.480844 -3.316218,-1.29837 -5.659022,-3.388427 -1.388822,-1.238993 -2.743668,-3.0113 -3.947342,-5.100106 z m 20.365491,0.104797 c -1.04872,2.041937 -2.174337,3.779068 -3.353494,4.995309 -1.853177,1.911459 -3.425515,2.82679 -4.611055,3.353494 l -0.139729,-7.789887 c 3.13091,-0.05714 5.728238,-0.278725 8.104278,-0.558916 z"], ["d", "m 2.9825053,17.550598 0,1.368113 0,26.267766 0,1.368113 1.36811,0 54.9981397,0 1.36811,0 0,-1.368113 0,-26.267766 0,-1.368113 -1.36811,0 -54.9981397,0 -1.36811,0 z m 2.73623,2.736226 10.3292497,0 0,10.466063 -10.3292497,0 0,-10.466063 z m 13.0654697,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 11.69737,0 0,10.466063 -11.69737,0 0,-10.466063 z m 14.43359,0 10.32926,0 0,10.466063 -10.32926,0 0,-10.466063 z m -41.9326497,13.202288 10.3292497,0 0,10.329252 -10.3292497,0 0,-10.329252 z m 13.0654697,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 11.69737,0 0,10.329252 -11.69737,0 0,-10.329252 z m 14.43359,0 10.32926,0 0,10.329252 -10.32926,0 0,-10.329252 z"], ["d", "m 14.723969,17.675598 -0.340489,0.817175 -11.1680536,26.183638 -0.817175,1.872692 2.076986,0 54.7506996,0 2.07698,0 -0.81717,-1.872692 -11.16805,-26.183638 -0.34049,-0.817175 -0.91933,0 -32.414586,0 -0.919322,0 z m 1.838643,2.723916 6.196908,0 -2.928209,10.418977 -7.729111,0 4.460412,-10.418977 z m 9.02297,0 4.903049,0 0,10.418977 -7.831258,0 2.928209,-10.418977 z m 7.626964,0 5.584031,0 2.62176,10.418977 -8.205791,0 0,-10.418977 z m 8.410081,0 5.51593,0 4.46042,10.418977 -7.38863,0 -2.58772,-10.418977 z m -30.678091,13.142892 8.103649,0 -2.89416,10.282782 -9.6018026,0 4.3923136,-10.282782 z m 10.929711,0 8.614384,0 0,10.282782 -11.508544,0 2.89416,-10.282782 z m 11.338299,0 8.852721,0 2.58772,10.282782 -11.440441,0 0,-10.282782 z m 11.678781,0 7.86531,0 4.39231,10.282782 -9.6699,0 -2.58772,-10.282782 z"], [1, "container"], [1, "mode", 3, "click"], ["width", "40", "height", "40", "viewBox", "0 0 64 64", 1, ""]], template: function PlanetModeSwitchComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "div", 0);
+        ɵɵelementStart(1, "div", 1);
+        ɵɵlistener("nzPopoverVisibleChange", function PlanetModeSwitchComponent_Template_div_nzPopoverVisibleChange_1_listener($event) { return ctx.visible = $event; });
+        ɵɵtemplate(2, PlanetModeSwitchComponent_ng_container_2_Template, 3, 0, "ng-container", 2);
+        ɵɵtemplate(3, PlanetModeSwitchComponent_ng_container_3_Template, 3, 0, "ng-container", 2);
+        ɵɵtemplate(4, PlanetModeSwitchComponent_ng_container_4_Template, 3, 0, "ng-container", 2);
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵtemplate(5, PlanetModeSwitchComponent_ng_template_5_Template, 10, 0, "ng-template", null, 3, ɵɵtemplateRefExtractor);
+    } if (rf & 2) {
+        const _r3 = ɵɵreference(6);
+        ɵɵadvance(1);
+        ɵɵproperty("nzPopoverVisible", ctx.visible)("nzPopoverContent", _r3)("nzPopoverPlacement", "right");
+        ɵɵadvance(1);
+        ɵɵproperty("ngIf", ctx.viewType == "3d");
+        ɵɵadvance(1);
+        ɵɵproperty("ngIf", ctx.viewType == "2d");
+        ɵɵadvance(1);
+        ɵɵproperty("ngIf", ctx.viewType == "columbus");
+    } }, directives: [NzPopoverDirective, NgIf], styles: [".icon[_ngcontent-%COMP%]{height:32px}.container[_ngcontent-%COMP%]{width:auto;height:50px;margin:-10px}.container[_ngcontent-%COMP%]   .mode[_ngcontent-%COMP%]{float:left;cursor:pointer;height:40px;line-height:40px;margin:5px;fill:#4e555d}.container[_ngcontent-%COMP%]   .mode[_ngcontent-%COMP%]   [_ngcontent-%COMP%]:hover{background-color:#4e555d;fill:#fff}"] });
+PlanetModeSwitchComponent = __decorate([
+    ComponentRegister({
+        uri: "epsgis-planet-mode-switch",
+        path: "epsplanet/components/mode-switch",
+        name: "PlanetModeSwitchComponent"
+    })
+], PlanetModeSwitchComponent);
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetModeSwitchComponent, [{
+        type: Component,
+        args: [{
+                selector: 'epsgis-planet-mode-switch',
+                templateUrl: './mode-switch.component.html',
+                styleUrls: ['./mode-switch.component.scss']
+            }]
+    }], function () { return []; }, null); })();
+
+let PlanetStatusBarComponent = class PlanetStatusBarComponent extends BasePlanetWidgetComponent {
+    constructor(cdr) {
+        super();
+        this.cdr = cdr;
+        this.fpsString = "";
+        this.cameraString = "";
+        this.baseVelocity = 0.0;
+        this.velocity = 0.0;
+        this.velocityRatio = 1.0;
+        this.lang = {
+            longitude: "经度",
+            latitude: "纬度",
+            height: "高度",
+            fps: "帧率",
+            heading: "偏航角",
+            pitch: "俯仰角",
+            roll: "翻滚角",
+            meter: "米",
+            velocity: "键盘运动速度",
+            createPolylineTip: "左键添加点，右键删除点，shift+右键创建完成",
+            editPolylineTip: "鼠标移动到其中一个点会出现一个操作栏，点击移动按钮，可以移动折线位置；点击增加按钮，可以在该位置增加一个点；点击删除按钮，可以删除该点",
+            createRectangleTip: "点击左键确定矩形中心点，移动鼠标确定矩形方向和对角线长度，再次点击左键创建完成",
+            editRectangleTip: "左键点击其中一个点移动矩形位置",
+            createCircleTip: "点击左键确定圆的圆心，移动鼠标确定圆的半径，再次点击左键创建完成",
+            editCircleTip: "左键点击其中一个点移动圆位置",
+            createDoubleArrowTip: "在四个不同位置点击左键创建双箭头",
+            editDoubleArrowTip: "左键点击其中一个点移动双箭头位置",
+            createFlattenedPolygonTip: "左键添加点，右键删除点，shift+右键停止绘制，上下移动鼠标确定高度，再次点击左键创建完成",
+            editFlattenedPolygonTip: "鼠标移动到其中一个点会出现一个操作栏，点击移动按钮，可以移动折线位置；点击增加按钮，可以在该位置增加一个点；点击删除按钮，可以删除该点",
+            movableObjectTip: "鼠标左键点击坐标轴x,y,z任意一个轴，轴变黄色，可沿着相应位置进行移动，再次点击，轴恢复原色，停止移动，点击右键坐标轴消失",
+            rotatableObjectTip: "鼠标左键点击旋转坐标轴任意一个轴，轴变黄色，可沿着相应位置进行旋转，再次点击，轴恢复原色，停止旋转，点击右键旋转坐标轴消失",
+            positionPickingTip: "点击鼠标左键拾取位置"
+        };
+        this._disposers = [];
+    }
+    static getCompInfo() {
+        return { name: "PlanetStatusBarComponent", path: "epsplanet/components/status-bar" };
+    }
+    ngOnInit() {
+        this._scene = this.view.czm.scene;
+        this._camera = this.view.czm.camera;
+        const td = Cesium.Math.toDegrees;
+        const updateCameraString = () => {
+            const camera = this._camera;
+            var l = td(camera.positionCartographic.longitude).toFixed(5);
+            var b = td(camera.positionCartographic.latitude).toFixed(5);
+            var h = camera.positionCartographic.height.toFixed(2);
+            var y = td(camera.heading).toFixed(2);
+            var p = td(camera.pitch).toFixed(2);
+            var r = td(camera.roll).toFixed(2);
+            this.cameraString = `${this.lang.longitude}: ${l}° ${this.lang.latitude}: ${b}° ${this.lang.height}: ${h}${this.lang.meter} ${this.lang.heading}: ${y}° ${this.lang.pitch}: ${p}° ${this.lang.roll}: ${r}°`;
+            UtilsService.detectChanges(this.cdr);
+        };
+        this._disposers = [];
+        this._disposers.push(this._camera.changed.addEventListener(updateCameraString));
+        updateCameraString();
+        this._scene.debugShowFramesPerSecond = true;
+        const tempDisposer = this._scene._postRender.addEventListener(() => {
+            tempDisposer();
+            this._scene._performanceContainer.style.visibility = "hidden";
+        });
+        this._disposers.push(this._scene._postRender.addEventListener(() => {
+            if (this._scene._performanceDisplay) {
+                this.fpsString = `${this.lang.fps}: ${this._scene._performanceDisplay._fpsText.nodeValue} `;
+            }
+            else {
+                this.fpsString = "";
+            }
+        }));
+        this._disposers.push(XE.MVVM.track(this, "baseVelocity", this.view.camera.immersion, "baseVelocity"));
+        this._disposers.push(XE.MVVM.track(this, "velocity", this.view.camera.immersion, "velocity"));
+        this._disposers.push(XE.MVVM.bind(this, "velocityRatio", this.view.camera.immersion, "velocityRatio"));
+        if (this._uw1) {
+            this._uw1 = this._uw1();
+        }
+        else {
+            this._uw1 = XE.MVVM.watch(() => this.view.interaction.creatingPolylineBinding.target, () => {
+                if (this.view.interaction.creatingPolylineBinding.target !==
+                    undefined) {
+                    if (this.view.interaction.creatingPolylineBinding.target
+                        .xbsjType === "GeoRectangle") {
+                    }
+                    else if (this.view.interaction.creatingPolylineBinding.target
+                        .xbsjType === "GeoCircle") {
+                    }
+                    else if (this.view.interaction.creatingPolylineBinding.target
+                        .xbsjType === "GeoDoubleArrow") {
+                    }
+                    else {
+                    }
+                }
+            });
+        }
+        if (this._uw2) {
+            this._uw2 = this._uw2();
+        }
+        else {
+            this._uw2 = XE.MVVM.watch(() => this.view.interaction.editingPolylineBinding.target, () => {
+                if (this.view.interaction.editingPolylineBinding.target !==
+                    undefined) {
+                    if (this.view.interaction.editingPolylineBinding.target
+                        .xbsjType === "GeoRectangle") {
+                    }
+                    else if (this.view.interaction.editingPolylineBinding.target
+                        .xbsjType === "GeoCircle") {
+                    }
+                    else if (this.view.interaction.editingPolylineBinding.target
+                        .xbsjType === "GeoDoubleArrow") {
+                    }
+                    else {
+                    }
+                }
+            });
+        }
+        if (this._uw3) {
+            this._uw3 = this._uw3();
+        }
+        else {
+            this._uw3 = XE.MVVM.watch(() => this.view.interaction.creatingPolygonBinding.target, () => {
+                if (this.view.interaction.creatingPolygonBinding.target !==
+                    undefined) {
+                }
+            });
+        }
+        if (this._uw4) {
+            this._uw4 = this._uw4();
+        }
+        else {
+            this._uw4 = XE.MVVM.watch(() => this.view.interaction.flattenedPolygonCreatingBinding.target, () => {
+                if (this.view.interaction.flattenedPolygonCreatingBinding
+                    .target !== undefined) {
+                }
+            });
+        }
+        if (this._uw5) {
+            this._uw5 = this._uw5();
+        }
+        else {
+            this._uw5 = XE.MVVM.watch(() => this.view.interaction.editingPolygonBinding.target, () => {
+                if (this.view.interaction.editingPolygonBinding.target !==
+                    undefined) {
+                }
+            });
+        }
+        if (this._uw6) {
+            this._uw6 = this._uw4();
+        }
+        else {
+            this._uw6 = XE.MVVM.watch(() => this.view.interaction.movableObjectBinding.target, () => {
+                if (this.view.interaction.movableObjectBinding.target !==
+                    undefined) {
+                }
+            });
+        }
+        if (this._uw7) {
+            this._uw7 = this._uw4();
+        }
+        else {
+            this._uw7 = XE.MVVM.watch(() => this.view.interaction.rotatableObjectBinding.target, () => {
+                if (this.view.interaction.rotatableObjectBinding.target !==
+                    undefined) {
+                }
+            });
+        }
+        if (this._uw8) {
+            this._uw8 = this._uw4();
+        }
+        else {
+            this._uw8 = XE.MVVM.watch(() => this.view.interaction.positionPickingBinding.target, () => {
+                if (this.view.interaction.positionPickingBinding.target !==
+                    undefined) {
+                }
+            });
+        }
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+        this._disposers.forEach(d => d());
+        this._disposers.length = 0;
+        this._uw1 = this._uw1 && this._uw1();
+        this._uw2 = this._uw2 && this._uw2();
+        this._uw3 = this._uw3 && this._uw3();
+        this._uw4 = this._uw4 && this._uw4();
+        this._uw5 = this._uw5 && this._uw5();
+        this._uw6 = this._uw6 && this._uw6();
+        this._uw7 = this._uw7 && this._uw7();
+        this._uw8 = this._uw8 && this._uw8();
+    }
+    velocityString() {
+        return ` ${this.lang.velocity}: ${this.velocity.toFixed(1)} km/h (${this.baseVelocity.toFixed(1)} × ${this.velocityRatio.toFixed(1)})`;
+    }
+};
+PlanetStatusBarComponent.ɵfac = function PlanetStatusBarComponent_Factory(t) { return new (t || PlanetStatusBarComponent)(ɵɵdirectiveInject(ChangeDetectorRef)); };
+PlanetStatusBarComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetStatusBarComponent, selectors: [["epsgis-planet-status-bar"]], features: [ɵɵInheritDefinitionFeature], decls: 2, vars: 3, consts: [[1, "status-info"]], template: function PlanetStatusBarComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "div", 0);
+        ɵɵtext(1);
+        ɵɵelementEnd();
+    } if (rf & 2) {
+        ɵɵadvance(1);
+        ɵɵtextInterpolate3("", ctx.fpsString, " ", ctx.cameraString, " ", ctx.velocityString(), "");
+    } }, styles: [".status-info[_ngcontent-%COMP%]{background-color: #4c555e; color:#fff; font-size: 14px;}"] });
+PlanetStatusBarComponent = __decorate([
+    ComponentRegister({
+        uri: "epsgis-planet-status-bar",
+        path: "epsplanet/components/status-bar",
+        name: "PlanetStatusBarComponent"
+    })
+], PlanetStatusBarComponent);
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetStatusBarComponent, [{
+        type: Component,
+        args: [{
+                selector: 'epsgis-planet-status-bar',
+                template: `<div class="status-info">{{ fpsString }} {{cameraString}} {{ velocityString() }}</div>`,
+                styles: [
+                    `.status-info{background-color: #4c555e; color:#fff; font-size: 14px;}`
+                ]
+            }]
+    }], function () { return [{ type: ChangeDetectorRef }]; }, null); })();
+
+let PlanetZoomComponent = class PlanetZoomComponent extends BasePlanetWidgetComponent {
+    constructor() {
+        super();
+    }
+    static getCompInfo() {
+        return { name: "PlanetZoomComponent", path: "epsplanet/components/zoom" };
+    }
+    ngOnInit() {
+    }
+    ngAfterViewInit() {
+        document.getElementsByClassName("jimu-widget-onscreen-icon zoomOut")[0]['style'].top = document.getElementsByClassName("jimu-widget-onscreen-icon zoomIn")[0]['offsetHeight'] + "px";
+    }
+    zoomIn() {
+        const viewer = this.view.czm.viewer;
+        this.getCesiumView().camera.zoomIn(viewer.camera.positionCartographic.height / Math.abs(Math.sin(viewer.camera.pitch)) * 0.2);
+    }
+    zoomOut() {
+        const viewer = this.view.czm.viewer;
+        viewer.camera.zoomOut(viewer.camera.positionCartographic.height / Math.abs(Math.sin(viewer.camera.pitch)) * 0.2);
+    }
+};
+PlanetZoomComponent.ɵfac = function PlanetZoomComponent_Factory(t) { return new (t || PlanetZoomComponent)(); };
+PlanetZoomComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetZoomComponent, selectors: [["epsgis-planet-zoom"]], features: [ɵɵInheritDefinitionFeature], decls: 4, vars: 0, consts: [["title", "\u653E\u5927", 1, "jimu-widget-onscreen-icon", "zoomIn", 3, "click"], ["nz-icon", "", "nzType", "plus", "nzTheme", "outline"], ["title", "\u7F29\u5C0F", 1, "jimu-widget-onscreen-icon", "zoomOut", 3, "click"], ["nz-icon", "", "nzType", "minus", "nzTheme", "outline"]], template: function PlanetZoomComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "div", 0);
+        ɵɵlistener("click", function PlanetZoomComponent_Template_div_click_0_listener() { return ctx.zoomIn(); });
+        ɵɵelement(1, "i", 1);
+        ɵɵelementEnd();
+        ɵɵelementStart(2, "div", 2);
+        ɵɵlistener("click", function PlanetZoomComponent_Template_div_click_2_listener() { return ctx.zoomOut(); });
+        ɵɵelement(3, "i", 3);
+        ɵɵelementEnd();
+    } }, directives: [NzIconDirective, ɵNzTransitionPatchDirective], styles: [".jimu-widget-onscreen-icon[_ngcontent-%COMP%]{margin-top:20px}"] });
+PlanetZoomComponent = __decorate([
+    ComponentRegister({
+        uri: "epsgis-planet-zoom",
+        path: "epsplanet/components/zoom",
+        name: "PlanetZoomComponent"
+    })
+], PlanetZoomComponent);
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetZoomComponent, [{
+        type: Component,
+        args: [{
+                selector: 'epsgis-planet-zoom',
+                templateUrl: './zoom.component.html',
+                styleUrls: ['./zoom.component.scss'],
+            }]
+    }], function () { return []; }, null); })();
+
+function PlanetBasemapGalleryComponent_li_3_Template(rf, ctx) { if (rf & 1) {
+    const _r6 = ɵɵgetCurrentView();
+    ɵɵelementStart(0, "li", 5);
+    ɵɵlistener("click", function PlanetBasemapGalleryComponent_li_3_Template_li_click_0_listener() { ɵɵrestoreView(_r6); const item_r4 = ctx.$implicit; const ctx_r5 = ɵɵnextContext(); return ctx_r5.selectImage(item_r4); });
+    ɵɵelementStart(1, "div", 6);
+    ɵɵelement(2, "img", 7);
+    ɵɵelement(3, "br");
+    ɵɵelementStart(4, "span", 8);
+    ɵɵtext(5);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+} if (rf & 2) {
+    const item_r4 = ctx.$implicit;
+    ɵɵadvance(2);
+    ɵɵproperty("src", item_r4.imgUrl, ɵɵsanitizeUrl);
+    ɵɵadvance(2);
+    ɵɵproperty("title", item_r4.title);
+    ɵɵadvance(1);
+    ɵɵtextInterpolate(item_r4.title);
+} }
+function PlanetBasemapGalleryComponent_li_7_Template(rf, ctx) { if (rf & 1) {
+    const _r9 = ɵɵgetCurrentView();
+    ɵɵelementStart(0, "li", 5);
+    ɵɵlistener("click", function PlanetBasemapGalleryComponent_li_7_Template_li_click_0_listener() { ɵɵrestoreView(_r9); const item_r7 = ctx.$implicit; const ctx_r8 = ɵɵnextContext(); return ctx_r8.selectTerrain(item_r7); });
+    ɵɵelementStart(1, "div", 6);
+    ɵɵelement(2, "img", 7);
+    ɵɵelement(3, "br");
+    ɵɵelementStart(4, "span", 8);
+    ɵɵtext(5);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+} if (rf & 2) {
+    const item_r7 = ctx.$implicit;
+    ɵɵadvance(2);
+    ɵɵproperty("src", item_r7.imgUrl, ɵɵsanitizeUrl);
+    ɵɵadvance(2);
+    ɵɵproperty("title", item_r7.czmObject.name);
+    ɵɵadvance(1);
+    ɵɵtextInterpolate(item_r7.czmObject.name);
+} }
+function PlanetBasemapGalleryComponent_ng_template_10_span_1_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "span");
+    ɵɵelementStart(1, "span", 11);
+    ɵɵtext(2);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+} if (rf & 2) {
+    const node_r10 = ɵɵnextContext().$implicit;
+    ɵɵadvance(2);
+    ɵɵtextInterpolate(node_r10.title);
+} }
+function PlanetBasemapGalleryComponent_ng_template_10_span_2_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "span");
+    ɵɵelementStart(1, "span", 11);
+    ɵɵtext(2);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+} if (rf & 2) {
+    const node_r10 = ɵɵnextContext().$implicit;
+    ɵɵadvance(2);
+    ɵɵtextInterpolate(node_r10.title);
+} }
+function PlanetBasemapGalleryComponent_ng_template_10_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "span", 9);
+    ɵɵtemplate(1, PlanetBasemapGalleryComponent_ng_template_10_span_1_Template, 3, 1, "span", 10);
+    ɵɵtemplate(2, PlanetBasemapGalleryComponent_ng_template_10_span_2_Template, 3, 1, "span", 10);
+    ɵɵelementEnd();
+} if (rf & 2) {
+    const node_r10 = ctx.$implicit;
+    ɵɵadvance(1);
+    ɵɵproperty("ngIf", !node_r10.isLeaf);
+    ɵɵadvance(1);
+    ɵɵproperty("ngIf", node_r10.isLeaf);
+} }
+let PlanetBasemapGalleryComponent = class PlanetBasemapGalleryComponent extends BasePlanetWidgetComponent {
+    constructor(nzContextMenuService) {
+        super();
+        this.nzContextMenuService = nzContextMenuService;
+        this.layerNodes = [];
+        this.terrainData = [{
+                "czmObject": {
+                    "img": "https://lab2.cesiumlab.com/upload/3fd1ac60-2683-4ae8-a5da-c0250edc836b/2019_08_02_19_45_38.jpg",
+                    "xbsjType": "Terrain",
+                    "xbsjGuid": "0b34ebd4-5a5b-4f1d-b2e8-a41797193aa8",
+                    "name": "中国14级（测试）",
+                    "xbsjTerrainProvider": {
+                        "type": "XbsjCesiumTerrainProvider",
+                        "XbsjEllipsoidTerrainProvider": {},
+                        "XbsjCesiumTerrainProvider": {
+                            "url": "https://lab.earthsdk.com/terrain/577fd5b0ac1f11e99dbd8fd044883638",
+                            "requestVertexNormals": true,
+                            "requestWaterMask": true
+                        },
+                        "GoogleEarthEnterpriseTerrainProvider": {}
+                    }
+                }
+            }];
+        this.terrainIcon = "https://lab2.cesiumlab.com/upload/3fd1ac60-2683-4ae8-a5da-c0250edc836b/2019_08_02_19_45_38.jpg";
+    }
+    activeNode(data) {
+        this.activatedNode = data.node;
+    }
+    contextMenu($event, menu) {
+        this.nzContextMenuService.create($event, menu);
+    }
+    onCheckedChange(evt) {
+        if (evt.eventName !== "check" || !evt.node) {
+            return;
+        }
+        if (evt.node.isChecked) {
+            SceneTreeUtils.GetXbsjCzmObject(evt.node).show = true;
+        }
+        else {
+            SceneTreeUtils.GetXbsjCzmObject(evt.node).show = false;
+        }
+    }
+    onRightClick($event) {
+    }
+    ngOnInit() {
+        super.ngOnInit();
+        var uw3 = XE.MVVM.watch(() => [...this.view.sceneTree.$refs.basemap.children], () => {
+            this.loadBaseTree();
+        });
+    }
+    loadBaseTree() {
+        setTimeout(() => {
+            const _layerNodes = SceneTreeUtils.SceneTree2NgZorroTree(this.view.sceneTree.$refs.basemap);
+            this.layerNodes = [..._layerNodes[0]["_children"]];
+            this.view.sceneTree.$refs.basemap.children[0].czmObject.xbsjZIndex = -1;
+        }, 100);
+    }
+    selectImage(item) {
+        console.log(SceneTreeUtils.loadLayerNode(item));
+        let node = SceneTreeUtils.loadLayerNode(item);
+        node.czmObject.show = true;
+        const earth = this.view;
+        earth.sceneTree.$refs.basemap.children[0] = node;
+    }
+    selectTerrain(item) {
+        this.view.sceneTree.$refs.basemap.children.push(item);
+    }
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+    }
+};
+PlanetBasemapGalleryComponent.ɵfac = function PlanetBasemapGalleryComponent_Factory(t) { return new (t || PlanetBasemapGalleryComponent)(ɵɵdirectiveInject(NzContextMenuService)); };
+PlanetBasemapGalleryComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetBasemapGalleryComponent, selectors: [["epsgis-planet-basemap-gallery"]], features: [ɵɵInheritDefinitionFeature], decls: 12, vars: 4, consts: [["nzTitle", "\u5F71\u50CF"], [3, "click", 4, "ngFor", "ngForOf"], ["nzTitle", "\u5730\u5F62"], ["nzBlockNode", "", "nzCheckable", "", 3, "nzData", "nzTreeTemplate", "nzClick", "nzCheckBoxChange"], ["nzTreeTemplate", ""], [3, "click"], [1, "backimg"], [3, "src"], [2, "width", "100%", "white-space", "nowrap", "text-overflow", "ellipsis", "overflow", "hidden", "text-align", "left", 3, "title"], [1, "custom-node"], [4, "ngIf"], [1, "folder-name"]], template: function PlanetBasemapGalleryComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "nz-tabset");
+        ɵɵelementStart(1, "nz-tab", 0);
+        ɵɵelementStart(2, "ul");
+        ɵɵtemplate(3, PlanetBasemapGalleryComponent_li_3_Template, 6, 3, "li", 1);
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementStart(4, "nz-tabset");
+        ɵɵelementStart(5, "nz-tab", 2);
+        ɵɵelementStart(6, "ul");
+        ɵɵtemplate(7, PlanetBasemapGalleryComponent_li_7_Template, 6, 3, "li", 1);
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelement(8, "nz-divider");
+        ɵɵelementStart(9, "nz-tree", 3);
+        ɵɵlistener("nzClick", function PlanetBasemapGalleryComponent_Template_nz_tree_nzClick_9_listener($event) { return ctx.activeNode($event); })("nzCheckBoxChange", function PlanetBasemapGalleryComponent_Template_nz_tree_nzCheckBoxChange_9_listener($event) { return ctx.onCheckedChange($event); });
+        ɵɵelementEnd();
+        ɵɵtemplate(10, PlanetBasemapGalleryComponent_ng_template_10_Template, 3, 2, "ng-template", null, 4, ɵɵtemplateRefExtractor);
+    } if (rf & 2) {
+        const _r2 = ɵɵreference(11);
+        ɵɵadvance(3);
+        ɵɵproperty("ngForOf", ctx.config.basemaps);
+        ɵɵadvance(4);
+        ɵɵproperty("ngForOf", ctx.config.terrain);
+        ɵɵadvance(2);
+        ɵɵproperty("nzData", ctx.layerNodes)("nzTreeTemplate", _r2);
+    } }, directives: [NzTabSetComponent, NzTabComponent, NgForOf, NzDividerComponent, NzTreeComponent, NgIf], styles: ["*[_ngcontent-%COMP%]{margin:0;padding:0}img[_ngcontent-%COMP%]{width:70px;height:70px}li[_ngcontent-%COMP%]{float:left;list-style:none;height:100px;cursor:pointer}.backimg[_ngcontent-%COMP%]{width:70px;height:70px;border:1px solid;border-radius:3px;background:grey;margin:3px}.backimg[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]{display:inline-block;width:70px;text-align:center}.ipt[_ngcontent-%COMP%], .ipt1[_ngcontent-%COMP%], .ipt2[_ngcontent-%COMP%]{margin-bottom:5px}.ant-input[_ngcontent-%COMP%]{width:70%}nz-select[_ngcontent-%COMP%]{width:50%}.footer[_ngcontent-%COMP%]{margin-top:5px;float:right}.footer[_ngcontent-%COMP%]   button[_ngcontent-%COMP%]{width:50px}.schema[_ngcontent-%COMP%]{position:absolute;top:5px;left:5px}  .ant-tabs-tab{padding:0}"] });
+PlanetBasemapGalleryComponent = __decorate([
+    ComponentRegister({
+        uri: "epsgis-planet-basemap-gallery",
+        path: "epsplanet/components/basemap-gallery",
+        name: "PlanetBasemapGalleryComponent"
+    })
+], PlanetBasemapGalleryComponent);
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetBasemapGalleryComponent, [{
+        type: Component,
+        args: [{
+                selector: "epsgis-planet-basemap-gallery",
+                templateUrl: "./basemap-gallery.component.html",
+                styleUrls: ["./basemap-gallery.component.scss"]
+            }]
+    }], function () { return [{ type: NzContextMenuService }]; }, null); })();
+
+class Query {
+    constructor() { }
+    static ArcgisQuery(czmObject, index, params, callback) {
+        if (this.myEntityCollection == undefined) {
+            this.myEntityCollection = new Cesium.CustomDataSource('myEntityCollection');
+            window['earth'].czm.viewer.dataSources.add(this.myEntityCollection);
+        }
+        this.myEntityCollection.entities.removeAll();
+        let viewer = window['earth'].czm.viewer;
+        let type = czmObject.xbsjImageryProvider.type;
+        let url = czmObject.xbsjImageryProvider[type].url;
+        let requestUrl = "";
+        if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+            requestUrl = url.split('MapServer')[0] + `MapServer/${index}/query?geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=pjson`;
+        }
+        else if (czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+            requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + `MapServer/${index}/query?geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&f=pjson`;
+            console.log(requestUrl);
+        }
+        axios.post(requestUrl, qs.stringify({
+            outFields: '*',
+            where: params,
+            f: 'pjson'
+        }), {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+            }
+        }).then(res => {
+            console.log(res.data.features);
+            let features = res.data.features;
+            if (res.data.geometryType == "esriGeometryPoint") {
+                features.forEach(feature => {
+                    this.myEntityCollection.entities.add({
+                        position: Cesium.Cartesian3.fromDegrees(feature.geometry.x, feature.geometry.y),
+                        point: {
+                            color: Cesium.Color.AQUA,
+                            pixelSize: 20,
+                            outlineColor: Cesium.Color.YELLOW,
+                            outlineWidth: 5,
+                            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                            scaleByDistance: new Cesium.NearFarScalar(1500, 1, 20000, 0.3),
+                        }
+                    });
+                });
+                viewer.flyTo(this.myEntityCollection);
+            }
+            if (res.data.geometryType == "esriGeometryPolygon") {
+                features.forEach(feature => {
+                    let positions = [];
+                    feature.geometry.rings[0].forEach(pos => {
+                        positions.push(pos[0], pos[1]);
+                    });
+                    this.myEntityCollection.entities.add({
+                        polyline: {
+                            positions: Cesium.Cartesian3.fromDegreesArray(positions),
+                            width: 10,
+                            material: new Cesium.PolylineGlowMaterialProperty({
+                                glowPower: 0.2,
+                                color: Cesium.Color.BLUE
+                            })
+                        },
+                    });
+                });
+                viewer.flyTo(this.myEntityCollection);
+            }
+            if (res.data.geometryType == "esriGeometryPolyline") {
+                features.forEach(feature => {
+                    let positions = [];
+                    feature.geometry.paths[0].forEach(pos => {
+                        positions.push(pos[0], pos[1]);
+                    });
+                    this.myEntityCollection.entities.add({
+                        polyline: {
+                            positions: Cesium.Cartesian3.fromDegreesArray(positions),
+                            width: 10,
+                            material: new Cesium.PolylineGlowMaterialProperty({
+                                glowPower: 0.2,
+                                color: Cesium.Color.BLUE
+                            })
+                        },
+                    });
+                });
+                viewer.flyTo(this.myEntityCollection);
+            }
+        });
+    }
+    static GeoserverQuery(czmObject, params) {
+        if (this.myEntityCollection == undefined) {
+            this.myEntityCollection = new Cesium.CustomDataSource('myEntityCollection');
+            window['earth'].czm.viewer.dataSources.add(this.myEntityCollection);
+        }
+        this.myEntityCollection.entities.removeAll();
+        let viewer = window['earth'].czm.viewer;
+        let type = czmObject.xbsjImageryProvider.type;
+        let layer = czmObject.xbsjImageryProvider[type].layer;
+        let url = czmObject.xbsjImageryProvider[type].url;
+        let requestUrl = "";
+        if (czmObject.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+            let server = layer.split(':')[0];
+            requestUrl = url.split('geoserver')[0] + `geoserver/${server}/wfs?service=wfs&request=GetFeature&version=1.1.0&outputFormat=application/json&TYPENAME=${layer}&cql_filter=${params}`;
+        }
+        else if (czmObject.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+            let server = url.split('/wms')[0].split('geoserver/')[1];
+            requestUrl = url.split('wms')[0] + `wfs?service=wfs&request=GetFeature&version=1.1.0&outputFormat=application/json&TYPENAME=${server}:${layer}&cql_filter=${params}`;
+        }
+        console.log(requestUrl);
+        axios.post(requestUrl).then(res => {
+            console.log(res);
+            Cesium.GeoJsonDataSource.load(res.data).then(dataSource => {
+                dataSource.entities.values.forEach(entity => {
+                    this.myEntityCollection.entities.add(entity);
+                });
+                viewer.flyTo(this.myEntityCollection);
+            });
+        });
+    }
+    static clearHighLight() {
+        window['earth'].czm.viewer.dataSources.getByName('myEntityCollection')[0].entities.removeAll();
+    }
+}
+
+function PlanetEqueryComponent_nz_option_6_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelement(0, "nz-option", 11);
+} if (rf & 2) {
+    const item_r2 = ctx.$implicit;
+    ɵɵproperty("nzLabel", item_r2.name)("nzValue", item_r2.czmObject);
+} }
+function PlanetEqueryComponent_nz_option_12_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelement(0, "nz-option", 11);
+} if (rf & 2) {
+    const item_r3 = ctx.$implicit;
+    ɵɵproperty("nzLabel", item_r3.name)("nzValue", item_r3.index);
+} }
+let PlanetEqueryComponent = class PlanetEqueryComponent extends BasePlanetWidgetComponent {
+    constructor(fb) {
+        super();
+        this.fb = fb;
+        this.serverList = [];
+        this.layerList = [];
+        this.controlArray = [];
+        this.isCollapse = true;
+    }
+    resetForm() {
+        this.validateForm.reset();
+        Query.clearHighLight();
+    }
+    static getCompInfo() {
+        return { name: "EpsGisForPlanetLoadWmtsComponent", path: "epsplanet/components/load-wmts" };
+    }
+    Search() {
+        console.log(this.validateForm.value);
+        let czmObject = this.validateForm.value.server;
+        let type = czmObject.xbsjImageryProvider.type;
+        let url = czmObject.xbsjImageryProvider[type].url;
+        if (url.indexOf('arcgis') !== -1) {
+            let index = this.validateForm.value.layer;
+            let params = this.validateForm.value.where;
+            Query.ArcgisQuery(czmObject, index, params, res => { });
+        }
+        if (url.indexOf('geoserver') !== -1) {
+            let param = this.validateForm.value.where;
+            Query.GeoserverQuery(czmObject, param);
+        }
+    }
+    zoomTo() {
+    }
+    test() {
+    }
+    changeServer(value) {
+        this.layerList = [];
+        let type = value.xbsjImageryProvider.type;
+        let url = value.xbsjImageryProvider[type].url;
+        let requestUrl = "";
+        if (url.indexOf('arcgis') !== -1) {
+            this.validateForm.controls.platForm.setValue("ArcGIS");
+            if (value.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                requestUrl = url.split('MapServer')[0] + "MapServer/layers?f=pjson";
+            }
+            else if (value.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+                requestUrl = url.split('arcgis')[0] + 'arcgis/rest' + url.split('arcgis')[1].split('MapServer')[0] + "MapServer/layers?f=pjson";
+            }
+            axios.get(requestUrl).then(res => {
+                res.data.layers.forEach(item => {
+                    this.layerList.push({
+                        name: item.name,
+                        index: item.id
+                    });
+                });
+            });
+        }
+        if (url.indexOf('geoserver') !== -1) {
+            this.validateForm.controls.platForm.setValue("GeoServer");
+            if (value.xbsjImageryProvider.type == "WebMapTileServiceImageryProvider") {
+                let layer = value.xbsjImageryProvider[type].layer;
+                this.layerList.push({
+                    name: layer,
+                    index: 0
+                });
+            }
+            else if (value.xbsjImageryProvider.type == "SSWebMapServiceImageryProvider") {
+                let layer = value.xbsjImageryProvider[type].layer;
+                this.layerList.push({
+                    name: layer,
+                    index: 0
+                });
+            }
+        }
+    }
+    changeLayer(value) {
+    }
+    getAllLayers(group) {
+        group.forEach(item => {
+            if (item.children) {
+                this.getAllLayers(item.children);
+            }
+            else {
+                if (item.czmObject.xbsjType !== "Imagery")
+                    return;
+                this.serverList.push({
+                    name: item.czmObject.name,
+                    czmObject: item.czmObject
+                });
+            }
+        });
+    }
+    ngOnInit() {
+        super.ngOnInit();
+        console.log(qs);
+        this.getAllLayers(this.view.sceneTree.$refs.layerlist.children);
+        this.validateForm = this.fb.group({
+            server: [null],
+            layer: [null],
+            platForm: [null],
+            where: [null]
+        });
+    }
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+    }
+};
+PlanetEqueryComponent.ɵfac = function PlanetEqueryComponent_Factory(t) { return new (t || PlanetEqueryComponent)(ɵɵdirectiveInject(FormBuilder)); };
+PlanetEqueryComponent.ɵcmp = ɵɵdefineComponent({ type: PlanetEqueryComponent, selectors: [["epsgis-planet-equery"]], features: [ɵɵInheritDefinitionFeature], decls: 29, vars: 7, consts: [["nz-form", "", "nzLayout", "horizontal", 1, "ant-advanced-search-form", 3, "formGroup"], ["nzShowSearch", "", "nzAllowClear", "", "nzPlaceHolder", "Select a server", "formControlName", "server", 3, "ngModelChange"], [3, "nzLabel", "nzValue", 4, "ngFor", "ngForOf"], ["nzShowSearch", "", "nzAllowClear", "", "nzPlaceHolder", "Select a layer", "formControlName", "layer", 3, "ngModelChange"], [3, "hidden"], ["nz-input", "", "placeholder", "placeholder", "formControlName", "platForm", 3, "disabled"], ["nz-input", "", "placeholder", "placeholder", "formControlName", "where"], ["nz-row", ""], ["nz-col", "", 1, "search-area", 3, "nzSpan"], ["nz-button", "", 3, "nzType", "click"], ["nz-button", "", 3, "click"], [3, "nzLabel", "nzValue"]], template: function PlanetEqueryComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "form", 0);
+        ɵɵelementStart(1, "nz-form-item");
+        ɵɵelementStart(2, "nz-form-label");
+        ɵɵtext(3, "\u670D\u52A1");
+        ɵɵelementEnd();
+        ɵɵelementStart(4, "nz-form-control");
+        ɵɵelementStart(5, "nz-select", 1);
+        ɵɵlistener("ngModelChange", function PlanetEqueryComponent_Template_nz_select_ngModelChange_5_listener($event) { return ctx.changeServer($event); });
+        ɵɵtemplate(6, PlanetEqueryComponent_nz_option_6_Template, 1, 2, "nz-option", 2);
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementStart(7, "nz-form-item");
+        ɵɵelementStart(8, "nz-form-label");
+        ɵɵtext(9, "\u56FE\u5C42");
+        ɵɵelementEnd();
+        ɵɵelementStart(10, "nz-form-control");
+        ɵɵelementStart(11, "nz-select", 3);
+        ɵɵlistener("ngModelChange", function PlanetEqueryComponent_Template_nz_select_ngModelChange_11_listener($event) { return ctx.changeLayer($event); });
+        ɵɵtemplate(12, PlanetEqueryComponent_nz_option_12_Template, 1, 2, "nz-option", 2);
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementStart(13, "nz-form-item", 4);
+        ɵɵelementStart(14, "nz-form-label");
+        ɵɵtext(15, "\u670D\u52A1\u5E73\u53F0");
+        ɵɵelementEnd();
+        ɵɵelementStart(16, "nz-form-control");
+        ɵɵelement(17, "input", 5);
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementStart(18, "nz-form-item");
+        ɵɵelementStart(19, "nz-form-label");
+        ɵɵtext(20, "\u6761\u4EF6");
+        ɵɵelementEnd();
+        ɵɵelementStart(21, "nz-form-control");
+        ɵɵelement(22, "input", 6);
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementStart(23, "div", 7);
+        ɵɵelementStart(24, "div", 8);
+        ɵɵelementStart(25, "button", 9);
+        ɵɵlistener("click", function PlanetEqueryComponent_Template_button_click_25_listener() { return ctx.Search(); });
+        ɵɵtext(26, "Search");
+        ɵɵelementEnd();
+        ɵɵelementStart(27, "button", 10);
+        ɵɵlistener("click", function PlanetEqueryComponent_Template_button_click_27_listener() { return ctx.resetForm(); });
+        ɵɵtext(28, "Clear");
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+    } if (rf & 2) {
+        ɵɵproperty("formGroup", ctx.validateForm);
+        ɵɵadvance(6);
+        ɵɵproperty("ngForOf", ctx.serverList);
+        ɵɵadvance(6);
+        ɵɵproperty("ngForOf", ctx.layerList);
+        ɵɵadvance(1);
+        ɵɵproperty("hidden", true);
+        ɵɵadvance(4);
+        ɵɵproperty("disabled", true);
+        ɵɵadvance(7);
+        ɵɵproperty("nzSpan", 24);
+        ɵɵadvance(1);
+        ɵɵproperty("nzType", "primary");
+    } }, directives: [ɵangular_packages_forms_forms_y, NgControlStatusGroup, NzFormDirective, FormGroupDirective, NzRowDirective, NzFormItemComponent, NzColDirective, NzFormLabelComponent, NzFormControlComponent, NzSelectComponent, NgControlStatus, FormControlName, NgForOf, NzInputDirective, DefaultValueAccessor, NzButtonComponent, NzWaveDirective, ɵNzTransitionPatchDirective, NzOptionComponent], styles: [".sspanel{width:500px!important}.ant-advanced-search-form[_ngcontent-%COMP%]{padding:24px;background:#fbfbfb;border:1px solid #d9d9d9;border-radius:6px}.search-result-list[_ngcontent-%COMP%]{margin-top:16px;border:1px dashed #e9e9e9;border-radius:6px;background-color:#fafafa;min-height:200px;text-align:center;padding-top:80px}[nz-form-label][_ngcontent-%COMP%]{overflow:visible}.collapse[_ngcontent-%COMP%], button[_ngcontent-%COMP%]{margin-left:8px}.collapse[_ngcontent-%COMP%]{font-size:12px}.search-area[_ngcontent-%COMP%]{text-align:right}"] });
+PlanetEqueryComponent = __decorate([
+    ComponentRegister({
+        uri: "epsgis-planet-equery",
+        path: "epsplanet/components/equery",
+        name: "PlanetEqueryComponent"
+    })
+], PlanetEqueryComponent);
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(PlanetEqueryComponent, [{
+        type: Component,
+        args: [{
+                selector: "epsgis-planet-equery",
+                templateUrl: "./equery.component.html",
+                styleUrls: ["./equery.component.scss"]
+            }]
+    }], function () { return [{ type: FormBuilder }]; }, null); })();
+
 const components = [
     PlanetEarthComponent,
     PlanetLayerListComponent,
@@ -2878,7 +3222,8 @@ const components = [
     PlanetModeSwitchComponent,
     PlanetZoomComponent,
     PlanetBasemapGalleryComponent,
-    PlanetIdentifyComponent
+    PlanetIdentifyComponent,
+    PlanetEqueryComponent
 ];
 class EpsGisForPlanetModule {
 }
@@ -2918,7 +3263,8 @@ EpsGisForPlanetModule.ɵinj = ɵɵdefineInjector({ factory: function EpsGisForPl
         PlanetModeSwitchComponent,
         PlanetZoomComponent,
         PlanetBasemapGalleryComponent,
-        PlanetIdentifyComponent], imports: [CommonModule,
+        PlanetIdentifyComponent,
+        PlanetEqueryComponent], imports: [CommonModule,
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
@@ -2950,7 +3296,8 @@ EpsGisForPlanetModule.ɵinj = ɵɵdefineInjector({ factory: function EpsGisForPl
         PlanetModeSwitchComponent,
         PlanetZoomComponent,
         PlanetBasemapGalleryComponent,
-        PlanetIdentifyComponent] }); })();
+        PlanetIdentifyComponent,
+        PlanetEqueryComponent] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(EpsGisForPlanetModule, [{
         type: NgModule,
         args: [{
@@ -3050,5 +3397,5 @@ function getPositionsHeightFromTerrain(earth, positions, resultCallback) {
     });
 }
 
-export { BasePlanetWidgetComponent, EpsGisForPlanetModule, Identify, LayerServiceSource, LayerType, PlanetBasemapGalleryComponent, PlanetEarthComponent, PlanetHomeComponent, PlanetIdentifyComponent, PlanetLayerListComponent, PlanetLayerManagerComponent, PlanetLocationComponent, PlanetModeSwitchComponent, PlanetStatusBarComponent, PlanetZoomComponent, SceneTreeUtils, getPositionsHeightFromTerrain, getPositionsHeightFromTileset, newXbsjFolderNode, newXbsjLayerNode };
+export { BasePlanetWidgetComponent, EpsGisForPlanetModule, Identify, LayerServiceSource, LayerType, PlanetBasemapGalleryComponent, PlanetEarthComponent, PlanetEqueryComponent, PlanetHomeComponent, PlanetIdentifyComponent, PlanetLayerListComponent, PlanetLayerManagerComponent, PlanetLocationComponent, PlanetModeSwitchComponent, PlanetStatusBarComponent, PlanetZoomComponent, SceneTreeUtils, getPositionsHeightFromTerrain, getPositionsHeightFromTileset, newXbsjFolderNode, newXbsjLayerNode };
 //# sourceMappingURL=epsplanet.js.map

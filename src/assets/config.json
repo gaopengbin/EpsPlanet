@@ -81,6 +81,15 @@
                     "left": 20,
                     "relativeTo": "map"
                 }
+            },
+            {
+                "uri": "epsgis-planet-equery",
+                "label": "查询",
+                "position": {
+                    "top": 450,
+                    "left": 20,
+                    "relativeTo": "map"
+                }
             }
 
         ]

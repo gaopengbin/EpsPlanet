@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentRegister } from 'epsgis';
 import { BasePlanetWidgetComponent } from '../base-widget/base-widget.component';
-
+import { PlanetIdentifyComponent } from '../identify/identify.component'
 @ComponentRegister({
-  uri:"epsgis-planet-location",
-  path:"epsplanet/components/location",
-  name:"PlanetLocationComponent"
+  uri: "epsgis-planet-location",
+  path: "epsplanet/components/location",
+  name: "PlanetLocationComponent"
 })
 @Component({
   selector: 'epsgis-planet-location',
@@ -67,6 +67,7 @@ export class PlanetLocationComponent extends BasePlanetWidgetComponent implement
   ngOnInit() {
     super.ngOnInit();
     this.initialize();
+    this.addbtn()
   }
   /**
   * 获取组件信息
@@ -79,6 +80,17 @@ export class PlanetLocationComponent extends BasePlanetWidgetComponent implement
     this.XValue = this.config.longitude;
     this.YValue = this.config.latitude;
     this.ZValue = this.config.height;
+  }
+  test(res) {
+    // alert('ff')
+    console.log(res)
+  }
+  addbtn() {
+    PlanetIdentifyComponent.prototype.addBtn('test', (btn)=>{
+      btn.onclick=()=>{
+        // console.log(window['pickObj'])
+      }
+    })
   }
   //开始定位
   location() {
@@ -95,7 +107,7 @@ export class PlanetLocationComponent extends BasePlanetWidgetComponent implement
     //添加定位点实体
     this.markerXY = new Cesium.Entity({
       id: '视角定位坐标',
-      position: position, 
+      position: position,
       point: {
         pixelSize: 6,
         color: Cesium.Color.WHITE.withAlpha(0.9),
@@ -103,7 +115,7 @@ export class PlanetLocationComponent extends BasePlanetWidgetComponent implement
         outlineWidth: 1
       },
       billboard: {
-        image: this.folderUrl+"images/location4.png",
+        image: this.folderUrl + "images/location4.png",
         horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
         verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
         scale: .6

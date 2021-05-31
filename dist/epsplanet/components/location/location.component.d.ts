@@ -45,6 +45,8 @@ export declare class PlanetLocationComponent extends BasePlanetWidgetComponent i
         path: string;
     };
     initialize(): void;
+    test(res: any): void;
+    addbtn(): void;
     location(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDef<PlanetLocationComponent, never>;

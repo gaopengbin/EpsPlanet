@@ -1,0 +1,36 @@
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form" nzLayout="horizontal">
+    <nz-form-item>
+        <nz-form-label>服务</nz-form-label>
+        <nz-form-control>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a server" formControlName="server" (ngModelChange)="changeServer($event)">
+                <nz-option *ngFor="let item of serverList" [nzLabel]="item.name" [nzValue]="item.czmObject"></nz-option>
+              </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>图层</nz-form-label>
+        <nz-form-control>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a layer" formControlName="layer" (ngModelChange)="changeLayer($event)">
+                <nz-option *ngFor="let item of layerList" [nzLabel]="item.name" [nzValue]="item.index"></nz-option>
+              </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item [hidden]=true>
+        <nz-form-label>服务平台</nz-form-label>
+        <nz-form-control>
+            <input nz-input placeholder="placeholder" formControlName="platForm" [disabled]="true" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>条件</nz-form-label>
+        <nz-form-control>
+            <input nz-input placeholder="placeholder" formControlName="where"/>
+        </nz-form-control>
+    </nz-form-item>
+    <div nz-row>
+        <div nz-col [nzSpan]="24" class="search-area">
+            <button nz-button [nzType]="'primary'" (click)="Search()">Search</button>
+            <button nz-button (click)="resetForm()">Clear</button>
+        </div>
+    </div>
+</form>

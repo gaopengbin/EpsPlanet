@@ -32,6 +32,7 @@ import { PlanetStatusBarComponent } from './components/status-bar/status-bar.com
 import { PlanetZoomComponent } from './components/zoom/zoom.component';
 import { PlanetBasemapGalleryComponent } from './components/basemap-gallery/basemap-gallery.component';
 import { PlanetIdentifyComponent } from './components/identify/identify.component';
+import { PlanetEqueryComponent } from './components/equery/equery.component';
 const components = [
   PlanetEarthComponent,
   PlanetLayerListComponent,
@@ -42,7 +43,8 @@ const components = [
   PlanetModeSwitchComponent,
   PlanetZoomComponent,
   PlanetBasemapGalleryComponent,
-  PlanetIdentifyComponent
+  PlanetIdentifyComponent,
+  PlanetEqueryComponent
 ];
 @NgModule({
   declarations: components,

@@ -30,27 +30,34 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
   constructor(private identify: Identify) {
     super();
   }
-  createInfoWin() {
-    let win = document.createElement('div');
-    win.className = "dialog";
-    win.style.left = this.winPos[0] - 80 + "px";
-    win.style.bottom = this.winPos[3] - 320 + "px";
-    win.innerHTML = `<div class="panel">
-    <span>${this.title}</span><i nz-icon nzType="close" nzTheme="outline" (click)="close()" style="float: right;"></i>
-    <nz-table #basicTable [nzData]="propertyList" [nzFrontPagination]="false" [nzShowPagination]="false"
-        [nzTitle]="null">
-        <tbody>
-            <tr *ngFor="let data of basicTable.data">
-                <td>{{ data.name }}</td>
-                <td>{{ data.value }}</td>
-            </tr>
-        </tbody>
-    </nz-table>
-    <i nz-icon nzType="zoom-in" nzTheme="outline" (click)="zoomTo()"></i><span>缩放至</span>
-</div>
-<div class="arrow"></div>`;
-    document.getElementsByClassName("cesium-viewer")[0].append(win);
-    return win
+  print(callback): any {
+    callback(this.propertyList)
+    console.log(this.propertyList)
+  }
+  addBtn(name, callback) {
+    let btn = document.createElement('button');
+    btn.textContent = name;
+    btn.id='idBtn'
+    // console.log(this.propertyList)
+    // let _this=this
+    // btn.onclick = ()=>{
+    //   callback()
+    //   console.log(this.propertyList)
+    // };
+    btn.style.position = 'relative';
+    btn.style.fontWeight = '400';
+    btn.style.fontSize = '14px';
+    btn.style.whiteSpace = 'nowrap';
+    btn.style.textAlign = 'center';
+    btn.style.border = '1px solid #d9d9d9';
+    btn.style.boxShadow = '0 2px 0 rgb(0 0 0 / 2%)';
+    btn.style.transition = 'all .3s cubic-bezier(.645,.045,.355,1)';
+    btn.style.height = '32px';
+    btn.style.padding = '4px 15px';
+    btn.style.borderRadius = '2px';
+    btn.style.backgroundColor = '#fff';
+    callback(btn)
+    document.getElementsByClassName('panel')[0].append(btn);
   }
   //初始化影像点选识别功能
   Init() {
@@ -90,11 +97,16 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
       this.pin1.customProp = true
       this.showInfo = true
       this.propertyList = res
+      let btn:any=document.getElementById('idBtn')
+      btn.onclick=()=>{
+        console.log(res)
+      }
     })
-    this.identify.pickModel(this.view, (res, handler) => {
+    this.identify.pickModel(this.view, (res, pickObj) => {
       this.pin1.customProp = true
       this.showInfo = true
       this.propertyList = res
+      window['pickObj']=pickObj.tileset.xbsjTileset;
       // handler.destroy()
     })
   }
@@ -146,28 +158,28 @@ export class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
   }
   zoomTo() {
     let entityCollection = this.view.czm.viewer.dataSources.getByName("highLight")[0].entities
-    
+
     // let entity = entityCollection.values[0]
     // let positions = entity.polyline.positions._value;
     // console.log(entity.polyline.positions._value)
     // getPositionsHeightFromTerrain(this.view,positions,res=>{
     //   console.log("getPosheight:",positions)
     // })
-  //   let polyCenter = Cesium.BoundingSphere.fromPoints(entity.polyline.positions._value).center
+    //   let polyCenter = Cesium.BoundingSphere.fromPoints(entity.polyline.positions._value).center
     let viewer = this.view.czm.viewer;
-  //   let cartographic = Cesium.Cartographic.fromCartesian(polyCenter, viewer.scene.globe.ellipsoid, new Cesium.Cartographic());
-  //   let lat = Cesium.Math.toDegrees(cartographic.latitude);
-  //   let lng = Cesium.Math.toDegrees(cartographic.longitude);
-  //   let height = cartographic.height;
-  //   viewer.camera.flyTo({
-  //     destination : Cesium.Cartesian3.fromDegrees(lng, lat,1000),
-  //     orientation : {
-  //         //heading : Cesium.Math.toRadians(0.0),
-  //        // pitch : Cesium.Math.toRadians(-25.0),
-  //         //roll : 0.0
-  //     }
-  // });
-  viewer.flyTo(entityCollection)
+    //   let cartographic = Cesium.Cartographic.fromCartesian(polyCenter, viewer.scene.globe.ellipsoid, new Cesium.Cartographic());
+    //   let lat = Cesium.Math.toDegrees(cartographic.latitude);
+    //   let lng = Cesium.Math.toDegrees(cartographic.longitude);
+    //   let height = cartographic.height;
+    //   viewer.camera.flyTo({
+    //     destination : Cesium.Cartesian3.fromDegrees(lng, lat,1000),
+    //     orientation : {
+    //         //heading : Cesium.Math.toRadians(0.0),
+    //        // pitch : Cesium.Math.toRadians(-25.0),
+    //         //roll : 0.0
+    //     }
+    // });
+    viewer.flyTo(entityCollection)
   }
   switch(e) {
     let earth = this.view

@@ -14,7 +14,8 @@ export declare class PlanetIdentifyComponent extends BasePlanetWidgetComponent {
     switchValue: boolean;
     czmObjList: any[];
     constructor(identify: Identify);
-    createInfoWin(): HTMLDivElement;
+    print(callback: any): any;
+    addBtn(name: any, callback: any): void;
     Init(): void;
     bindIndentify(list: any): void;
     bindClick(item: any): void;
